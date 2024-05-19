@@ -93,42 +93,34 @@ const PageHome = () => {
                     })}
             </div>
 
-            <div className="banner w-[100%] md:h-[450px] h-[400px] shadow-xl bg-[url('../../../public/banner.webp')] bg-no-repeat bg-center relative mb-[100px]">
+            <div className="banner w-[100%] md:h-[450px] h-[400px] shadow-xl bg-[url('/banner.webp')] bg-no-repeat bg-center relative mb-[100px]">
                 <div className="content-banner md:ml-[100px] absolute md:z-10 z-1  md:mt-[100px] mt-[30px]">
                     <h4 className="md:text-3xl text-2xl font-[700] text-[#fff] font-sans uppercase text-center">
                         Unlocking the World of English
                     </h4>
                     <h3 className="md:text-2xl font-[700] font-sans uppercase text-center text-[#fff]">with vuihoc</h3>
 
-                    <img src="../../../public/PublicHome/cat.png" alt="" className="img-cat-banner mt-[20px]" />
+                    <img src="/PublicHome/cat.png" alt="" className="img-cat-banner mt-[20px]" />
                 </div>
 
                 <img
-                    src="../../../public/peopleBanner.webp"
+                    src="/peopleBanner.webp"
                     alt="teacher"
                     className="img-teacher bottom-0 md:w-[50%] w-[100%] md:ml-[35%] absolute z-1"
                 />
 
                 <img
-                    src="../../../public/likeBanner.svg"
+                    src="/likeBanner.svg"
                     alt=""
                     className="img-like absolute z-2 md:ml-[40%] md:translate-x-0 ml-[50%] translate-x-[-50%] md:mt-[250px] mt-[310px]"
                 />
 
-                <img
-                    src="../../../public/freeBanner.svg"
-                    alt=""
-                    className="img-free absolute z-3 md:mt-[20px] mt-[120px] ml-[50%]"
-                />
+                <img src="/freeBanner.svg" alt="" className="img-free absolute z-3 md:mt-[20px] mt-[120px] ml-[50%]" />
 
-                <img
-                    src="../../../public/saleBanner.svg"
-                    alt=""
-                    className="img-sale absolute z-4 md:mt-[50px] mt-[180px]"
-                />
+                <img src="/saleBanner.svg" alt="" className="img-sale absolute z-4 md:mt-[50px] mt-[180px]" />
             </div>
 
-            <div className="w-[100%] bg-[url('../../../public/bg-gt.svg')] md:px-[200px] pb-[100px] pt-[50px]">
+            <div className="w-[100%] bg-[url('/bg-gt.svg')] md:px-[200px] pb-[100px] pt-[50px]">
                 <Row>
                     <Col md={12} span={24} className="px-[20px]">
                         <h3 className="md:text-4xl text-2xl font-[700] text-[#ff6609] leading-relaxed mb-[20px]">
@@ -147,14 +139,14 @@ const PageHome = () => {
                         </p>
                     </Col>
                     <Col md={12} span={24}>
-                        <div className="bg-[url('../../../public/PublicHome/bg-laptopsvg.svg')] bg-no-repeat w-[100%] h-[300px] pt-[40px] relative">
+                        <div className="bg-[url('/PublicHome/bg-laptopsvg.svg')] bg-no-repeat w-[100%] h-[300px] pt-[40px] relative">
                             <img
-                                src="../../../public/PublicHome/laptop.svg"
+                                src="/PublicHome/laptop.svg"
                                 alt=""
                                 className="w-[70%] absolute z-1 md:ml-[0%] md:translate-x-0 ml-[50%] translate-x-[-50%]"
                             />
                             <img
-                                src="../../../public/PublicHome/thumbnail-video.png"
+                                src="/PublicHome/thumbnail-video.png"
                                 alt=""
                                 className="absolute z-2 md:w-[55%] w-[55%] md:ml-[34%] ml-[49%] translate-x-[-50%] md:h-[200px] h-[140px] mt-[10px] md:rounded-[10px] rounded-[5px]"
                             />
@@ -213,7 +205,7 @@ const PageHome = () => {
                                                 </p>
                                             </div>
                                             <img
-                                                src={`${item.thumbnail ? '' : '../../../public/PublicHome/eng.svg'}`}
+                                                src={`${item.thumbnail ? '' : '/PublicHome/eng.svg'}`}
                                                 alt=""
                                                 className="w-[50%] h-[50%] mt-[50%] ml-[50%] object-fill rounded-[10px] overflow-hidden absolute z-1"
                                             />
@@ -239,12 +231,12 @@ const PageHome = () => {
                     <div className="md:w-[80%] w-[95%] ml-[50%] translate-x-[-50%]   bg-gradient-to-r from-sky-500 to-indigo-500 rounded-[20px] ">
                         <Row>
                             <Col md={10} span={0}>
-                                <img src="../../../public/PublicHome/girl.png" alt="girl" className="h-[400px]" />
+                                <img src="/PublicHome/girl.png" alt="girl" className="h-[400px]" />
                             </Col>
 
                             <Col md={14} span={24} className="pb-[50px] relative">
                                 <img
-                                    src="../../../public/PublicHome/cat.png"
+                                    src="/PublicHome/cat.png"
                                     alt=""
                                     className="img-cat absolute w-[200px] mt-[10px] hidden md:block"
                                 />

@@ -3,22 +3,24 @@ import NotFound from '../Components/NotFound/NotFound';
 import PageHome from '../Components/Home/Home';
 import AuthStudent from '../auth/Student/AuthStudent';
 import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
+import RedirectHome from '../Components/Home/RedirectHome';
+import Dashboard from '../systems/student/Dashboard';
 
 export default function RouterCom() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<div>Xin chao</div>} />
+                <Route path="/" element={<RedirectHome />} />
                 <Route path="/home" element={<PageHome />} />
+                <Route path="/auth/student/*" element={<AuthStudent />} />
                 <Route
-                    path="/123"
+                    path="/student/dashboard"
                     element={
                         <PrivateRouter role="USER">
-                            <div>Xin chao 123</div>
+                            <Dashboard />
                         </PrivateRouter>
                     }
                 />
-                <Route path="/auth/student/*" element={<AuthStudent />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>
