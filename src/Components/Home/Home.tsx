@@ -5,12 +5,19 @@ import { useEffect, useState } from 'react';
 import { getAllCodeByType } from '../../services/AllCodeService';
 import { getCourseService } from '../../services/courseService';
 import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
+import Header from '../Header/Header';
+import { useAppSelector } from '../../features/hooks/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
     const [listCourse, setListCourse] = useState<IDataGet<ICourse[]> | null>(null);
     const [trainingCurrent, setTrainingCurrent] = useState<number>(19);
     const [currentPage, setCurentPage] = useState<number>(1);
+
+    const isLogin = useAppSelector((state) => state.authSlice.auth.isLoginIn);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetch = async () => {
@@ -24,7 +31,9 @@ const PageHome = () => {
             ]);
 
             if (resTraining.code === 200 && resCourse.code === 200) {
+                console.log('1');
                 setListTraining(resTraining.data);
+                console.log('2');
                 setListCourse(resCourse?.data);
             }
         };
@@ -49,10 +58,20 @@ const PageHome = () => {
         }
     };
 
-    const handleToBuy = () => {};
+    const handleToBuy = () => {
+        if (!isLogin) {
+            navigate('/auth/student/login');
+            return;
+        }
+
+        navigate('/123');
+    };
+
+    console.log(isLogin);
 
     return (
         <div className="w-[100%]">
+            <Header />
             <div className="form-eng absolute mt-[400px] z-30 md:w-[80%] w-[100%] px-[20px] ml-[50%] translate-x-[-50%] h-[100px] bg-gradient-to-r from-[#ff6609] to-[#facd49] rounded-[20px] flex justify-center items-end gap-[10px]">
                 {listTraining &&
                     listTraining.length > 0 &&
@@ -257,6 +276,7 @@ const PageHome = () => {
                     </div>
                 </div>
             </div>
+
             <Footer />
         </div>
     );
