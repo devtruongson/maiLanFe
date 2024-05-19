@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { TRole } from '../../utils/role';
 import { jwtDecode } from 'jwt-decode';
 import { IPayloadJwt } from '../../utils/interface';
+import { useAppSelector } from '../../features/hooks/hooks';
 
 const PrivateRouter: React.FC<{ role: TRole; children: React.ReactNode }> = ({ role, children }) => {
     const [isValid, setIsValid] = useState<boolean>(false);
+    const token = useAppSelector((state) => state.authSlice.token?.access_token);
 
     useEffect(() => {
         try {
-            const token = localStorage.getItem('accessToken') || '';
             if (!token) {
                 window.location.href = '/notfound/404';
                 return;
@@ -25,7 +26,7 @@ const PrivateRouter: React.FC<{ role: TRole; children: React.ReactNode }> = ({ r
         } catch (error) {
             console.log(error);
         }
-    }, [isValid, role]);
+    }, [isValid, role, token]);
 
     return <>{isValid && children}</>;
 };

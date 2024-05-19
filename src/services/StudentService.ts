@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ILogin, IResponse, IStudent, ITokens } from '../utils/interface';
+import { ILogin, IRegister, IResponse, IStudent, ITokens } from '../utils/interface';
 import axios from '../../axios';
 
 export const loginStudent = async (
@@ -17,6 +17,17 @@ export const loginStudent = async (
                 tokens: ITokens;
             }>
         > = await axios.post(`/student/login`, {
+            ...body,
+        });
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const registerStudent = async (body: IRegister): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.post(`/student/register`, {
             ...body,
         });
         return data.data;

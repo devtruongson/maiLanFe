@@ -16,6 +16,7 @@
     "antd": "^5.17.2",
     "axios": "^1.6.8",
     "bootstrap-icons": "^1.11.3",
+    "classnames": "^2.5.1",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,6 +25,7 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
+    "sass": "^1.77.2",
     "sweetalert2": "^11.11.0",
     "uuid": "^9.0.1"
   },

@@ -2,8 +2,18 @@ import { Route, Routes } from 'react-router-dom';
 import RegisterStudent from './Components/RegisterStudent';
 import LoginStudent from './Components/LoginStudent';
 import { CloseOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { useAppSelector } from '../../features/hooks/hooks';
 
 const AuthStudent = () => {
+    const isLoginIn = useAppSelector((state) => state.authSlice.auth.isLoginIn);
+
+    useEffect(() => {
+        if (isLoginIn) {
+            window.location.href = '/home';
+        }
+    }, [isLoginIn]);
+
     return (
         <div
             className="relative"

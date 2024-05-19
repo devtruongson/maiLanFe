@@ -100,3 +100,11 @@ export interface ITokens {
     access_token: string;
     refresh_token: string;
 }
+
+export interface IRegister {
+    email: string;
+    phoneNumber: string;
+    fullName: string;
+    password: string;
+    address: number;
+}
