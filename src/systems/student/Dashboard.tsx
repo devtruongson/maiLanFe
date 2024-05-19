@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import MenuSideBar from './Components/Menu/Menu';
-import Header from './Components/Header/Header';
+import Header from '../components/Header/Header';
 
 export default function Dashboard() {
     return (
