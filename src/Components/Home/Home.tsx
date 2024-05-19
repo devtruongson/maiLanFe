@@ -1,28 +1,86 @@
 import { Col, Row } from 'antd';
 import Footer from '../Footer/Footer';
 import './Home.css';
+import { useEffect, useState } from 'react';
+import { getAllCodeByType } from '../../services/AllCodeService';
+import { getCourseService } from '../../services/courseService';
+import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
 
 const PageHome: React.FC = () => {
+    const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
+    const [listCourse, setListCourse] = useState<IDataGet<ICourse[]> | null>(null);
+    const [trainingCurrent, setTrainingCurrent] = useState<number>(19);
+    const [currentPage, setCurentPage] = useState<number>(1);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const [resTraining, resCourse] = await Promise.all([
+                getAllCodeByType('TRAINING'),
+                getCourseService({
+                    trainingId: 19,
+                    page: 1,
+                    pageSize: 2,
+                }),
+            ]);
+
+            if (resTraining.code === 200 && resCourse.code === 200) {
+                setListTraining(resTraining.data);
+                setListCourse(resCourse?.data);
+            }
+        };
+        fetch();
+    }, []);
+
+    const handleGetCourse = async (trainingId: number, type: string = 'changeTrain') => {
+        try {
+            const res = await getCourseService({
+                trainingId: trainingId,
+                page: type === 'changeTrain' ? 1 : type === 'increase' ? currentPage + 1 : currentPage - 1,
+                pageSize: 3,
+            });
+
+            if (res.code === 200) {
+                setCurentPage(type === 'changeTrain' ? 1 : type === 'increase' ? currentPage + 1 : currentPage - 1);
+                setListCourse(res.data);
+                setTrainingCurrent(trainingId);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleToBuy = () => {};
+
     return (
         <div className="w-[100vw] vh-[100vh] relative">
             <div className="form-eng absolute mt-[400px] z-30 md:w-[80%] w-[100%] px-[20px] ml-[50%] translate-x-[-50%] h-[100px] bg-gradient-to-r from-[#ff6609] to-[#facd49] rounded-[20px] flex justify-center items-end gap-[10px]">
-                <button className="h-[70%] w-[150px] rounded-[10px] bg-gradient-to-b from-[#fff] to-[#ff6609]">
-                    English
-                </button>
-                <button className="h-[70%] w-[150px] rounded-[10px] bg-gradient-to-b from-[#fff] to-[#ff6609]">
-                    Toeic
-                </button>
-                <button className="h-[70%] w-[150px] rounded-[10px] bg-gradient-to-b from-[#fff] to-[#ff6609]">
-                    Ielts
-                </button>
+                {listTraining &&
+                    listTraining.length > 0 &&
+                    listTraining.map((item) => {
+                        return (
+                            <button
+                                key={item.id}
+                                className={`${
+                                    item.id === trainingCurrent
+                                        ? 'active bg-gradient-to-b from-[#fff] to-[#fff] rounded-t-[10px]'
+                                        : 'bg-gradient-to-b from-[#fff] to-[#ff6609] rounded-[10px]'
+                                } h-[70%] w-[150px] `}
+                                onClick={() => handleGetCourse(item.id)}
+                            >
+                                {item.title}
+                            </button>
+                        );
+                    })}
             </div>
 
-            <div className="banner w-[100vw] md:h-[450px] h-[400px] shadow-xl bg-[url('../../../public/banner.webp')] bg-no-repeat bg-center  relative mb-[100px]">
+            <div className="banner w-[100vw] md:h-[450px] h-[400px] shadow-xl bg-[url('../../../public/banner.webp')] bg-no-repeat bg-center relative mb-[100px]">
                 <div className="content-banner md:ml-[100px] absolute md:z-10 z-1  md:mt-[100px] mt-[30px]">
                     <h4 className="md:text-3xl text-2xl font-[700] text-[#fff] font-sans uppercase text-center">
                         Unlocking the World of English
                     </h4>
                     <h3 className="md:text-2xl font-[700] font-sans uppercase text-center text-[#fff]">with vuihoc</h3>
+
+                    <img src="../../../public/PublicHome/cat.png" alt="" className="img-cat-banner mt-[20px]" />
                 </div>
 
                 <img
@@ -97,7 +155,63 @@ const PageHome: React.FC = () => {
                     </h1>
                     <h6 className="text-center text-[20px]"> Bứt phá học tập cùng vui học</h6>
 
-                    <div className="">khoa hoc</div>
+                    <div className="md:px-[50px] my-[40px] w-[100%] flex justify-center items-center gap-10">
+                        <div
+                            className={`${
+                                currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
+                            } bg-[#FF5733] rounded-[10px] w-[40px] h-[50px] flex justify-center items-center`}
+                            onClick={() => {
+                                if (currentPage > 1) {
+                                    handleGetCourse(trainingCurrent, 'reduce');
+                                }
+                            }}
+                        >
+                            <i className="bi bi-chevron-left text-[#fff] text-[20px]"></i>
+                        </div>
+                        {listCourse &&
+                            listCourse.items.length > 0 &&
+                            listCourse.items.map((item) => {
+                                return (
+                                    <div
+                                        key={item.id}
+                                        className={`${
+                                            item.thumbnail ? '' : 'bg-gradient-to-b from-[#3894eb] to-[#2774e5]'
+                                        } w-[150px] h-[150px] rounded-[10px] relative overflow-hidden`}
+                                    >
+                                        <div className="w-[100%] h-[100%] absolute z-2 flex flex-col justify-between">
+                                            <div className="">
+                                                <p className="mt-[10px] text-center text-[#fff] ">{item.title}</p>
+                                                <p className="text-[#fff] mt-[10px] ml-[10px]">{item.price} VNĐ</p>
+                                            </div>
+
+                                            <p
+                                                className="text-[#fff] ml-[10px] z-5 text-[14px] mb-[10px] cursor-pointer"
+                                                onClick={() => handleToBuy()}
+                                            >
+                                                Đăng ký ngay <i className="bi bi-arrow-right"></i>
+                                            </p>
+                                        </div>
+                                        <img
+                                            src={`${item.thumbnail ? '' : '../../../public/PublicHome/eng.svg'}`}
+                                            alt=""
+                                            className="w-[50%] h-[50%] mt-[50%] ml-[50%] object-fill rounded-[10px] overflow-hidden absolute z-1"
+                                        />
+                                    </div>
+                                );
+                            })}
+                        <div
+                            className={`${
+                                currentPage === listCourse?.meta.totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
+                            }  bg-[#FF5733] rounded-[10px] w-[40px] h-[50px] flex justify-center items-center`}
+                            onClick={() => {
+                                if (currentPage !== listCourse?.meta?.totalPages) {
+                                    handleGetCourse(trainingCurrent, 'increase');
+                                }
+                            }}
+                        >
+                            <i className="bi bi-chevron-right text-[#fff]"></i>
+                        </div>
+                    </div>
 
                     <div className="md:w-[80%] w-[95%] ml-[50%] translate-x-[-50%]   bg-gradient-to-r from-sky-500 to-indigo-500 rounded-[20px] ">
                         <Row>
@@ -105,8 +219,13 @@ const PageHome: React.FC = () => {
                                 <img src="../../../public/PublicHome/girl.png" alt="girl" className="h-[400px]" />
                             </Col>
 
-                            <Col md={14} span={24} className="py-[50px]">
-                                <p className="text-center md:text-2xl text-xl font-[600] text-[#fff]">
+                            <Col md={14} span={24} className="pb-[50px] relative">
+                                <img
+                                    src="../../../public/PublicHome/cat.png"
+                                    alt=""
+                                    className="img-cat absolute w-[200px] mt-[10px] hidden md:block"
+                                />
+                                <p className="text-center md:text-2xl text-xl font-[600] text-[#fff] mt-[50px]">
                                     3 bước trải nghiệm
                                 </p>
                                 <p className="text-center md:text-2xl text-xl font-[600] text-[#fff]">

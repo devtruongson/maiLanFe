@@ -25,3 +25,26 @@ export interface IResponse<T> {
     data: T;
     msg: string;
 }
+
+export interface IDataGet<T> {
+    items: T;
+    meta: {
+        currentPage: number;
+        totalIteams: number;
+        totalPages: number;
+    };
+}
+
+export interface ICourse {
+    id: number;
+    title: string;
+    code: string;
+    is_free: boolean;
+    is_try_learning: boolean;
+    price: string;
+    thumbnail: string;
+    training_sector: number;
+    discount: string;
+    createdAt: string;
+    updatedAt: string;
+}

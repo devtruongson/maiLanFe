@@ -72,6 +72,12 @@
     }
 }
 
+.active {
+    background-color: #fff !important;
+    color: #ff6609 !important;
+    height: 80% !important;
+}
+
 
 @media (max-width: 768px) {
 
@@ -81,6 +87,11 @@
 
     .heart-btn{
         margin-left: 42%;
+    }
+
+
+    .img-cat-banner{
+        display: none;
     }
 
     @keyframes animationFree {
