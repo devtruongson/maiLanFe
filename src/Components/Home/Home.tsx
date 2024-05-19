@@ -8,6 +8,7 @@ import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
 import Header from '../Header/Header';
 import { useAppSelector } from '../../features/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
+import { getToken } from '../../services/tokenService';
 
 const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);

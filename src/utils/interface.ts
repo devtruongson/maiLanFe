@@ -57,8 +57,46 @@ export interface IAuthBuild {
             role_detail: string;
         } | null;
     };
-    token: {
-        accessToken: string;
-        refreshToken: string;
-    } | null;
+    token: ITokens | null;
+}
+
+export interface ILogin {
+    email: string;
+    password: string;
+}
+
+export interface IStudent {
+    id: number;
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    birthday: string | null;
+    gender: string | null;
+    avatar: string | null;
+    level: string | null;
+    address: number;
+    address_detail: string | null;
+    createdAt: string;
+    updatedAt: string;
+    AllCodeData: IAllCode;
+    ParentData: IParentData;
+}
+
+export interface IParentData {
+    id: number | null;
+    fullName: string | null;
+    association_for_student: string | null;
+    AssociationData: IAssociationData;
+}
+
+export interface IAssociationData {
+    id: number | null;
+    type: string | null;
+    title: string | null;
+    code: string | null;
+}
+
+export interface ITokens {
+    access_token: string;
+    refresh_token: string;
 }
