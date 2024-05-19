@@ -13,14 +13,10 @@ export const authSlice = createSlice({
     initialState: initState,
     name: 'authSlice',
     reducers: {
-        loginSuccess(state: IAuthBuild, action: PayloadAction<IAuthBuild>) {
-            const stateClone = {
-                ...state,
-            };
-            stateClone.auth.isLoginIn = true;
-            stateClone.auth.data = action.payload.auth.data;
-            stateClone.token = action.payload.token;
-            return stateClone;
+        loginSuccess(state, action: PayloadAction<IAuthBuild>) {
+            state.auth.isLoginIn = true;
+            state.auth.data = action.payload.auth.data;
+            state.token = action.payload.token;
         },
 
         logoutAction(state: IAuthBuild) {

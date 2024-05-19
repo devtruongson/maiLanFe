@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getAllCodeByType } from '../../services/AllCodeService';
 import { getCourseService } from '../../services/courseService';
 import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
+import { getToken } from '../../services/tokenService';
 
 const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
