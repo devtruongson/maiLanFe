@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
 import NotFound from '../Components/NotFound/NotFound';
 import PageHome from '../Components/Home/Home';
+import AuthStudent from '../auth/Student/AuthStudent';
+import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
 
 export default function RouterCom() {
     return (
@@ -17,6 +18,7 @@ export default function RouterCom() {
                         </PrivateRouter>
                     }
                 />
+                <Route path="/auth/student/*" element={<AuthStudent />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

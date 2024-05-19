@@ -1,3 +1,5 @@
+import { HttpStatusCode } from 'axios';
+
 export interface IPayloadJwt {
     id: number;
     email: string;
@@ -10,4 +12,16 @@ export interface IPayloadJwt {
 export interface IAuthSlice {
     isLogin: boolean;
     role: string | null;
+}
+export interface IAllCode {
+    id: number;
+    type: string;
+    title: string;
+    code: string;
+}
+
+export interface IResponse<T> {
+    code: HttpStatusCode;
+    data: T;
+    msg: string;
 }
