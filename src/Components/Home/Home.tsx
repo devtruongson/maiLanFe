@@ -52,7 +52,7 @@ const PageHome: React.FC = () => {
     const handleToBuy = () => {};
 
     return (
-        <div className="w-[100vw] vh-[100vh] relative">
+        <div className="w-[100%]">
             <div className="form-eng absolute mt-[400px] z-30 md:w-[80%] w-[100%] px-[20px] ml-[50%] translate-x-[-50%] h-[100px] bg-gradient-to-r from-[#ff6609] to-[#facd49] rounded-[20px] flex justify-center items-end gap-[10px]">
                 {listTraining &&
                     listTraining.length > 0 &&
@@ -73,7 +73,7 @@ const PageHome: React.FC = () => {
                     })}
             </div>
 
-            <div className="banner w-[100vw] md:h-[450px] h-[400px] shadow-xl bg-[url('../../../public/banner.webp')] bg-no-repeat bg-center relative mb-[100px]">
+            <div className="banner w-[100%] md:h-[450px] h-[400px] shadow-xl bg-[url('../../../public/banner.webp')] bg-no-repeat bg-center relative mb-[100px]">
                 <div className="content-banner md:ml-[100px] absolute md:z-10 z-1  md:mt-[100px] mt-[30px]">
                     <h4 className="md:text-3xl text-2xl font-[700] text-[#fff] font-sans uppercase text-center">
                         Unlocking the World of English
@@ -108,7 +108,7 @@ const PageHome: React.FC = () => {
                 />
             </div>
 
-            <div className="w-[100vw] bg-[url('../../../public/bg-gt.svg')] md:px-[200px] pb-[100px] pt-[50px]">
+            <div className="w-[100%] bg-[url('../../../public/bg-gt.svg')] md:px-[200px] pb-[100px] pt-[50px]">
                 <Row>
                     <Col md={12} span={24} className="px-[20px]">
                         <h3 className="md:text-4xl text-2xl font-[700] text-[#ff6609] leading-relaxed mb-[20px]">
@@ -148,14 +148,14 @@ const PageHome: React.FC = () => {
                 </Row>
             </div>
 
-            <div className="w-[100vw] bg-[#fff3ec]">
+            <div className="w-full bg-[#fff3ec]">
                 <div className="md:px-[30px] py-[30px]">
                     <h1 className="text-3xl font-[700] text-[#ff6609] text-center font-sans">
                         Tham gia khóa học với chúng tôi
                     </h1>
                     <h6 className="text-center text-[20px]"> Bứt phá học tập cùng vui học</h6>
 
-                    <div className="md:px-[50px] my-[40px] w-[100%] flex justify-center items-center gap-10">
+                    <div className="md:px-[50px] my-[40px] w-[100%] flex justify-center items-center gap-3">
                         <div
                             className={`${
                                 currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
