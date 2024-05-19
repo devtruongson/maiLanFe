@@ -8,7 +8,8 @@ import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
 import Header from '../Header/Header';
 import { useAppSelector } from '../../features/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
-import { getToken } from '../../services/tokenService';
+// import { getToken } from '../../services/tokenService';
+import { handleFomatVnd } from '../../helpers/handleFomatVnd';
 
 const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
@@ -32,9 +33,7 @@ const PageHome = () => {
             ]);
 
             if (resTraining.code === 200 && resCourse.code === 200) {
-                console.log('1');
                 setListTraining(resTraining.data);
-                console.log('2');
                 setListCourse(resCourse?.data);
             }
         };
@@ -67,8 +66,6 @@ const PageHome = () => {
 
         navigate('/123');
     };
-
-    console.log(isLogin);
 
     return (
         <div className="w-[100%]">
@@ -202,7 +199,9 @@ const PageHome = () => {
                                             <div className="w-[100%] h-[100%] absolute z-2 flex flex-col justify-between">
                                                 <div className="">
                                                     <p className="mt-[10px] text-center text-[#fff] ">{item.title}</p>
-                                                    <p className="text-[#fff] mt-[10px] ml-[10px]">{item.price} VNĐ</p>
+                                                    <p className="text-[#fff] mt-[10px] ml-[10px]">
+                                                        {handleFomatVnd(+item.price)}
+                                                    </p>
                                                 </div>
 
                                                 <p
