@@ -6,3 +6,8 @@ export interface IPayloadJwt {
     phoneNumber: string;
     is_login_social: boolean;
 }
+
+export interface IAuthSlice {
+    isLogin: boolean;
+    role: string | null;
+}
