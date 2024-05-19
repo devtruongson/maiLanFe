@@ -5,4 +5,4 @@ export enum ROLE {
     TEACHER = 'TEACHER',
 }
 
-export type TRole = 'USER' | 'ADMIN' | 'SALE' | 'TEACHER';
+export type TRole = 'USER' | 'ADMIN' | 'SALE' | 'TEACHER' | 'SYSTEM';

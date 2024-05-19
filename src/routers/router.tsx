@@ -21,6 +21,16 @@ export default function RouterCom() {
                         </PrivateRouter>
                     }
                 />
+
+                <Route
+                    path="/system/dashboard"
+                    element={
+                        <PrivateRouter role="USER">
+                            <Dashboard />
+                        </PrivateRouter>
+                    }
+                />
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>
