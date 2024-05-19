@@ -48,3 +48,17 @@ export interface ICourse {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface IAuthBuild {
+    auth: {
+        isLoginIn: boolean;
+        data: {
+            email: string;
+            role_detail: string;
+        } | null;
+    };
+    token: {
+        accessToken: string;
+        refreshToken: string;
+    } | null;
+}

@@ -1,27 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IAuthSlice } from '../../utils/interface';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IAuthBuild } from '../../utils/interface';
 
-const initState: IAuthSlice = {
-    isLogin: false,
-    role: null,
+const initState: IAuthBuild = {
+    auth: {
+        data: null,
+        isLoginIn: false,
+    },
+    token: null,
 };
 
 export const authSlice = createSlice({
     initialState: initState,
     name: 'authSlice',
     reducers: {
-        loginSuccess(state: IAuthSlice, action) {
+        loginSuccess(state: IAuthBuild, action: PayloadAction<IAuthBuild>) {
             const stateClone = {
                 ...state,
             };
-            stateClone.isLogin = true;
-            stateClone.role = action.payload.user.role;
+            stateClone.auth.isLoginIn = true;
+            stateClone.auth.data = action.payload.auth.data;
+            stateClone.token = action.payload.token;
             return stateClone;
         },
 
-        logoutAction(state: IAuthSlice) {
-            state.isLogin = false;
-            state.role = null;
+        logoutAction(state: IAuthBuild) {
+            state.auth.isLoginIn = false;
+            state.auth.data = null;
+            state.token = null;
         },
     },
 });
