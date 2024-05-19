@@ -19,7 +19,7 @@ const PageHome: React.FC = () => {
                 getCourseService({
                     trainingId: 19,
                     page: 1,
-                    pageSize: 2,
+                    pageSize: 4,
                 }),
             ]);
 
@@ -36,7 +36,7 @@ const PageHome: React.FC = () => {
             const res = await getCourseService({
                 trainingId: trainingId,
                 page: type === 'changeTrain' ? 1 : type === 'increase' ? currentPage + 1 : currentPage - 1,
-                pageSize: 3,
+                pageSize: 4,
             });
 
             if (res.code === 200) {
@@ -168,37 +168,40 @@ const PageHome: React.FC = () => {
                         >
                             <i className="bi bi-chevron-left text-[#fff] text-[20px]"></i>
                         </div>
-                        {listCourse &&
-                            listCourse.items.length > 0 &&
-                            listCourse.items.map((item) => {
-                                return (
-                                    <div
-                                        key={item.id}
-                                        className={`${
-                                            item.thumbnail ? '' : 'bg-gradient-to-b from-[#3894eb] to-[#2774e5]'
-                                        } w-[150px] h-[150px] rounded-[10px] relative overflow-hidden`}
-                                    >
-                                        <div className="w-[100%] h-[100%] absolute z-2 flex flex-col justify-between">
-                                            <div className="">
-                                                <p className="mt-[10px] text-center text-[#fff] ">{item.title}</p>
-                                                <p className="text-[#fff] mt-[10px] ml-[10px]">{item.price} VNĐ</p>
-                                            </div>
+                        <div className="flex justify-center items-center h-[150px] w-[650px] gap-3">
+                            {listCourse &&
+                                listCourse.items.length > 0 &&
+                                listCourse.items.map((item) => {
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            className={`${
+                                                item.thumbnail ? '' : 'bg-gradient-to-b from-[#3894eb] to-[#2774e5]'
+                                            } w-[150px] h-[150px] rounded-[10px] relative overflow-hidden`}
+                                        >
+                                            <div className="w-[100%] h-[100%] absolute z-2 flex flex-col justify-between">
+                                                <div className="">
+                                                    <p className="mt-[10px] text-center text-[#fff] ">{item.title}</p>
+                                                    <p className="text-[#fff] mt-[10px] ml-[10px]">{item.price} VNĐ</p>
+                                                </div>
 
-                                            <p
-                                                className="text-[#fff] ml-[10px] z-5 text-[14px] mb-[10px] cursor-pointer"
-                                                onClick={() => handleToBuy()}
-                                            >
-                                                Đăng ký ngay <i className="bi bi-arrow-right"></i>
-                                            </p>
+                                                <p
+                                                    className="text-[#fff] ml-[10px] z-5 text-[14px] mb-[10px] cursor-pointer"
+                                                    onClick={() => handleToBuy()}
+                                                >
+                                                    Đăng ký ngay <i className="bi bi-arrow-right"></i>
+                                                </p>
+                                            </div>
+                                            <img
+                                                src={`${item.thumbnail ? '' : '../../../public/PublicHome/eng.svg'}`}
+                                                alt=""
+                                                className="w-[50%] h-[50%] mt-[50%] ml-[50%] object-fill rounded-[10px] overflow-hidden absolute z-1"
+                                            />
                                         </div>
-                                        <img
-                                            src={`${item.thumbnail ? '' : '../../../public/PublicHome/eng.svg'}`}
-                                            alt=""
-                                            className="w-[50%] h-[50%] mt-[50%] ml-[50%] object-fill rounded-[10px] overflow-hidden absolute z-1"
-                                        />
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                        </div>
+
                         <div
                             className={`${
                                 currentPage === listCourse?.meta.totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
