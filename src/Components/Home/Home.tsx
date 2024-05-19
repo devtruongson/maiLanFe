@@ -6,7 +6,7 @@ import { getAllCodeByType } from '../../services/AllCodeService';
 import { getCourseService } from '../../services/courseService';
 import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
 
-const PageHome: React.FC = () => {
+const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
     const [listCourse, setListCourse] = useState<IDataGet<ICourse[]> | null>(null);
     const [trainingCurrent, setTrainingCurrent] = useState<number>(19);
