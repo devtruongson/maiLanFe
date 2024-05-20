@@ -1,6 +1,6 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
-import { ICourse, IDataGet, IResponse } from '../utils/interface';
+import { ICourse, IDataGet, IResponse, IStudentBooking } from '../utils/interface';
 import { configHeaderAxios } from './tokenService';
 
 export const getCourseService = async ({
@@ -15,6 +15,19 @@ export const getCourseService = async ({
     try {
         const data: AxiosResponse<IResponse<IDataGet<ICourse[]>>> = await axios.get(
             `/course/student?page=${page}&pageSize=${pageSize}&trainingId=${trainingId}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const studentBookingCourseService = async (body: IStudentBooking): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.post(
+            `/calendar/student-booking`,
+            { ...body },
             configHeaderAxios(),
         );
         return data.data;

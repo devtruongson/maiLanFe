@@ -53,6 +53,7 @@ export interface IAuthBuild {
     auth: {
         isLoginIn: boolean;
         data: {
+            id: number;
             email: string;
             role_detail: string;
         } | null;
@@ -107,4 +108,9 @@ export interface IRegister {
     fullName: string;
     password: string;
     address: number;
+}
+
+export interface IStudentBooking {
+    student_id: number;
+    course_id: number;
 }

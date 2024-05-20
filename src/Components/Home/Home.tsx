@@ -3,13 +3,18 @@ import Footer from '../Footer/Footer';
 import './Home.css';
 import { useEffect, useState } from 'react';
 import { getAllCodeByType } from '../../services/AllCodeService';
-import { getCourseService } from '../../services/courseService';
+import { getCourseService, studentBookingCourseService } from '../../services/courseService';
 import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
 import Header from '../Header/Header';
 import { useAppSelector } from '../../features/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 // import { getToken } from '../../services/tokenService';
 import { handleFomatVnd } from '../../helpers/handleFomatVnd';
+import Swal from 'sweetalert2';
+
+// interface IStateCourse {
+//     courseId: number;
+// }
 
 const PageHome = () => {
     const [listTraining, setListTraining] = useState<IAllCode[] | null>(null);
@@ -18,6 +23,7 @@ const PageHome = () => {
     const [currentPage, setCurentPage] = useState<number>(1);
 
     const isLogin = useAppSelector((state) => state.authSlice.auth.isLoginIn);
+    const idStudent = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     const navigate = useNavigate();
 
@@ -58,13 +64,37 @@ const PageHome = () => {
         }
     };
 
-    const handleToBuy = () => {
-        if (!isLogin) {
+    const handleToBuy = async (courseId: number, nameCourse: string) => {
+        if (!isLogin || !idStudent) {
             navigate('/auth/student/login');
             return;
         }
 
-        navigate('/123');
+        await Swal.fire({
+            title: `Do you want to booking course ${nameCourse} ?`,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const _fetch = async () => {
+                    const res = await studentBookingCourseService({ student_id: idStudent, course_id: courseId });
+
+                    console.log(res);
+                    if (res.code === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: `booking course cuccessfully`,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: `${res.msg}`,
+                        });
+                    }
+                };
+                _fetch();
+            }
+        });
     };
 
     return (
@@ -186,7 +216,8 @@ const PageHome = () => {
                                             key={item.id}
                                             className={`${
                                                 item.thumbnail ? '' : 'bg-gradient-to-b from-[#3894eb] to-[#2774e5]'
-                                            } w-[150px] h-[150px] rounded-[10px] relative overflow-hidden`}
+                                            } w-[150px] h-[150px] rounded-[10px] relative overflow-hidden cursor-pointer`}
+                                            onClick={() => handleToBuy(item.id, item.title)}
                                         >
                                             <div className="w-[100%] h-[100%] absolute z-2 flex flex-col justify-between">
                                                 <div className="">
@@ -196,10 +227,7 @@ const PageHome = () => {
                                                     </p>
                                                 </div>
 
-                                                <p
-                                                    className="text-[#fff] ml-[10px] z-5 text-[14px] mb-[10px] cursor-pointer"
-                                                    onClick={() => handleToBuy()}
-                                                >
+                                                <p className="text-[#fff] ml-[10px] z-5 text-[14px] mb-[10px] ">
                                                     Đăng ký ngay <i className="bi bi-arrow-right"></i>
                                                 </p>
                                             </div>
