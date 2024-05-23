@@ -79,18 +79,10 @@ const PageHome = () => {
                 const _fetch = async () => {
                     const res = await studentBookingCourseService({ student_id: idStudent, course_id: courseId });
 
-                    console.log(res);
-                    if (res.code === 200) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: `booking course cuccessfully`,
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: `${res.msg}`,
-                        });
-                    }
+                    Swal.fire({
+                        icon: res.code === 200 ? 'success' : 'warning',
+                        title: `${res.msg}`,
+                    });
                 };
                 _fetch();
             }

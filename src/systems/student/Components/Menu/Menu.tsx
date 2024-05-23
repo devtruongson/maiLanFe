@@ -7,20 +7,22 @@ import React from 'react';
 import { childrenListStudent, sideBarListStudent, urlchildrenListStudent } from '../../../../utils/data';
 import { useNavigate } from 'react-router-dom';
 
-const items = [PieChartOutlined, FileDoneOutlined, UnorderedListOutlined].map((icon: React.FC, index: number) => {
-    const key: number = index;
-    return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `${sideBarListStudent[key]}`,
-        children:
-            childrenListStudent[key] &&
-            childrenListStudent[key].map((childLabel: string, childIndex: number) => ({
-                key: urlchildrenListStudent[key][childIndex],
-                label: childLabel,
-            })),
-    };
-});
+const items = [PieChartOutlined, FileDoneOutlined, UnorderedListOutlined, UnorderedListOutlined].map(
+    (icon: React.FC, index: number) => {
+        const key: number = index;
+        return {
+            key: `sub${key}`,
+            icon: React.createElement(icon),
+            label: `${sideBarListStudent[key]}`,
+            children:
+                childrenListStudent[key] &&
+                childrenListStudent[key].map((childLabel: string, childIndex: number) => ({
+                    key: urlchildrenListStudent[key][childIndex],
+                    label: childLabel,
+                })),
+        };
+    },
+);
 
 const MenuSideBar: React.FC = () => {
     const navigate = useNavigate();

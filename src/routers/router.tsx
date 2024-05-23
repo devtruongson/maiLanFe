@@ -6,6 +6,7 @@ import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
 import RedirectHome from '../Components/Home/RedirectHome';
 import Dashboard from '../systems/student/Dashboard';
 import DashboardSystem from '../systems/SystemUser/DashboardSystem';
+import { RouterDTO } from '../utils/routers.dto';
 
 export default function RouterCom() {
     return (
@@ -15,14 +16,13 @@ export default function RouterCom() {
                 <Route path="/home" element={<PageHome />} />
                 <Route path="/auth/student/*" element={<AuthStudent />} />
                 <Route
-                    path="/student/dashboard"
+                    path={`${RouterDTO.Student.dashboard}`}
                     element={
                         <PrivateRouter role="USER">
                             <Dashboard />
                         </PrivateRouter>
                     }
                 />
-
                 <Route
                     path="/system/dashboard"
                     element={
