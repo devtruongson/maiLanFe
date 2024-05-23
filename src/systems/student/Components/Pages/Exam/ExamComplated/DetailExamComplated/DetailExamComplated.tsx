@@ -39,6 +39,35 @@ const DetailExamComplated: React.FC = () => {
                 {exam ? (
                     <div className="w-[100%] pt-[10px]">
                         <h3 className="uppercase text-2xl font-[700] text-center text-[#ff6609]">{exam.title}</h3>
+                        <p className="text-center my-[10px] text-xl">
+                            Mã Đề : <span>{exam.code}</span>
+                        </p>
+                        <div className="w-[60%] ml-[50%] translate-x-[-50%] my-[10px] flex justify-around">
+                            <p className="text-xl">
+                                Số câu đúng :{' '}
+                                <span
+                                    className={`${
+                                        exam.correct_result_count / exam.total_question >= 0.5
+                                            ? 'text-[green]'
+                                            : 'text-[red]'
+                                    } text-2xl`}
+                                >
+                                    {exam.correct_result_count}
+                                </span>
+                            </p>
+                            <p className="text-xl">
+                                Điểm Bài thi :{' '}
+                                <span
+                                    className={`${
+                                        exam.correct_result_count / exam.total_question >= 0.5
+                                            ? 'text-[green]'
+                                            : 'text-[red]'
+                                    } text-2xl`}
+                                >
+                                    {exam.total_result}
+                                </span>
+                            </p>
+                        </div>
 
                         <div className="my-[20px] w-[80%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
 
