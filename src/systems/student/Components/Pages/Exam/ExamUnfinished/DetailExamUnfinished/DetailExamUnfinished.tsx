@@ -41,6 +41,7 @@ const DetailExamUnfinished: React.FC = () => {
         };
 
         fetch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // handle khi đổi đáp án trong câu
@@ -141,6 +142,7 @@ const DetailExamUnfinished: React.FC = () => {
         }, 1000);
 
         return () => clearTimeout(countdown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [count, isStart]);
 
     return (

@@ -24,6 +24,7 @@ const DetailExamComplated: React.FC = () => {
         };
 
         fetch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChangeQuestion = (index: number) => {
