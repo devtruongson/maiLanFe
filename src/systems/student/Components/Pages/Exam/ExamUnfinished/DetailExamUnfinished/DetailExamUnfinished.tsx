@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { getOneExamService, handleSubmitService } from '../../../../../../../services/examService';
 import { IAnswer, IExam } from '../../../../../../../utils/interface';
 import { handleFomatCountDown } from '../../../../../../../helpers/handleFomatCoutDown';
+import { useAppDispatch, useAppSelector } from '../../../../../../../features/hooks/hooks';
+import { addCount, reduceCount, resetCount } from '../../../../../../../features/count/countSlice';
 
 const DetailExamUnfinished: React.FC = () => {
     const [isStart, setIsStart] = useState(false);
@@ -15,11 +17,13 @@ const DetailExamUnfinished: React.FC = () => {
     const [answers, setAnswers] = useState<number[]>([]);
     const [listAnswerCurrent, setListAnswerCurrent] = useState<number[]>([]);
     const [answerCurrentChecked, setAnswerCurrentChecked] = useState<number>(0);
-    const [time, setTime] = useState<number>(0);
     const [listQuestionSelected, setListQuestionSelected] = useState<number[]>([]);
 
     const { isComplated, id } = useLocation().state;
     const navigate = useNavigate();
+
+    const count = useAppSelector((state) => state.countSlice.value);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!id) {
@@ -31,7 +35,8 @@ const DetailExamUnfinished: React.FC = () => {
             if (res.code === 200) {
                 setExam(res.data);
                 setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
-                setTime(res.data.time_end * 60);
+                // setTime(res.data.time_end * 60);
+                dispatch(addCount(res.data.time_end * 60));
             }
         };
 
@@ -83,7 +88,7 @@ const DetailExamUnfinished: React.FC = () => {
             return;
         }
 
-        if (time > 2690) {
+        if (count > 2690) {
             await Swal.fire({
                 title: `${
                     exam?.ExamQuestionData.length > answers.length
@@ -126,18 +131,17 @@ const DetailExamUnfinished: React.FC = () => {
         if (!isStart) return;
 
         const countdown = setTimeout(() => {
-            setTime((prevTime) => {
-                if (prevTime <= 0) {
-                    clearTimeout(countdown);
-                    handleSubmit();
-                    return 0;
-                }
-                return prevTime - 1;
-            });
+            if (count <= 2690) {
+                dispatch(resetCount());
+                clearTimeout(countdown);
+                handleSubmit();
+            } else {
+                dispatch(reduceCount());
+            }
         }, 1000);
 
         return () => clearTimeout(countdown);
-    }, [time, isStart]);
+    }, [count, isStart]);
 
     return (
         <div className="w-[100%] px-[100px] form-main">
@@ -213,9 +217,9 @@ const DetailExamUnfinished: React.FC = () => {
 
                                 <div className="form-answer w-[10%]  h-[500px] rounded-[10px] ml-[10px] ">
                                     <div className="w-[100%] h-[50px] rounded-[10px]  border-solid border-[#ccc] border-[1px] flex justify-center items-center">
-                                        <p className={`${time <= 60 ? 'text-[red]' : ''} `}>
-                                            <i className="bi bi-alarm mr-[2px]"></i> {handleFomatCountDown(time).minute}{' '}
-                                            : {handleFomatCountDown(time).second}
+                                        <p className={`${count <= 60 ? 'text-[red]' : ''} `}>
+                                            <i className="bi bi-alarm mr-[2px]"></i>{' '}
+                                            {handleFomatCountDown(count).minute} : {handleFomatCountDown(count).second}
                                         </p>
                                     </div>
                                     <div className="w-[100%] h-[500px] mt-[20px] overflow-auto">

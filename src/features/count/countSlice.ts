@@ -17,25 +17,32 @@ export const countSlice = createSlice({
                 ...state,
             };
 
-            console.log(action);
-
-            stateClone.value = (stateClone.value + action.payload) as number;
+            stateClone.value = action.payload;
 
             return stateClone;
         },
-
-        truCount(state, action) {
+        resetCount(state: ICount) {
             const stateClone = {
                 ...state,
             };
 
-            stateClone.value = stateClone.value - action.payload.value;
+            stateClone.value = 0;
+
+            return stateClone;
+        },
+
+        reduceCount(state) {
+            const stateClone = {
+                ...state,
+            };
+
+            stateClone.value = stateClone.value - 1;
 
             return stateClone;
         },
     },
 });
 
-export const { addCount, truCount } = countSlice.actions;
+export const { addCount, reduceCount, resetCount } = countSlice.actions;
 
 export default countSlice.reducer;
