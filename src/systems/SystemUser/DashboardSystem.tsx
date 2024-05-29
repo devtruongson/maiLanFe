@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import MenuSystem from './Components/MenuSystem/MenuSystem';
+import { Route, Routes } from 'react-router-dom';
 
 export default function DashboardSystem() {
     return (
@@ -14,7 +15,11 @@ export default function DashboardSystem() {
                         <MenuSystem />
                     </Col>
                     <Col className="gutter-row" span={20}>
-                        <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">xin chao</div>
+                        <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">
+                            <Routes>
+                                <Route />
+                            </Routes>
+                        </div>
                     </Col>
                 </Row>
             </div>

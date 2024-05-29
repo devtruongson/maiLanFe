@@ -26,9 +26,9 @@ export const loginStudent = async (
     }
 };
 
-export const registerStudent = async (body: IRegister): Promise<IResponse<null>> => {
+export const registerStudent = async (body: IRegister): Promise<IResponse<IRegister>> => {
     try {
-        const data: AxiosResponse<IResponse<null>> = await axios.post(`/student/register`, {
+        const data: AxiosResponse<IResponse<IRegister>> = await axios.post(`/student/register`, {
             ...body,
         });
         return data.data;
@@ -72,3 +72,4 @@ export const getAllStudentService = async (
         throw error;
     }
 };
+export const createInfoStudentService = async () => {};
