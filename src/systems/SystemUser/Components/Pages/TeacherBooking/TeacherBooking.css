@@ -1,0 +1,5 @@
+.form-auto{
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

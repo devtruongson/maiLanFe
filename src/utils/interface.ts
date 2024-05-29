@@ -65,7 +65,7 @@ export interface ICalendarTeacher {
     teacher_id: number;
     calendar_id: number;
     student_id: number;
-    day: number;
+    day: string;
     time_stamp_start: string;
     time_stamp_end: string;
     is_reservation: boolean | null;
@@ -115,7 +115,6 @@ export interface ILogin {
 }
 
 export interface IStudent {
-    id: number;
     fullName: string;
     phoneNumber: string;
     email: string;
@@ -124,6 +123,10 @@ export interface IStudent {
     avatar: string | null;
     level: string | null;
     address: number;
+    password: string | null;
+    province: string;
+    district: string;
+    commune: string;
     address_detail: string | null;
     createdAt: string;
     updatedAt: string;
@@ -151,11 +154,16 @@ export interface ITokens {
 }
 
 export interface IRegister {
-    email: string;
-    phoneNumber: string;
     fullName: string;
+    phoneNumber: string;
+    email: string;
+    gender: string;
+    birthday: string;
     password: string;
-    address: number;
+    province: string;
+    district: string;
+    commune: string;
+    address_detail: string;
 }
 
 export interface IStudentBooking {
@@ -241,4 +249,21 @@ export interface IAnswer {
 export interface ICountDown {
     minute: number;
     second: number;
+}
+
+export interface IProvince {
+    idProvince: string;
+    name: string;
+}
+
+export interface IDistrict {
+    idProvince: string;
+    idDistrict: string;
+    name: string;
+}
+
+export interface ICommune {
+    idDistrict: string;
+    idCommune: string;
+    name: string;
 }
