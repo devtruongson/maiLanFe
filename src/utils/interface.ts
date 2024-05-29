@@ -75,6 +75,14 @@ export interface ICalendarTeacher {
     teacherData: IUser;
 }
 
+export interface ICreateTeacherBooking {
+    teacher_id: number;
+    calendar_id: number;
+    day: string;
+    time_stamp_start: string;
+    time_stamp_end: string;
+}
+
 export interface ICalendar {
     id: number;
     time_start: string;
@@ -115,6 +123,7 @@ export interface ILogin {
 }
 
 export interface IStudent {
+    id: number;
     fullName: string;
     phoneNumber: string;
     email: string;

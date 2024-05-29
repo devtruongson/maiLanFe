@@ -26,9 +26,9 @@ export const loginStudent = async (
     }
 };
 
-export const registerStudent = async (body: IRegister): Promise<IResponse<IRegister>> => {
+export const registerStudent = async (body: IRegister): Promise<IResponse<IStudent>> => {
     try {
-        const data: AxiosResponse<IResponse<IRegister>> = await axios.post(`/student/register`, {
+        const data: AxiosResponse<IResponse<IStudent>> = await axios.post(`/student/register`, {
             ...body,
         });
         return data.data;

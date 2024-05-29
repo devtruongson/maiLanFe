@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GetCommuneService, GetDistrictService, GetProvinceService } from '../../../../../services/locationService';
-import { ICommune, IDistrict, IProvince, IRegister } from '../../../../../utils/interface';
+import { IAllCode, ICommune, IDistrict, IProvince, IRegister } from '../../../../../utils/interface';
 import Swal from 'sweetalert2';
 import { registerStudent } from '../../../../../services/StudentService';
+import { getAllCodeByType } from '../../../../../services/AllCodeService';
+import { addParentService } from '../../../../../services/parentService';
 
 const InfoStudent: React.FC = () => {
     const [listProvince, setListProvince] = useState<IProvince[]>([]);
@@ -22,11 +24,20 @@ const InfoStudent: React.FC = () => {
     const [idStudent, setIdStudent] = useState<number>(0);
     const [nameParent, setNameParent] = useState<string>('');
     const [association, setAssociation] = useState<number>(0);
+    const [listAssociation, setListAssociation] = useState<IAllCode[]>([]);
 
     useEffect(() => {
         const fetch = async () => {
-            const res = await GetProvinceService();
-            setListProvince(res);
+            const [resProvince, resAssociation] = await Promise.all([
+                await GetProvinceService(),
+                await getAllCodeByType('ASSOCIATION'),
+            ]);
+            // const res = await GetProvinceService();
+
+            setListProvince(resProvince);
+            if (resAssociation.code === 200) {
+                setListAssociation(resAssociation.data);
+            }
         };
         fetch();
     }, []);
@@ -51,6 +62,24 @@ const InfoStudent: React.FC = () => {
         }
     };
 
+    const handleResetInfoStudent = () => {
+        setFullname('');
+        setPhonenumber('');
+        setEmail('');
+        setPassword('');
+        setBirthday('');
+        setListDistrict([]);
+        setListCommune([]);
+        setAddressDetail('');
+        setGender(0);
+        setIsLoading(false);
+    };
+
+    const handleResetInfoParent = () => {
+        setNameParent('');
+        setAssociation(0);
+    };
+
     const handleValidate = (): boolean => {
         if (
             !fullname ||
@@ -66,7 +95,7 @@ const InfoStudent: React.FC = () => {
         ) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Bạn vui lòng điền đầy đủ thông tin !',
+                title: 'Bạn vui lòng điền đầy đủ thông tin học sinh !',
             });
             return false;
         }
@@ -97,19 +126,62 @@ const InfoStudent: React.FC = () => {
 
             const res = await registerStudent(dataBuider);
 
+            if (res.code === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: `${res.msg}`,
+                });
+                setIdStudent(res.data.id);
+                handleResetInfoStudent();
+                return res.data.id;
+            }
+
             Swal.fire({
-                icon: `${res.code === 200 ? 'success' : 'warning'}`,
+                icon: 'warning',
                 title: `${res.msg}`,
             });
 
-            // if(res.code ===200){
-            //     setIdStudent(res.data)
-            // }
-
             setIsLoading(false);
+            return 0;
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const handleCreateInfoParent = async () => {
+        let check;
+
+        if (!idStudent) {
+            check = await handleCreateInfoStudent();
+            if (!check) {
+                return;
+            }
+        }
+
+        if (!nameParent || !association || !check) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Vui lòng nhập đủ thông tin phụ huynh !',
+            });
+            return;
+        }
+
+        const dataBuider = {
+            fullName: nameParent,
+            association_for_student: association,
+            child: check,
+        };
+
+        const res = await addParentService(dataBuider);
+
+        if (res.code === 200) {
+            handleResetInfoParent();
+        }
+
+        Swal.fire({
+            icon: `${res.code === 200 ? 'success' : 'warning'}`,
+            title: `${res.msg}`,
+        });
     };
 
     return (
@@ -229,6 +301,7 @@ const InfoStudent: React.FC = () => {
                         value={currentDistrict}
                         onChange={(e) => handleGetListCommune(e.target.value)}
                     >
+                        <option value="">Chọn quận / huyện</option>
                         {listDistrict && listDistrict.length > 0 ? (
                             listDistrict.map((item) => {
                                 return (
@@ -268,6 +341,7 @@ const InfoStudent: React.FC = () => {
                         value={currentCommune}
                         onChange={(e) => setCurrentCommune(e.target.value)}
                     >
+                        <option value="">Chọn xã / phường</option>
                         {listCommune && listCommune.length > 0 ? (
                             listCommune.map((item) => {
                                 return (
@@ -324,6 +398,8 @@ const InfoStudent: React.FC = () => {
 
             <div className="w-[80%] h-[1px] ml-[50%] translate-x-[-50%] bg-[#ddd]"></div>
 
+            {/* info parent */}
+
             <h3 className="text-xl text-center my-[40px] text-[#ff6609] uppercase font-[600] mb-[40px]">
                 Thông tin phụ huynh học sinh
             </h3>
@@ -331,7 +407,7 @@ const InfoStudent: React.FC = () => {
             <div className="w-[70%] ml-[50%] translate-x-[-50%] grid grid-cols-2 gap-10">
                 <div className="mt-[20px]">
                     <label className="text-[16px]" htmlFor="fullname">
-                        Họ và tên
+                        Họ và tên phụ huynh
                     </label>
                     <br />
                     <input
@@ -339,8 +415,8 @@ const InfoStudent: React.FC = () => {
                         id="fullname"
                         className="mt-[10px] w-[100%] p-[8px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
                         required
-                        value={fullname}
-                        onChange={(e) => setFullname(e.target.value)}
+                        value={nameParent}
+                        onChange={(e) => setNameParent(e.target.value)}
                     />
                 </div>
 
@@ -350,27 +426,22 @@ const InfoStudent: React.FC = () => {
                     </label>{' '}
                     <br />
                     <div className="flex justify-start items-center w-[50%] mt-[30px]">
-                        <div className="flex items-center mr-[40px]">
-                            <input
-                                type="radio"
-                                className="mr-[10px] p-[10px] w-[20px] h-[20px]"
-                                name="gender"
-                                value={gender}
-                                onChange={() => setGender(1)}
-                            />
-                            <label htmlFor="">Nam</label>
-                        </div>
-
-                        <div className="flex items-center">
-                            <input
-                                type="radio"
-                                className="mr-[10px] p-[10px] w-[20px] h-[20px]"
-                                name="gender"
-                                value={gender}
-                                onChange={() => setGender(2)}
-                            />
-                            <label htmlFor="">Nữ</label>
-                        </div>
+                        {listAssociation &&
+                            listAssociation.length > 0 &&
+                            listAssociation.map((item) => {
+                                return (
+                                    <div className="flex items-center mr-[40px]" key={item.id}>
+                                        <input
+                                            type="radio"
+                                            className="mr-[10px] p-[10px] w-[20px] h-[20px]"
+                                            name="association"
+                                            value={item.id}
+                                            onChange={(e) => setAssociation(+e.target.value)}
+                                        />
+                                        <label htmlFor="">{item.title}</label>
+                                    </div>
+                                );
+                            })}
                     </div>
                 </div>
             </div>
@@ -378,7 +449,8 @@ const InfoStudent: React.FC = () => {
             <button
                 className={`${
                     isLoading ? 'cursor-not-allowed' : '  cursor-pointer hover:opacity-[0.6]'
-                }  w-[20%] ml-[50%] translate-x-[-50%] p-[10px] bg-[#ff6609] text-[#fff] rounded-[10px]  `}
+                }  w-[20%] ml-[50%] translate-x-[-50%] p-[10px] bg-[#ff6609] text-[#fff] rounded-[10px] mt-[40px] `}
+                onClick={() => handleCreateInfoParent()}
             >
                 Tạo thông tin phụ huynh
             </button>
