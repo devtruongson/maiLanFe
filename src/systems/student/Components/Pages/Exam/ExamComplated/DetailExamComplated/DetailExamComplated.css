@@ -1,0 +1,10 @@
+.form-answer{
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* &::-webkit-scrollbar-horizontal {
+        display: none;
+    } */
+}

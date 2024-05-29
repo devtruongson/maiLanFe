@@ -31,6 +31,7 @@ export default function RegisterStudent() {
             const dataBuilder: IAuthBuild = {
                 auth: {
                     data: {
+                        id: data.data.user.id,
                         email: data.data.user.email,
                         role_detail: ROLE.USER,
                     },

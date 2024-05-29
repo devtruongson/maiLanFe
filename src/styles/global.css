@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hover-transparent:hover {
+    background-color: transparent !important;
+}
+
+.hover-transparent {
+    border: none !important;
+}
+
+.table-all-student .ant-table-cell {
+    border: 0.5px solid #ccc;
+}
+
+.table-all-student .ant-table-cell.ant-table-selection-column.ant-table-cell-fix-left {
+    border-color: transparent;
+}
+
+.modal-student .ant-modal-content {}

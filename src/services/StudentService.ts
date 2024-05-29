@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { ILogin, IRegister, IResponse, IStudent, ITokens } from '../utils/interface';
+import { IDataGet, ILogin, IRegister, IResponse, IStudent, ITokens } from '../utils/interface';
 import axios from '../../axios';
+import { configHeaderAxios } from './tokenService';
 
 export const loginStudent = async (
     body: ILogin,
@@ -30,6 +31,42 @@ export const registerStudent = async (body: IRegister): Promise<IResponse<null>>
         const data: AxiosResponse<IResponse<null>> = await axios.post(`/student/register`, {
             ...body,
         });
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const gretInfoStudentService = async (emailStudent: string): Promise<IResponse<IStudent>> => {
+    try {
+        const data: AxiosResponse<IResponse<IStudent>> = await axios.get(
+            `/student/${emailStudent}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateInfoStudentService = async (body: IStudent): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.put('/student', { ...body }, configHeaderAxios());
+
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getAllStudentService = async (
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<IStudent[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
+            `/student?page=${page}&limit=${pageSize}`,
+        );
         return data.data;
     } catch (error) {
         throw error;
