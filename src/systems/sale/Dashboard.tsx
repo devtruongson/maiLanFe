@@ -1,10 +1,11 @@
 import { Col, Row } from 'antd';
 import MenuSideBar from './Components/Menu/Menu';
-import RouterSale from './Components/Router/RouterSale';
+import Header from '../components/Header/Header';
 
-export default function DashboardSale() {
+export default function Dashboard() {
     return (
         <div className="w-full overflow-hidden">
+            <Header />
             <div
                 style={{
                     borderTop: '1px solid #ddd',
@@ -15,9 +16,7 @@ export default function DashboardSale() {
                         <MenuSideBar />
                     </Col>
                     <Col className="gutter-row" span={20}>
-                        <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">
-                            <RouterSale />
-                        </div>
+                        <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">xin chao</div>
                     </Col>
                 </Row>
             </div>

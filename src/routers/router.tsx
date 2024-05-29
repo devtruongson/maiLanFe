@@ -5,6 +5,7 @@ import AuthStudent from '../auth/Student/AuthStudent';
 import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
 import RedirectHome from '../Components/Home/RedirectHome';
 import Dashboard from '../systems/student/Dashboard';
+import DashboardSale from '../systems/student/Dashboard';
 
 export default function RouterCom() {
     return (
@@ -23,10 +24,10 @@ export default function RouterCom() {
                 />
 
                 <Route
-                    path="/system/dashboard"
+                    path="/system/dashboard/sale/*"
                     element={
                         <PrivateRouter role="USER">
-                            <Dashboard />
+                            <DashboardSale />
                         </PrivateRouter>
                     }
                 />
