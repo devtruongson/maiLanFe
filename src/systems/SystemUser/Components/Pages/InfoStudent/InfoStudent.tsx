@@ -271,7 +271,7 @@ const InfoStudent: React.FC = () => {
                                 type="radio"
                                 className="mr-[10px] p-[10px] w-[20px] h-[20px]"
                                 name="gender"
-                                value={gender}
+                                value={1}
                                 onChange={() => setGender(1)}
                             />
                             <label htmlFor="">Nam</label>
@@ -282,7 +282,7 @@ const InfoStudent: React.FC = () => {
                                 type="radio"
                                 className="mr-[10px] p-[10px] w-[20px] h-[20px]"
                                 name="gender"
-                                value={gender}
+                                value={2}
                                 onChange={() => setGender(2)}
                             />
                             <label htmlFor="">Nữ</label>

@@ -23,7 +23,7 @@ export const childrenListSale: string[][] = [
 export const urlchildrenListSale: string[][] = [
     ['/'],
     [`/system/dashboard/sale/all-task-student`, `/student/dashboard/relations`, `/student/dashboard/full-info`],
-    ['/system/dashboard/sale/add-student'],
+    ['/system/dashboard/sale/info-student'],
 ];
 
 export const sideBarListSale: string[] = ['Dashboard', 'Tác nghiệp', 'Khóa Học'];

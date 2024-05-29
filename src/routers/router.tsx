@@ -7,8 +7,6 @@ import RedirectHome from '../Components/Home/RedirectHome';
 import DashboardStudent from '../systems/student/Dashboard';
 import { RouterDTO } from '../utils/routers.dto';
 import DashboardSale from '../systems/sale/Dashboard';
-import InfoStudent from '../systems/SystemUser/Components/Pages/InfoStudent/InfoStudent';
-import TeacherBooking from '../systems/SystemUser/Components/Pages/TeacherBooking/TeacherBooking';
 
 export default function RouterCom() {
     return (
@@ -35,8 +33,6 @@ export default function RouterCom() {
                 />
 
                 <Route path="*" element={<NotFound />} />
-                <Route path="/info-student" element={<InfoStudent />} />
-                <Route path="/teacher-booking" element={<TeacherBooking />} />
             </Routes>
         </>
     );

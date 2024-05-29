@@ -5,8 +5,8 @@ import { getAllStudentService } from '../../../services/StudentService';
 import { HttpStatusCode } from 'axios';
 import { IStudent } from '../../../utils/interface';
 import { Typography } from 'antd';
-import ModalSystem from '../Modal/Modal';
 import { TabsProps } from 'antd/lib';
+import ModalSystem from '../Modal/Modal';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
