@@ -12,4 +12,18 @@ export const urlchildrenListStudent: string[][] = [
     ['/student/dashboard/exam-complated', '/student/dashboard/exam-unfinished'],
 ];
 
-export const sideBarListStudent: string[] = ['Dashboard', 'Tài Khoản', 'Khóa Học', 'Bài Kiểm Tra'];
+export const sideBarListStudent: string[] = ['Dashboard', 'Tài Khoản', 'Học Sinh'];
+
+export const childrenListSale: string[][] = [
+    ['Trang Chủ'],
+    ['Cơ Bản', 'Quan Hệ Gia Đình', 'Toàn Bộ Thông Tin'],
+    ['Thêm học sinh'],
+];
+
+export const urlchildrenListSale: string[][] = [
+    ['/'],
+    [`/system/dashboard/sale/all-task-student`, `/student/dashboard/relations`, `/student/dashboard/full-info`],
+    ['/system/dashboard/sale/add-student'],
+];
+
+export const sideBarListSale: string[] = ['Dashboard', 'Tác nghiệp', 'Khóa Học'];

@@ -4,9 +4,9 @@ import PageHome from '../Components/Home/Home';
 import AuthStudent from '../auth/Student/AuthStudent';
 import PrivateRouter from '../secure/PrivateRouter/PrivateRouter';
 import RedirectHome from '../Components/Home/RedirectHome';
-import Dashboard from '../systems/student/Dashboard';
-import DashboardSystem from '../systems/SystemUser/DashboardSystem';
+import DashboardStudent from '../systems/student/Dashboard';
 import { RouterDTO } from '../utils/routers.dto';
+import DashboardSale from '../systems/sale/Dashboard';
 import InfoStudent from '../systems/SystemUser/Components/Pages/InfoStudent/InfoStudent';
 import TeacherBooking from '../systems/SystemUser/Components/Pages/TeacherBooking/TeacherBooking';
 
@@ -21,15 +21,15 @@ export default function RouterCom() {
                     path={`${RouterDTO.Student.dashboard}`}
                     element={
                         <PrivateRouter role="USER">
-                            <Dashboard />
+                            <DashboardStudent />
                         </PrivateRouter>
                     }
                 />
                 <Route
-                    path="/system/dashboard"
+                    path={RouterDTO.Student.dashboard_sale}
                     element={
                         <PrivateRouter role="USER">
-                            <DashboardSystem />
+                            <DashboardSale />
                         </PrivateRouter>
                     }
                 />

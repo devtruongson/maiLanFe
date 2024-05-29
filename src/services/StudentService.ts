@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ILogin, IRegister, IResponse, IStudent, ITokens } from '../utils/interface';
+import { IDataGet, ILogin, IRegister, IResponse, IStudent, ITokens } from '../utils/interface';
 import axios from '../../axios';
 import { configHeaderAxios } from './tokenService';
 
@@ -59,4 +59,17 @@ export const updateInfoStudentService = async (body: IStudent): Promise<IRespons
     }
 };
 
+export const getAllStudentService = async (
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<IStudent[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
+            `/student?page=${page}&limit=${pageSize}`,
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
 export const createInfoStudentService = async () => {};

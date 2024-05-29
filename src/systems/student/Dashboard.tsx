@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import MenuSideBar from './Components/Menu/Menu';
-import Header from '../Components/Header/Header';
+import RouterSale from './Components/Router/RouterSale';
 import { Route, Routes } from 'react-router-dom';
 import { RouterDTO } from '../../utils/routers.dto';
 import PersonalInfo from './Components/Pages/PersonalInfo/PersonalInfo';
@@ -11,10 +11,9 @@ import ExamUnfinished from './Components/Pages/Exam/ExamUnfinished/ExamUnfinishe
 import DetailExamUnfinished from './Components/Pages/Exam/ExamUnfinished/DetailExamUnfinished/DetailExamUnfinished';
 import DetailExamComplated from './Components/Pages/Exam/ExamComplated/DetailExamComplated/DetailExamComplated';
 
-export default function Dashboard() {
+export default function DashboardStudent() {
     return (
         <div className="w-full overflow-hidden">
-            <Header />
             <div
                 style={{
                     borderTop: '1px solid #ddd',
@@ -26,6 +25,7 @@ export default function Dashboard() {
                     </Col>
                     <Col className="gutter-row" span={20}>
                         <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">
+                            <RouterSale />
                             <Routes>
                                 <Route path={RouterDTO.Student.personalInfo} element={<PersonalInfo />} />
                                 <Route path={RouterDTO.Student.relationship} element={<FamilyRelationship />} />

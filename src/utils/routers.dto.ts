@@ -8,5 +8,6 @@ export const RouterDTO = Object.freeze({
         allExamUnfinished: '/exam-unfinished',
         detailExam: '/exam/detail-complated',
         detailExamUnfinished: '/exam/detail-unfinished',
+        dashboard_sale: '/system/dashboard/sale/*',
     },
 });

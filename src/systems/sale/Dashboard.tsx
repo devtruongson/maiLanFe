@@ -1,8 +1,8 @@
 import { Col, Row } from 'antd';
-import MenuSystem from './Components/MenuSystem/MenuSystem';
-import { Route, Routes } from 'react-router-dom';
+import MenuSideBar from './Components/Menu/Menu';
+import RouterSale from './Components/Router/RouterSale';
 
-export default function DashboardSystem() {
+export default function DashboardSale() {
     return (
         <div className="w-full overflow-hidden">
             <div
@@ -12,13 +12,11 @@ export default function DashboardSystem() {
             >
                 <Row gutter={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
                     <Col className="gutter-row relative h-[calc(100vh-70px)]" span={4}>
-                        <MenuSystem />
+                        <MenuSideBar />
                     </Col>
                     <Col className="gutter-row" span={20}>
-                        <div className="w-full max-h-[calc(100vh-70px)] overflow-auto">
-                            <Routes>
-                                <Route />
-                            </Routes>
+                        <div className="w-full max-h-[calc(100vh)] overflow-auto">
+                            <RouterSale />
                         </div>
                     </Col>
                 </Row>
