@@ -7,6 +7,7 @@ import RedirectHome from '../Components/Home/RedirectHome';
 import DashboardStudent from '../systems/student/Dashboard';
 import { RouterDTO } from '../utils/routers.dto';
 import DashboardSale from '../systems/sale/Dashboard';
+import DashboardTeacher from '../systems/teacher/DashboardTeacher';
 
 export default function RouterCom() {
     return (
@@ -28,6 +29,14 @@ export default function RouterCom() {
                     element={
                         <PrivateRouter role="USER">
                             <DashboardSale />
+                        </PrivateRouter>
+                    }
+                />
+                <Route
+                    path={RouterDTO.Student.dashboard_teacher.dashboard}
+                    element={
+                        <PrivateRouter role="USER">
+                            <DashboardTeacher />
                         </PrivateRouter>
                     }
                 />

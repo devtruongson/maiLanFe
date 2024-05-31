@@ -1,0 +1,6 @@
+.active-choose {
+    color       : #ff6609;
+    background-color: #fff;
+    border-left : 3px solid #ff6609;
+    padding-left: 8px !important;
+}

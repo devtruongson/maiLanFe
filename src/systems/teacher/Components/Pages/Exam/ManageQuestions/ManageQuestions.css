@@ -1,0 +1,11 @@
+.item-question{
+    .form-action{
+        display: none;
+    }
+
+    &:hover{
+        .form-action{
+            display: flex;
+        }
+    }
+}
