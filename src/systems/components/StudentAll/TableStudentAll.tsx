@@ -7,6 +7,7 @@ import { IStudent } from '../../../utils/interface';
 import { Typography } from 'antd';
 import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
+import Operate from '../Operate/Operate';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -99,17 +100,16 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
         {
             key: '1',
             label: 'Trao Đổi',
-            children: <div>Trao Đổi Đơn Hàng</div>,
+            children: <div>Trao Đổi</div>,
         },
         {
             key: '2',
             label: 'Vận Hành',
-            children: <div>Vận Hành Đơn Hàng</div>,
-        },
-        {
-            key: '3',
-            label: 'Đơn Hàng',
-            children: <div>Đơn Hàng</div>,
+            children: (
+                <>
+                    <Operate email={data.email} />
+                </>
+            ),
         },
     ];
 
@@ -176,28 +176,6 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             >
                 Thao tác
             </button>
-            <a
-                href={`tel:${data.phoneNumber}`}
-                className="flex justify-center  text-white bg-red-700 hover:bg-red-800  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-            >
-                <span className="flex gap-2 items-center">
-                    Gọi{' '}
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-                        />
-                    </svg>
-                </span>
-            </a>
         </>
     );
 }

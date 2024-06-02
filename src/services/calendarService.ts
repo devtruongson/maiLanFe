@@ -1,11 +1,24 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
 import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IResponse } from '../utils/interface';
+import { configHeaderAxios } from './tokenService';
 // import { configHeaderAxios } from './tokenService';
 
 export const getCalendarService = async (): Promise<IResponse<ICalendar[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendar[]>> = await axios.get(`/calendar`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getCalendarBookingByStudent = async (email: string): Promise<IResponse<ICalendarTeacher>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher>> = await axios.get(
+            `/calendar/student?email=${email}`,
+            configHeaderAxios(),
+        );
         return data.data;
     } catch (error) {
         throw error;

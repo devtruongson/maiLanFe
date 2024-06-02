@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import InfoStudent from '../../../SystemUser/Components/Pages/InfoStudent/InfoStudent';
 import TeacherBooking from '../../../SystemUser/Components/Pages/TeacherBooking/TeacherBooking';
-import StudentAll from '../../../Components/StudentAll/StudentAll';
+import StudentAll from '../../../components/StudentAll/StudentAll';
 
 export default function RouterSale() {
     return (
