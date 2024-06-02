@@ -13,7 +13,7 @@ const TeacherExam: React.FC = () => {
         },
         {
             key: RouterDTO.Student.dashboard_teacher.createExam,
-            label: 'Tạo bài kiểm tra',
+            label: 'Quản lí bài kiểm tra',
             children: <CreateExam />,
         },
     ];

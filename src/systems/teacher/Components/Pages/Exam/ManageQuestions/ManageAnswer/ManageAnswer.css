@@ -1,4 +1,4 @@
-.item-question{
+.form-item{
     .form-action{
         display: none;
     }
@@ -7,11 +7,5 @@
         .form-action{
             display: flex;
         }
-    }
-}
-
-.form-list-question{
-    &::-webkit-scrollbar {
-        display: none;
     }
 }

@@ -1,7 +1,7 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
-import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IResponse } from '../utils/interface';
-// import { configHeaderAxios } from './tokenService';
+import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IDataGet, IResponse } from '../utils/interface';
+import { configHeaderAxios } from './tokenService';
 
 export const getCalendarService = async (): Promise<IResponse<ICalendar[]>> => {
     try {
@@ -22,13 +22,13 @@ export const teacherBookingService = async (body: ICreateTeacherBooking): Promis
 };
 
 export const getCalendarBookingService = async (
-    idTeacher: number,
-    date: number,
+    idTeacher: number = 0,
+    date: number = 0,
 ): Promise<IResponse<ICalendarTeacher[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
             `/calendar/book/${idTeacher}?day=${date}`,
-            // configHeaderAxios(),
+            configHeaderAxios(),
         );
         return data.data;
     } catch (error) {
@@ -40,7 +40,47 @@ export const unbookingService = async (timeStart: string): Promise<IResponse<nul
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.delete(
             `/calendar/unbooking?timeStart=${timeStart}`,
-            // configHeaderAxios(),
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getCalendarConfirmed = async (
+    page: number,
+    pageSize: number,
+    idTeacher: number,
+): Promise<IResponse<IDataGet<ICalendarTeacher[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
+            `/calendar/book-exam?page=${page}&pageSize=${pageSize}&idTeacher=${idTeacher}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const searchCalendarService = async (textSearch: string): Promise<IResponse<ICalendarTeacher[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
+            `/calendar/search?textSearch=${textSearch}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const addStudentToCalendarTeacher = async (idStudent: number, idCalendar: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.patch(
+            `/calendar?idStudent=${idStudent}&idCalendar=${idCalendar}`,
+            configHeaderAxios(),
         );
         return data.data;
     } catch (error) {

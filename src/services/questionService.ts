@@ -52,9 +52,53 @@ interface IDataUpdate {
     author_id: number;
     id: number;
 }
+
 export const updateQuestionService = async (body: IDataUpdate): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.put(`/question`, { ...body }, configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// answer
+
+export const deleteAnswerService = async (id: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.delete(`/answer/${id}`, configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface IAnswerCreate {
+    answer_title: string;
+    is_right: boolean;
+    question_id: number;
+}
+
+export const createAnswerService = async (body: IAnswerCreate): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.post(`/answer`, [{ ...body }], configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const createExamQuestionService = async (
+    examId: number,
+    totalQuestion: number,
+    authorId: number,
+    level: number,
+): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.post(
+            `/exam_question/auto?examId=${examId}&totalQuestion=${totalQuestion}&authorId=${authorId}&level=${level}`,
+            configHeaderAxios(),
+        );
         return data.data;
     } catch (error) {
         throw error;

@@ -55,3 +55,21 @@ export const handleSubmitService = async ({
         throw error;
     }
 };
+
+interface IExamCreate {
+    student_id: number;
+    title: string;
+    time_end: number;
+    total_question: number;
+    level: number;
+    teacher_id: number;
+}
+
+export const CreateExamService = async (body: IExamCreate): Promise<IResponse<number>> => {
+    try {
+        const data: AxiosResponse<IResponse<number>> = await axios.post(`/exam`, { ...body }, configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};

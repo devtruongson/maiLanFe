@@ -73,6 +73,7 @@ export interface ICalendarTeacher {
     is_interviewed_meet: boolean | null;
     calendarData: ICalendar;
     teacherData: IUser;
+    studentData: IStudent;
 }
 
 export interface ICreateTeacherBooking {
@@ -141,6 +142,7 @@ export interface IStudent {
     updatedAt: string;
     AllCodeData: IAllCode;
     ParentData: IParentData;
+    examData: IExam[];
 }
 
 export interface IParentData {

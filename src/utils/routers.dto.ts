@@ -15,6 +15,7 @@ export const RouterDTO = Object.freeze({
             exam: '/system/dashboard/teacher/exam',
             manageQuestions: '/system/dashboard/teacher/exam/question',
             createExam: '/system/dashboard/teacher/exam/create',
+            manageSchedule: '/system/dashboard/teacher/schedule',
         },
     },
 });

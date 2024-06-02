@@ -17,7 +17,7 @@ const TeacherBooking: React.FC = () => {
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
     const [isReload, setIsReload] = useState<boolean>(false);
 
-    // const id = useAppSelector((state) => state.authSlice.auth.data?.id);
+    // const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
         if (isReload) {
@@ -38,6 +38,7 @@ const TeacherBooking: React.FC = () => {
                 );
             }
         };
+
         fetch();
 
         for (let i = 0; i < 6; i++) {
@@ -194,13 +195,11 @@ const TeacherBooking: React.FC = () => {
                                                             }
                                                         }}
                                                     >
-                                                        {/* <i className={`bi bi-check-circle`}></i> */}
-                                                        {handleCheckTime(itemChild.time_start, item) == 2 ? (
+                                                        {handleCheckTime(itemChild.time_start, item) === 2 ? (
                                                             <i className="bi bi-check-circle-fill text-xl"></i>
                                                         ) : (
                                                             <i className="bi bi-check-circle text-xl"></i>
                                                         )}
-                                                        {/* <i className="bi bi-check-circle-fill text-xl"></i> */}
                                                     </p>
                                                 </div>
                                             );

@@ -54,13 +54,33 @@ const MenuTeacher: React.FC = () => {
                 }
             >
                 <div
-                    className={`p-[10px] py-[20px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
+                    className={`px-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
                         location === RouterDTO.Student.dashboard_teacher.booking ? 'active-choose' : ''
                     }`}
                     onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.booking}`)}
                 >
-                    <p className="icon-item text-center">
+                    <p className="icon-item text-center text-xl">
                         <i className="bi bi-calendar-event text-xl"></i>
+                    </p>
+                </div>
+            </Tooltip>
+
+            <Tooltip
+                placement="right"
+                title={
+                    <div className="tooltip-text">
+                        <p className="text-[#fff] m-[20px]">Quản Lí Lịch Dạy</p>
+                    </div>
+                }
+            >
+                <div
+                    className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
+                        location === RouterDTO.Student.dashboard_teacher.manageSchedule ? 'active-choose' : ''
+                    }`}
+                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.manageSchedule}`)}
+                >
+                    <p className="icon-item text-center text-xl">
+                        <i className="bi bi-briefcase"></i>
                     </p>
                 </div>
             </Tooltip>
@@ -74,17 +94,17 @@ const MenuTeacher: React.FC = () => {
                 }
             >
                 <div
-                    className={`p-[10px] py-[20px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
+                    className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
                         location === RouterDTO.Student.dashboard_teacher.exam ||
                         location === RouterDTO.Student.dashboard_teacher.manageQuestions ||
                         location === RouterDTO.Student.dashboard_teacher.createExam
                             ? 'active-choose'
                             : ''
                     }`}
-                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.exam}`)}
+                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.manageQuestions}`)}
                 >
-                    <p className="icon-item text-center">
-                        <i className="bi bi-card-text text-xl"></i>
+                    <p className="icon-item text-center text-xl">
+                        <i className="bi bi-book"></i>
                     </p>
                 </div>
             </Tooltip>
