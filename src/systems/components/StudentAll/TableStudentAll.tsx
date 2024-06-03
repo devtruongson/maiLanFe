@@ -203,13 +203,14 @@ const TableStudentAll: React.FC<{
             <Table
                 columns={columns}
                 dataSource={data}
-                scroll={{ x: 1800, y: '50vh' }}
+                scroll={{ x: 1800, y: '60vh' }}
                 pagination={{
                     total,
                     pageSize: 10,
                     onChange: handleChangePage,
                     current: page,
                 }}
+                size="small"
             />
         </div>
     );

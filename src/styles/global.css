@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    overflow: hidden;
+}
+
 .hover-transparent:hover {
     background-color: transparent !important;
 }
