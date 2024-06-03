@@ -1,9 +1,13 @@
 import { Empty, Modal } from 'antd';
 import { useState } from 'react';
-import { IExam } from '../../../../../../../utils/interface';
+import { IExam } from '../../../../../../../../utils/interface';
 import './ModalViewExam.css';
+import Swal from 'sweetalert2';
+import { deleteExamService } from '../../../../../../../../services/examService';
+import { HttpStatusCode } from 'axios';
 
-const ModalViewExam = ({ dataExam }: { dataExam: IExam }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
@@ -26,11 +30,47 @@ const ModalViewExam = ({ dataExam }: { dataExam: IExam }) => {
         setCurrentQuestion(index);
     };
 
+    const handleDeleteExam = async (id: number) => {
+        await Swal.fire({
+            title: `Bạn muốn Xóa bài test ?`,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const _fetch = async () => {
+                    const res = await deleteExamService(id);
+                    Swal.fire({
+                        icon: res.code === 200 ? 'success' : 'warning',
+                        title: `${res.msg}`,
+                    });
+                    if (res.code === HttpStatusCode.Ok) {
+                        func();
+                    }
+                };
+                _fetch();
+            }
+        });
+    };
+
     return (
         <>
-            <button onClick={showModal} className="p-[10px] bg-[blue] text-[#fff] rounded-[10px] hover:opacity-[0.6]">
-                Xem chi tiết bài kiểm tra
-            </button>
+            <div
+                className="border-[1px] border-[#ccc] border-solid pb-[20px] rounded-[10px] shadow-lg p-[10px] cursor-pointer hover:opacity-[0.6] bg-[url('https://img.freepik.com/free-psd/school-elements-composition_23-2150572921.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1715644800&semt=ais_user')]"
+                onClick={showModal}
+            >
+                <p className="text-xl text-center text-[#ff6609] font-[600] uppercase">{dataExam.title}</p>
+                <p className="text-[16px] mt-[10px] text-center"> Mã đề : {dataExam.code}</p>
+                <p className="text-[16px] mt-[10px] text-center">
+                    Thời gian làm bài : <span className="text-[green]">{dataExam.time_end}</span> phút
+                </p>
+
+                <p className="text-[16px] mt-[10px] text-center">
+                    trạng thái :{' '}
+                    <span className={`${dataExam.is_completed ? 'text-[green]' : 'text-[red]'}`}>
+                        {dataExam.is_completed ? 'Đã làm ' : ' Chưa làm'}
+                    </span>
+                </p>
+            </div>
             <Modal
                 title="Xem chi tiết bài kiểm tra"
                 open={isModalOpen}
@@ -77,6 +117,13 @@ const ModalViewExam = ({ dataExam }: { dataExam: IExam }) => {
                                 Chưa Làm <i className="bi bi-alarm ml-[10px]"></i>
                             </p>
                         )}
+
+                        <button
+                            className="bg-[red] text-[#fff] rounded-[10px] p-[10px] hover:opacity-[0.6]"
+                            onClick={() => handleDeleteExam(dataExam.id)}
+                        >
+                            Xóa bài <i className="bi bi-trash3 ml-[10px]"></i>
+                        </button>
 
                         <div className="my-[20px] w-[80%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
 

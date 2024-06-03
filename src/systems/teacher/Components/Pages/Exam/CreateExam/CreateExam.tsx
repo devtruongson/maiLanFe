@@ -5,10 +5,7 @@ import { useEffect, useState } from 'react';
 import { getCalendarConfirmed, searchCalendarService } from '../../../../../../services/calendarService';
 import { HttpStatusCode } from 'axios';
 import ModalCreateExam from './ModalCreateExam/ModalCreateExam';
-import ModalViewExam from './ModalViewExam/ModalViewExam';
 import { useAppSelector } from '../../../../../../features/hooks/hooks';
-import Swal from 'sweetalert2';
-import { deleteExamService } from '../../../../../../services/examService';
 import ModalManageExam from './ModalManageExam/ModalManageExam';
 
 const CreateExam: React.FC = () => {
@@ -65,9 +62,6 @@ const CreateExam: React.FC = () => {
             key: '3',
             width: 80,
             render: (...props) => {
-                // if (props[1].examData.length > 0) {
-                //     return <ModalViewExam dataExam={props[1].examData[0]} />;
-                // }
                 return <ModalCreateExam studentId={props[1].id} func={fetch} />;
             },
         },
@@ -78,15 +72,7 @@ const CreateExam: React.FC = () => {
             width: 50,
             render: (...props) => {
                 if (props[1].examData.length > 0) {
-                    // return (
-                    //     <button
-                    //         onClick={() => handleDeleteExam(props[1].examData[0].id)}
-                    //         className="w-[100%] bg-[red] text-[#fff] p-[10px] rounded-[10px] "
-                    //     >
-                    //         Xóa Bài
-                    //     </button>
-                    // );
-                    return <ModalManageExam listExam={props[1].examData} />;
+                    return <ModalManageExam listExam={props[1].examData} func={fetch} />;
                 }
             },
         },
@@ -138,30 +124,6 @@ const CreateExam: React.FC = () => {
                 }),
             );
         }
-    };
-
-    const handleDeleteExam = async (id: number) => {
-        await Swal.fire({
-            title: `Bạn muốn Xóa bài test ?`,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const _fetch = async () => {
-                    const res = await deleteExamService(id);
-
-                    Swal.fire({
-                        icon: res.code === 200 ? 'success' : 'warning',
-                        title: `${res.msg}`,
-                    });
-
-                    if (res.code === HttpStatusCode.Ok) {
-                        fetch();
-                    }
-                };
-                _fetch();
-            }
-        });
     };
 
     return (

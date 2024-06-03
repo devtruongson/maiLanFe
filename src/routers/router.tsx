@@ -9,6 +9,7 @@ import { RouterDTO } from '../utils/routers.dto';
 import DashboardSale from '../systems/sale/Dashboard';
 import DashboardTeacher from '../systems/teacher/DashboardTeacher';
 import ModalChooseCalendar from '../systems/components/ModalChooseCalendar/ModalChooseCalendar';
+import DetailExamUnfinished from '../systems/student/Components/Pages/Exam/ExamUnfinished/DetailExamUnfinished/DetailExamUnfinished';
 
 export default function RouterCom() {
     return (
@@ -44,6 +45,7 @@ export default function RouterCom() {
 
                 <Route path="*" element={<NotFound />} />
                 <Route path="/choose-calendar" element={<ModalChooseCalendar idStudent={3} isCreate={true} />} />
+                <Route path={RouterDTO.exam} element={<DetailExamUnfinished />} />
             </Routes>
         </>
     );

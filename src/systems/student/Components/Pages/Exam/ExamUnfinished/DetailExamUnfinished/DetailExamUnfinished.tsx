@@ -9,6 +9,7 @@ import { IAnswer, IExam } from '../../../../../../../utils/interface';
 import { handleFomatCountDown } from '../../../../../../../helpers/handleFomatCoutDown';
 import { useAppDispatch, useAppSelector } from '../../../../../../../features/hooks/hooks';
 import { addCount, reduceCount, resetCount } from '../../../../../../../features/count/countSlice';
+import { useBeforeunload } from 'react-beforeunload';
 
 const DetailExamUnfinished: React.FC = () => {
     const [isStart, setIsStart] = useState(false);
@@ -19,30 +20,32 @@ const DetailExamUnfinished: React.FC = () => {
     const [answerCurrentChecked, setAnswerCurrentChecked] = useState<number>(0);
     const [listQuestionSelected, setListQuestionSelected] = useState<number[]>([]);
 
-    const { isComplated, id } = useLocation().state;
+    useBeforeunload(isStart ? (event) => event.preventDefault() : undefined);
+
+    // const { isComplated, id } = useLocation().state;
     const navigate = useNavigate();
 
     const count = useAppSelector((state) => state.countSlice.value);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        if (!id) {
-            return;
-        }
+    // useEffect(() => {
+    //     if (!id) {
+    //         return;
+    //     }
 
-        const fetch = async () => {
-            const res = await getOneExamService(id, isComplated);
-            if (res.code === 200) {
-                setExam(res.data);
-                setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
-                // setTime(res.data.time_end * 60);
-                dispatch(addCount(res.data.time_end * 60));
-            }
-        };
+    //     const fetch = async () => {
+    //         const res = await getOneExamService(id, isComplated);
+    //         if (res.code === 200) {
+    //             setExam(res.data);
+    //             setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
+    //             // setTime(res.data.time_end * 60);
+    //             dispatch(addCount(res.data.time_end * 60));
+    //         }
+    //     };
 
-        fetch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     fetch();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     // handle khi đổi đáp án trong câu
 
@@ -85,47 +88,41 @@ const DetailExamUnfinished: React.FC = () => {
     };
 
     const handleSubmit = async () => {
-        if (!exam?.ExamQuestionData) {
-            return;
-        }
-
-        if (count > 2690) {
-            await Swal.fire({
-                title: `${
-                    exam?.ExamQuestionData.length > answers.length
-                        ? 'Ôi bạn chưa chọn hết đáp án cho các câu hỏi bạn vẫn muốn nộp bài chứ ?'
-                        : 'Bạn có chắc muốn nộp bài ngay bây giờ không ?'
-                }`,
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const _fetch = async () => {
-                        const res = await handleSubmitService({ listAnswer: answers, examId: id });
-
-                        Swal.fire({
-                            icon: res.code === 200 ? 'success' : 'warning',
-                            title: `${res.code === 200 ? `Diểm của bạn là ${res.data.point}` : `${res.msg}`}`,
-                        });
-
-                        if (res.code === 200) {
-                            navigate('/student/dashboard/exam-complated');
-                        }
-                    };
-                    _fetch();
-                }
-            });
-
-            return;
-        }
-
-        const res = await handleSubmitService({ listAnswer: answers, examId: id });
-
-        Swal.fire({
-            icon: res.code === 200 ? 'success' : 'warning',
-            title: `${res.code === 200 ? `Đã hết thời gian làm bài Điểm của bạn là ${res.data.point}` : `${res.msg}`}`,
-        });
-        navigate('/student/dashboard/exam-complated');
+        // if (!exam?.ExamQuestionData) {
+        //     return;
+        // }
+        // if (count > 2690) {
+        //     await Swal.fire({
+        //         title: `${
+        //             exam?.ExamQuestionData.length > answers.length
+        //                 ? 'Ôi bạn chưa chọn hết đáp án cho các câu hỏi bạn vẫn muốn nộp bài chứ ?'
+        //                 : 'Bạn có chắc muốn nộp bài ngay bây giờ không ?'
+        //         }`,
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Yes',
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             const _fetch = async () => {
+        //                 const res = await handleSubmitService({ listAnswer: answers, examId: id });
+        //                 Swal.fire({
+        //                     icon: res.code === 200 ? 'success' : 'warning',
+        //                     title: `${res.code === 200 ? `Diểm của bạn là ${res.data.point}` : `${res.msg}`}`,
+        //                 });
+        //                 if (res.code === 200) {
+        //                     navigate('/student/dashboard/exam-complated');
+        //                 }
+        //             };
+        //             _fetch();
+        //         }
+        //     });
+        //     return;
+        // }
+        // const res = await handleSubmitService({ listAnswer: answers, examId: id });
+        // Swal.fire({
+        //     icon: res.code === 200 ? 'success' : 'warning',
+        //     title: `${res.code === 200 ? `Đã hết thời gian làm bài Điểm của bạn là ${res.data.point}` : `${res.msg}`}`,
+        // });
+        // navigate('/student/dashboard/exam-complated');
     };
 
     useEffect(() => {

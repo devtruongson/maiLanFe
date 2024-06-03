@@ -20,4 +20,6 @@ export const RouterDTO = Object.freeze({
             calendarWait: '/system/dashboard/teacher/schedule/calendar-wait',
         },
     },
+
+    exam: '/exam/student/:idExam/:idStudent',
 });
