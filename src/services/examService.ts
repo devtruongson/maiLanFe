@@ -25,6 +25,15 @@ export const getExamService = async ({
     }
 };
 
+export const getExamStudentService = async ({ studentId }: { studentId: number }): Promise<IResponse<IExam[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<IExam[]>> = await axios.get(`/exam/student-desc?studentId=${studentId}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getOneExamService = async (id: number, isCompleted: boolean): Promise<IResponse<IExam>> => {
     try {
         const data: AxiosResponse<IResponse<IExam>> = await axios.get(
@@ -46,10 +55,28 @@ export const handleSubmitService = async ({
 }): Promise<IResponse<{ point: number }>> => {
     try {
         const data: AxiosResponse<IResponse<{ point: number }>> = await axios.put(
-            `/exam//score`,
+            `/exam/score`,
             { listAnswer: listAnswer, examId: examId },
             configHeaderAxios(),
         );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface IExamCreate {
+    student_id: number;
+    title: string;
+    time_end: number;
+    total_question: number;
+    level: number;
+    teacher_id: number;
+}
+
+export const CreateExamService = async (body: IExamCreate): Promise<IResponse<number>> => {
+    try {
+        const data: AxiosResponse<IResponse<number>> = await axios.post(`/exam`, { ...body }, configHeaderAxios());
         return data.data;
     } catch (error) {
         throw error;

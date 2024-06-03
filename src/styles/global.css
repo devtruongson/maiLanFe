@@ -19,3 +19,12 @@
 }
 
 .modal-student .ant-modal-content {}
+
+.swal2-container {
+    z-index: 9999999999;
+}
+
+button[disabled] {
+    opacity: 0.5;
+    cursor : not-allowed;
+}

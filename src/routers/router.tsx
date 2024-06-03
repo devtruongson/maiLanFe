@@ -7,6 +7,8 @@ import RedirectHome from '../Components/Home/RedirectHome';
 import DashboardStudent from '../systems/student/Dashboard';
 import { RouterDTO } from '../utils/routers.dto';
 import DashboardSale from '../systems/sale/Dashboard';
+import DashboardTeacher from '../systems/teacher/DashboardTeacher';
+import ModalChooseCalendar from '../systems/components/ModalChooseCalendar/ModalChooseCalendar';
 
 export default function RouterCom() {
     return (
@@ -18,7 +20,7 @@ export default function RouterCom() {
                 <Route
                     path={`${RouterDTO.Student.dashboard}`}
                     element={
-                        <PrivateRouter role="USER">
+                        <PrivateRouter role="SYSTEM">
                             <DashboardStudent />
                         </PrivateRouter>
                     }
@@ -26,13 +28,22 @@ export default function RouterCom() {
                 <Route
                     path={RouterDTO.Student.dashboard_sale}
                     element={
-                        <PrivateRouter role="USER">
+                        <PrivateRouter role="SYSTEM">
                             <DashboardSale />
+                        </PrivateRouter>
+                    }
+                />
+                <Route
+                    path={RouterDTO.Student.dashboard_teacher.dashboard}
+                    element={
+                        <PrivateRouter role="SYSTEM">
+                            <DashboardTeacher />
                         </PrivateRouter>
                     }
                 />
 
                 <Route path="*" element={<NotFound />} />
+                <Route path="/choose-calendar" element={<ModalChooseCalendar idStudent={3} isCreate={true} />} />
             </Routes>
         </>
     );

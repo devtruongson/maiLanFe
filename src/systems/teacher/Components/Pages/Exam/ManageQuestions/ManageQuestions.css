@@ -1,0 +1,17 @@
+.item-question{
+    .form-action{
+        display: none;
+    }
+
+    &:hover{
+        .form-action{
+            display: flex;
+        }
+    }
+}
+
+.form-list-question{
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

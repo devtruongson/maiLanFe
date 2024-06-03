@@ -18,8 +18,10 @@ const DetailExamUnfinished: React.FC = () => {
     const [listAnswerCurrent, setListAnswerCurrent] = useState<number[]>([]);
     const [answerCurrentChecked, setAnswerCurrentChecked] = useState<number>(0);
     const [listQuestionSelected, setListQuestionSelected] = useState<number[]>([]);
-
-    const { isComplated, id } = useLocation().state;
+    //useLocation().state
+    // const { isComplated, id } = {false, 1} ;
+    const isComplated = false;
+    const id = 5;
     const navigate = useNavigate();
 
     const count = useAppSelector((state) => state.countSlice.value);

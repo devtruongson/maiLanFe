@@ -33,6 +33,7 @@ const DetailExamComplated: React.FC = () => {
         }
         setCurrentQuestion(index);
     };
+
     return (
         <div className="w-[100%] px-[100px] form-main">
             <>

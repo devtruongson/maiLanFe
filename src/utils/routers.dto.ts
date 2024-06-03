@@ -9,5 +9,13 @@ export const RouterDTO = Object.freeze({
         detailExam: '/exam/detail-complated',
         detailExamUnfinished: '/exam/detail-unfinished',
         dashboard_sale: '/system/dashboard/sale/*',
+        dashboard_teacher: {
+            dashboard: '/system/dashboard/teacher/*',
+            booking: '/system/dashboard/teacher/teacher-booking',
+            exam: '/system/dashboard/teacher/exam',
+            manageQuestions: '/system/dashboard/teacher/exam/question',
+            createExam: '/system/dashboard/teacher/exam/create',
+            manageSchedule: '/system/dashboard/teacher/schedule',
+        },
     },
 });

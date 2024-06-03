@@ -142,6 +142,8 @@ export interface IStudent {
     updatedAt: string;
     AllCodeData: IAllCode;
     ParentData: IParentData;
+    examData: IExam[];
+    course_code: TStudent;
 }
 
 export interface IParentData {
@@ -277,3 +279,6 @@ export interface ICommune {
     idCommune: string;
     name: string;
 }
+
+export type TStatus = 'is_reservation' | 'is_confirm' | 'is_interviewed_meet';
+export type TStudent = 'ENG' | 'MATH' | 'All';

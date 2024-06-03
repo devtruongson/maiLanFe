@@ -1,26 +1,53 @@
 import { SwapOutlined } from '@ant-design/icons';
-import { Divider } from 'antd';
+import { Divider, Empty, Typography } from 'antd';
 import { useEffect, useState } from 'react';
-import { ICalendarTeacher } from '../../../utils/interface';
-import { getCalendarBookingByStudent } from '../../../services/calendarService';
+import { ICalendarTeacher, IExam, TStudent } from '../../../utils/interface';
+import { changeStatusStudent, getCalendarBookingByStudent } from '../../../services/calendarService';
 import { HttpStatusCode } from 'axios';
 import StatusComponent from '../../../helpers/statusComponent';
 import ModalSystem from '../Modal/Modal';
+import ContentModalBookingCalendar from '../ModalChooseCalendar/ModalChooseCalendar';
+import Swal from 'sweetalert2';
+import CreateExamForStudent from '../CreateExamForStudent/CreateExamForStudent';
+import { getExamStudentService } from '../../../services/examService';
+import { useDispatch } from 'react-redux';
+import { reloadAction } from '../../../features/auth/configSlice';
+const { Paragraph } = Typography;
 
 type IProps = {
     email: string;
+    idStudent: number;
+    type: TStudent;
 };
 
-export default function Operate({ email }: IProps) {
+export default function Operate({ email, idStudent, type }: IProps) {
     const [calendar, setCalendar] = useState<ICalendarTeacher | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpenBookTest, setIsOpenBookTest] = useState<boolean>(false);
+    const [isReloadKey, setIsReloadKey] = useState<boolean>(false);
+    const [isCreate, setIsCreate] = useState<boolean>(false);
+    const [listExam, setListExam] = useState<IExam[]>([]);
 
     useEffect(() => {
+        if (type === 'ENG') {
+            const _fetch = async () => {
+                try {
+                    const res = await getCalendarBookingByStudent(email);
+                    if (res.code === HttpStatusCode.Ok) {
+                        setCalendar(res.data);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            _fetch();
+        }
         const _fetch = async () => {
             try {
-                const res = await getCalendarBookingByStudent(email);
+                const res = await getExamStudentService({ studentId: idStudent });
                 if (res.code === HttpStatusCode.Ok) {
-                    setCalendar(res.data);
+                    setListExam(res.data);
                 }
             } catch (error) {
                 console.log(error);
@@ -28,7 +55,54 @@ export default function Operate({ email }: IProps) {
         };
 
         _fetch();
-    }, [email]);
+    }, [email, isReloadKey, type, idStudent]);
+
+    const dispatch = useDispatch();
+    const handleClickConfirmMeet = async () => {
+        Swal.fire({
+            icon: 'info',
+            text: 'Bạn chắc chắn muốn đổi trạng thái?',
+            showCancelButton: true,
+            showConfirmButton: true,
+        }).then(async (res) => {
+            if (res.isConfirmed) {
+                if (calendar) {
+                    try {
+                        const res = await changeStatusStudent('is_confirm', idStudent, calendar.id, '');
+                        if (res.code === HttpStatusCode.Ok) {
+                            setIsReloadKey(!isReloadKey);
+                            dispatch(reloadAction());
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            }
+        });
+    };
+
+    const handleClickCancelMeet = async () => {
+        Swal.fire({
+            icon: 'info',
+            text: 'Bạn chắc chắn hủy trạng thái?',
+            showCancelButton: true,
+            showConfirmButton: true,
+        }).then(async (res) => {
+            if (res.isConfirmed) {
+                if (calendar) {
+                    try {
+                        const res = await changeStatusStudent('is_confirm', idStudent, calendar.id, 'true');
+                        if (res.code === HttpStatusCode.Ok) {
+                            setIsReloadKey(!isReloadKey);
+                            dispatch(reloadAction());
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            }
+        });
+    };
 
     return (
         <>
@@ -36,23 +110,61 @@ export default function Operate({ email }: IProps) {
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 data={{
-                    title: 'Thay đổi lịch phỏng vấn',
-                    content: <div>Xin chao</div>,
+                    title: '',
+                    content: (
+                        <>
+                            <ContentModalBookingCalendar
+                                idStudent={idStudent}
+                                key={isReloadKey ? 0 : 1}
+                                isCreate={isCreate}
+                                setIsReloadKey={setIsReloadKey}
+                            />
+                        </>
+                    ),
                     className: 'mt-5',
-                    width: '30vw',
+                    width: '60vw',
+                }}
+            />
+            <ModalSystem
+                isOpen={isOpenBookTest}
+                setIsOpen={setIsOpenBookTest}
+                data={{
+                    title: 'Tạo bài test cho học sinh',
+                    content: (
+                        <>
+                            <CreateExamForStudent student_id={idStudent} setIsReloadKey={setIsReloadKey} />
+                        </>
+                    ),
+                    className: 'mt-5',
+                    width: '60vw',
                 }}
             />
             <div>
                 <div className="flex gap-2 items-center">
-                    <button className="bg-[#ff7100] text-[#fff] px-4 py-2 rounded-md hover:opacity-[0.85]">
-                        + Lịch Phỏng Vấn
-                    </button>
-                    <button className="bg-[#c1b7c1] text-[#333] px-4 py-2 rounded-md hover:opacity-[0.85]">
-                        +Test Online
-                    </button>
+                    {type === 'ENG' && !calendar?.student_id && (
+                        <button
+                            onClick={() => {
+                                setIsOpen(true);
+                                setIsCreate(true);
+                            }}
+                            className="bg-[#ff7100] text-[#fff] px-4 py-2 rounded-md hover:opacity-[0.85]"
+                        >
+                            + Lịch Phỏng Vấn
+                        </button>
+                    )}
+                    {type === 'MATH' && (
+                        <button
+                            onClick={() => {
+                                setIsOpenBookTest(true);
+                            }}
+                            className="bg-[#c1b7c1] text-[#333] px-4 py-2 rounded-md hover:opacity-[0.85]"
+                        >
+                            +Test Online
+                        </button>
+                    )}
                 </div>
-                <Divider />
-                {calendar && (
+                {!calendar?.student_id && <Divider />}
+                {calendar && type === 'ENG' && (
                     <>
                         <div className="mt-6">
                             <h3 className="font-[600] m-0">Danh sách lịch hẹn</h3>
@@ -96,101 +208,151 @@ export default function Operate({ email }: IProps) {
                                             </div>
                                         </div>
                                         <div className="flex gap-2">
-                                            <button className="bg-[#ff7100] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]">
-                                                Xác nhận
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    setIsOpen(true);
-                                                }}
-                                                className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
-                                            >
-                                                <SwapOutlined />
-                                            </button>
-                                            <button
-                                                style={{
-                                                    border: '1px solid #ccc',
-                                                }}
-                                                className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth={1.5}
-                                                    stroke="currentColor"
-                                                    className="size-4"
+                                            {calendar.is_reservation && (
+                                                <button
+                                                    onClick={handleClickConfirmMeet}
+                                                    className="bg-[#ff7100] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
                                                 >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                                    />
-                                                </svg>
-                                            </button>
+                                                    Xác nhận
+                                                </button>
+                                            )}
+
+                                            {new Date(+calendar.time_stamp_start).getTime() - new Date().getTime() >
+                                            60 * 60 * 1000 ? (
+                                                <>
+                                                    <button
+                                                        onClick={() => {
+                                                            setIsOpen(true);
+                                                            setIsCreate(false);
+                                                        }}
+                                                        className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
+                                                    >
+                                                        <SwapOutlined />
+                                                    </button>
+                                                    <button
+                                                        onClick={handleClickCancelMeet}
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                        className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="size-4"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button
+                                                        title="Không thể hủy"
+                                                        disabled
+                                                        className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
+                                                    >
+                                                        <SwapOutlined />
+                                                    </button>
+                                                    <button
+                                                        title="Không thể xóa"
+                                                        disabled
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                        className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="size-4"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </>
+                                            )}
                                         </div>
-                                    </div>
-                                    <div className="mt-3 hidden">
-                                        <table className="table-fixed w-full">
-                                            <thead className="bg-[rgba(0,0,0,0.2)] rounded-md">
-                                                <tr>
-                                                    <th>Song</th>
-                                                    <th>Artist</th>
-                                                    <th>Year</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        The Sliding Mr. Bones (Next Stop, Pottersville)
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        Malcolm Lockyer
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        1961
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        The Sliding Mr. Bones (Next Stop, Pottersville)
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        Malcolm Lockyer
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        1961
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </>
+                )}
+                {type === 'MATH' && (
+                    <>
+                        <div className="mt-3">
+                            <table className="table-fixed w-full">
+                                <thead className="bg-[rgba(0,0,0,0.2)] rounded-md">
+                                    <tr>
+                                        <th>Tên bài thi</th>
+                                        <th>Số câu</th>
+                                        <th>Phút</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listExam && listExam.length > 0 ? (
+                                        listExam.map((item) => {
+                                            return (
+                                                <tr key={item.id}>
+                                                    <td
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                    >
+                                                        {item.title}
+                                                    </td>
+                                                    <td
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                    >
+                                                        {item.total_question}
+                                                    </td>
+                                                    <td
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                    >
+                                                        {item.time_end}
+                                                    </td>
+                                                    <td
+                                                        style={{
+                                                            border: '1px solid #ccc',
+                                                        }}
+                                                    >
+                                                        <Paragraph
+                                                            className="whitespace-nowrap"
+                                                            copyable={{ text: 'Link baif thi' }}
+                                                        >
+                                                            <span>Sao chép link bài thi</span>
+                                                        </Paragraph>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
+                                    ) : (
+                                        <div>
+                                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                        </div>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </>
                 )}

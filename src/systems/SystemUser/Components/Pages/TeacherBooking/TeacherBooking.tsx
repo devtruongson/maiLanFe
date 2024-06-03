@@ -17,7 +17,7 @@ const TeacherBooking: React.FC = () => {
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
     const [isReload, setIsReload] = useState<boolean>(false);
 
-    // const id = useAppSelector((state) => state.authSlice.auth.data?.id);
+    // const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
         if (isReload) {
@@ -38,6 +38,7 @@ const TeacherBooking: React.FC = () => {
                 );
             }
         };
+
         fetch();
 
         for (let i = 0; i < 6; i++) {
@@ -125,79 +126,89 @@ const TeacherBooking: React.FC = () => {
     };
 
     return (
-        <div className="w-[100%] pl-[50px] flex justify-start items-start pt-[20px]">
-            <div className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mr-[40px]">
-                <div className="w-[100%] h-[5%] border-b-1px">
-                    <p className="text-xl text-center">Thời gian</p>
-                    <div className="w-[100%] h-[1px] bg-[#ddd] mt-[10px]"></div>
+        <div className="w-[100%]  pb-[50px]">
+            <h3 className="text-xl font-[600] text-center text-[#ff6609] uppercase">Đặt lịch dạy</h3>
+
+            <div className="w-[80%] ml-[50%] translate-x-[-50%] h-[1px] bg-[#ccc] my-[20px]"></div>
+
+            <div className="w-[100%] pl-[50px] flex justify-start items-start pt-[20px]">
+                <div className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mr-[40px]">
+                    <div className="w-[100%] h-[5%] border-b-1px">
+                        <p className="text-xl text-center">Thời gian</p>
+                        <div className="w-[100%] h-[1px] bg-[#ddd] mt-[10px]"></div>
+                    </div>
+                    <div className="w-[100%] h-[95%] form-auto flex flex-col justify-around">
+                        {listCalendar &&
+                            listCalendar.length > 0 &&
+                            listCalendar.map((item) => {
+                                return (
+                                    <div className="w-[100%]" key={item.id}>
+                                        <p className="text-center">
+                                            {item.time_start} - {item.time_end}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                    </div>
                 </div>
-                <div className="w-[100%] h-[95%] form-auto flex flex-col justify-around">
-                    {listCalendar &&
-                        listCalendar.length > 0 &&
-                        listCalendar.map((item) => {
-                            return (
-                                <div className="w-[100%]" key={item.id}>
-                                    <p className="text-center">
-                                        {item.time_start} - {item.time_end}
-                                    </p>
+
+                {listDate &&
+                    listDate.length > 0 &&
+                    listDate.map((item) => {
+                        return (
+                            <div
+                                className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mx-[10px]"
+                                key={item}
+                            >
+                                <div className="w-[100%] h-[5%] border-b-1px">
+                                    <p className="text-[16px] text-center">{item}</p>
+                                    <div className="w-[100%] h-[1px] bg-[#ddd] mt-[10px]"></div>
                                 </div>
-                            );
-                        })}
-                </div>
+
+                                <div className="w-[100%] h-[95%] form-auto flex flex-col justify-around">
+                                    {listCalendar &&
+                                        listCalendar.length > 0 &&
+                                        listCalendar.map((itemChild) => {
+                                            return (
+                                                <div className="w-[100%]" key={itemChild.id}>
+                                                    <p
+                                                        className={`${
+                                                            handleCheckTime(itemChild.time_start, item) == 1
+                                                                ? 'text-[#ddd] cursor-not-allowed'
+                                                                : handleCheckTime(itemChild.time_start, item) === 2
+                                                                ? 'text-[green] cursor-pointer'
+                                                                : 'text-[#000] cursor-pointer'
+                                                        } text-center`}
+                                                        onClick={() => {
+                                                            if (handleCheckTime(itemChild.time_start, item) === 1) {
+                                                                return;
+                                                            }
+                                                            if (handleCheckTime(itemChild.time_start, item) === 2) {
+                                                                hanndleRemoveBooking(itemChild.time_start, item);
+                                                            } else {
+                                                                handleBooking(
+                                                                    itemChild.time_start,
+                                                                    itemChild.time_end,
+                                                                    item,
+                                                                    itemChild.id,
+                                                                );
+                                                            }
+                                                        }}
+                                                    >
+                                                        {handleCheckTime(itemChild.time_start, item) === 2 ? (
+                                                            <i className="bi bi-check-circle-fill text-xl"></i>
+                                                        ) : (
+                                                            <i className="bi bi-check-circle text-xl"></i>
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            );
+                                        })}
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
-
-            {listDate &&
-                listDate.length > 0 &&
-                listDate.map((item) => {
-                    return (
-                        <div
-                            className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mx-[10px]"
-                            key={item}
-                        >
-                            <div className="w-[100%] h-[5%] border-b-1px">
-                                <p className="text-[16px] text-center">{item}</p>
-                                <div className="w-[100%] h-[1px] bg-[#ddd] mt-[10px]"></div>
-                            </div>
-
-                            <div className="w-[100%] h-[95%] form-auto flex flex-col justify-around">
-                                {listCalendar &&
-                                    listCalendar.length > 0 &&
-                                    listCalendar.map((itemChild) => {
-                                        return (
-                                            <div className="w-[100%]" key={itemChild.id}>
-                                                <p
-                                                    className={`${
-                                                        handleCheckTime(itemChild.time_start, item) == 1
-                                                            ? 'text-[#ddd] cursor-not-allowed'
-                                                            : handleCheckTime(itemChild.time_start, item) === 2
-                                                            ? 'text-[green] cursor-pointer'
-                                                            : 'text-[#000] cursor-pointer'
-                                                    } text-center`}
-                                                    onClick={() => {
-                                                        if (handleCheckTime(itemChild.time_start, item) === 1) {
-                                                            return;
-                                                        }
-                                                        if (handleCheckTime(itemChild.time_start, item) === 2) {
-                                                            hanndleRemoveBooking(itemChild.time_start, item);
-                                                        } else {
-                                                            handleBooking(
-                                                                itemChild.time_start,
-                                                                itemChild.time_end,
-                                                                item,
-                                                                itemChild.id,
-                                                            );
-                                                        }
-                                                    }}
-                                                >
-                                                    <i className={`bi bi-check-circle`}></i>
-                                                </p>
-                                            </div>
-                                        );
-                                    })}
-                            </div>
-                        </div>
-                    );
-                })}
         </div>
     );
 };
