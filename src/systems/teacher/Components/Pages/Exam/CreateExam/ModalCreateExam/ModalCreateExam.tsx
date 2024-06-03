@@ -5,11 +5,10 @@ import { HttpStatusCode } from 'axios';
 import { IAllCode } from '../../../../../../../utils/interface';
 import Swal from 'sweetalert2';
 import { CreateExamService } from '../../../../../../../services/examService';
-import { createExamQuestionService } from '../../../../../../../services/questionService';
-// import { useAppSelector } from '../../../../../../../features/hooks/hooks';
+import { useAppSelector } from '../../../../../../../features/hooks/hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ModalCreateExam = memo(function ModalCreateExam({ studentId }: { studentId: number }) {
+const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { studentId: number; func: any }) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [listLevel, setListLevel] = useState<IAllCode[]>([]);
     const [level, setLevel] = useState<number>(0);
@@ -17,7 +16,7 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId }: { studentId
     const [title, setTitle] = useState<string>('');
     const [time, setTime] = useState<number>(0);
 
-    // const isUser = useAppSelector((state)=>state.authSlice.auth.data?.id)
+    const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
         const fetch = async () => {
@@ -59,6 +58,9 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId }: { studentId
         if (!check) {
             return;
         }
+        if (!idUser) {
+            return;
+        }
 
         const dataBuider = {
             student_id: studentId,
@@ -66,37 +68,22 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId }: { studentId
             time_end: time,
             total_question: coutQuestion,
             level: level,
-            // teacher_id: isUser,
-            teacher_id: 1,
+            teacher_id: idUser,
         };
 
         const resExam = await CreateExamService(dataBuider);
-        if (resExam.code !== HttpStatusCode.Ok) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Có lỗi xãy rả vui lòng thử lại sau !',
-            });
-            return;
-        }
-
-        const res = await createExamQuestionService(
-            resExam.data,
-            coutQuestion,
-            // isUser
-            1,
-            level,
-        );
 
         Swal.fire({
-            icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
-            title: res.msg,
+            icon: resExam.code === HttpStatusCode.Ok ? 'success' : 'warning',
+            title: resExam.msg,
         });
 
-        if (res.code === HttpStatusCode.Ok) {
+        if (resExam.code === HttpStatusCode.Ok) {
             setTime(0);
             setTitle('');
             setCountQuestion(0);
             setLevel(listLevel[0].id);
+            func();
         }
     };
 

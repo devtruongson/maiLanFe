@@ -82,3 +82,12 @@ export const CreateExamService = async (body: IExamCreate): Promise<IResponse<nu
         throw error;
     }
 };
+
+export const deleteExamService = async (id: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.delete(`/exam/${id}`, configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};

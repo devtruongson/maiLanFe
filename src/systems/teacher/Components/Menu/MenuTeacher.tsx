@@ -75,9 +75,12 @@ const MenuTeacher: React.FC = () => {
             >
                 <div
                     className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
-                        location === RouterDTO.Student.dashboard_teacher.manageSchedule ? 'active-choose' : ''
+                        location === RouterDTO.Student.dashboard_teacher.manageSchedule ||
+                        location === RouterDTO.Student.dashboard_teacher.calendarConfim
+                            ? 'active-choose'
+                            : ''
                     }`}
-                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.manageSchedule}`)}
+                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.calendarConfim}`)}
                 >
                     <p className="icon-item text-center text-xl">
                         <i className="bi bi-briefcase"></i>

@@ -9,7 +9,7 @@ import { ICalendar } from '../../../../../utils/interface';
 import './TeacherBooking.css';
 import Swal from 'sweetalert2';
 import { HttpStatusCode } from 'axios';
-// import { useAppSelector } from '../../../../../features/hooks/hooks';
+import { useAppSelector } from '../../../../../features/hooks/hooks';
 
 const TeacherBooking: React.FC = () => {
     const [listCalendar, setListCalendar] = useState<ICalendar[]>([]);
@@ -17,25 +17,13 @@ const TeacherBooking: React.FC = () => {
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
     const [isReload, setIsReload] = useState<boolean>(false);
 
-    // const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
+    const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
-        if (isReload) {
-            window.location.reload();
-        }
         const fetch = async () => {
-            const date = new Date().getTime();
-            const [resCalendar, resListBooking] = await Promise.all([
-                await getCalendarService(),
-                await getCalendarBookingService(1, date),
-            ]);
-            if (resCalendar.code === 200 && resListBooking.code === 200) {
-                setListCalendar(resCalendar.data);
-                setListTimeBooked(
-                    resListBooking.data.map((item) => {
-                        return item.time_stamp_start;
-                    }),
-                );
+            const res = await getCalendarService();
+            if (res.code === HttpStatusCode.Ok) {
+                setListCalendar(res.data);
             }
         };
 
@@ -49,6 +37,22 @@ const TeacherBooking: React.FC = () => {
             const time = `${year}-${month}-${day}`;
             setListDate((prev) => [...prev, time]);
         }
+    }, []);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const date = new Date().getTime();
+            const res = await getCalendarBookingService(idUser, date);
+            if (res.code === HttpStatusCode.Ok) {
+                setListTimeBooked(
+                    res.data.map((item) => {
+                        return item.time_stamp_start;
+                    }),
+                );
+            }
+        };
+
+        fetch();
     }, [isReload]);
 
     const handleBooking = async (timeStart: string, timeEnd: string, date: string, calendarId: number) => {
@@ -64,7 +68,7 @@ const TeacherBooking: React.FC = () => {
                         time_stamp_start: `${new Date(`${date} ${timeStart.slice(0, -2)}:0:0`).getTime()}`,
                         time_stamp_end: `${new Date(`${date} ${timeEnd.slice(0, -2)}:0:0`).getTime()}`,
                         calendar_id: calendarId,
-                        teacher_id: 1,
+                        teacher_id: idUser ? idUser : 0,
                     };
 
                     const res = await teacherBookingService(dataBuider);
@@ -101,14 +105,9 @@ const TeacherBooking: React.FC = () => {
                     Swal.fire({
                         icon: res.code === 200 ? 'success' : 'warning',
                         title: `${res.msg}`,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            setIsReload(!isReload);
-                        }
-                        if (result.isDismissed) {
-                            setIsReload(!isReload);
-                        }
                     });
+
+                    setIsReload(!isReload);
                 };
                 _fetch();
             }
@@ -127,7 +126,7 @@ const TeacherBooking: React.FC = () => {
 
     return (
         <div className="w-[100%]  pb-[50px]">
-            <h3 className="text-xl font-[600] text-center text-[#ff6609] uppercase">Đặt lịch dạy</h3>
+            <h3 className="text-xl font-[600]  text-[#ff6609] uppercase text-center">Đặt lịch phỏng vấn</h3>
 
             <div className="w-[80%] ml-[50%] translate-x-[-50%] h-[1px] bg-[#ccc] my-[20px]"></div>
 
