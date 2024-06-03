@@ -138,6 +138,7 @@ export interface IStudent {
     district: string;
     commune: string;
     address_detail: string | null;
+    course_code: string;
     createdAt: string;
     updatedAt: string;
     AllCodeData: IAllCode;
@@ -175,6 +176,7 @@ export interface IRegister {
     district: string;
     commune: string;
     address_detail: string;
+    course_code: string;
 }
 
 export interface IStudentBooking {
@@ -202,7 +204,7 @@ export interface IParentUpdate {
 export interface IParentAdd {
     fullName: string;
     association_for_student: number;
-    child: number;
+    child: number | undefined;
 }
 
 export interface IMeta {

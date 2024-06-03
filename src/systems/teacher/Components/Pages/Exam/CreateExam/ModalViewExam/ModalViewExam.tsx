@@ -80,89 +80,92 @@ const ModalViewExam = ({ dataExam }: { dataExam: IExam }) => {
 
                         <div className="my-[20px] w-[80%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
 
-                        <div className="w-[100%] flex justify-center items-start">
-                            <div className="w-[90%]">
-                                <div className="form-answer w-[100%] relative h-[550px] rounded-[10px] overflow-auto border-solid border-[1px] border-[#ccc] p-[10px]">
-                                    <p className="text-center text-xl text-[#ff6609] mb-[20px]">
-                                        Câu {currentQuestion + 1}
-                                    </p>
-
-                                    <div className="w-[100%] bg-[#61f8e3] rounded-[10px] p-[10px]">
-                                        <p>{dataExam.ExamQuestionData[currentQuestion].QuestionData.title}</p>
-                                        <p className="text-xl">
-                                            {dataExam.ExamQuestionData[currentQuestion].QuestionData.suggest}
+                        {dataExam.ExamQuestionData.length > 0 ? (
+                            <div className="w-[100%] flex justify-center items-start">
+                                <div className="w-[90%]">
+                                    <div className="form-answer w-[100%] relative h-[550px] rounded-[10px] overflow-auto border-solid border-[1px] border-[#ccc] p-[10px]">
+                                        <p className="text-center text-xl text-[#ff6609] mb-[20px]">
+                                            Câu {currentQuestion + 1}
                                         </p>
 
-                                        {dataExam.ExamQuestionData[currentQuestion].QuestionData.file ? (
-                                            <img
-                                                src="https://media.istockphoto.com/id/1338942955/vector/three-linear-chat-speech-message-bubbles-with-question-marks-forum-icon-communication.jpg?s=612x612&w=0&k=20&c=7lJeE-k1GLf6zCYrKB6rtZuwC9HVS_PjXNNgUym81NE="
-                                                alt="img"
-                                            ></img>
-                                        ) : null}
-                                    </div>
+                                        <div className="w-[100%] bg-[#61f8e3] rounded-[10px] p-[10px]">
+                                            <p>{dataExam.ExamQuestionData[currentQuestion].QuestionData.title}</p>
+                                            <p className="text-xl">
+                                                {dataExam.ExamQuestionData[currentQuestion].QuestionData.suggest}
+                                            </p>
 
-                                    <div className="p-[10px] mt-[30px]">
-                                        {dataExam.ExamQuestionData[currentQuestion].QuestionData.answers &&
-                                            dataExam.ExamQuestionData[currentQuestion].QuestionData.answers.length >
-                                                0 &&
-                                            dataExam.ExamQuestionData[currentQuestion].QuestionData.answers.map(
-                                                (item) => {
-                                                    return (
-                                                        <div
-                                                            key={item.id}
-                                                            className={`${
-                                                                item.id ===
-                                                                dataExam.ExamQuestionData[currentQuestion]
-                                                                    .selected_answer
-                                                                    ? 'bg-[#eee] rounded-[10px]'
-                                                                    : ''
-                                                            } w-[100%] flex justify-between items-center my-[20px] p-[10px]`}
-                                                        >
-                                                            <div className="w-[90%]">
-                                                                <p>{item.answer_title}</p>
-                                                            </div>
-                                                            {item.id ===
-                                                            dataExam.ExamQuestionData[currentQuestion]
-                                                                .selected_answer ? (
-                                                                <div className="w-[10%]">
-                                                                    {item.is_right ? (
-                                                                        <i className="bi bi-check-lg text-[green] text-xl"></i>
-                                                                    ) : (
-                                                                        <i className="bi bi-x-lg text-[red] text-xl"></i>
-                                                                    )}
+                                            {dataExam.ExamQuestionData[currentQuestion].QuestionData.file ? (
+                                                <img
+                                                    src="https://media.istockphoto.com/id/1338942955/vector/three-linear-chat-speech-message-bubbles-with-question-marks-forum-icon-communication.jpg?s=612x612&w=0&k=20&c=7lJeE-k1GLf6zCYrKB6rtZuwC9HVS_PjXNNgUym81NE="
+                                                    alt="img"
+                                                ></img>
+                                            ) : null}
+                                        </div>
+
+                                        <div className="p-[10px] mt-[30px]">
+                                            {dataExam.ExamQuestionData[currentQuestion].QuestionData.answers &&
+                                                dataExam.ExamQuestionData[currentQuestion].QuestionData.answers.length >
+                                                    0 &&
+                                                dataExam.ExamQuestionData[currentQuestion].QuestionData.answers.map(
+                                                    (item) => {
+                                                        return (
+                                                            <div
+                                                                key={item.id}
+                                                                className={`${
+                                                                    item.id ===
+                                                                    dataExam.ExamQuestionData[currentQuestion]
+                                                                        .selected_answer
+                                                                        ? 'bg-[#eee] rounded-[10px]'
+                                                                        : ''
+                                                                } w-[100%] flex justify-between items-center my-[20px] p-[10px]`}
+                                                            >
+                                                                <div className="w-[90%]">
+                                                                    <p>{item.answer_title}</p>
                                                                 </div>
-                                                            ) : (
-                                                                <></>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                },
-                                            )}
+                                                                {item.id ===
+                                                                dataExam.ExamQuestionData[currentQuestion]
+                                                                    .selected_answer ? (
+                                                                    <div className="w-[10%]">
+                                                                        {item.is_right ? (
+                                                                            <i className="bi bi-check-lg text-[green] text-xl"></i>
+                                                                        ) : (
+                                                                            <i className="bi bi-x-lg text-[red] text-xl"></i>
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    <></>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    },
+                                                )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="form-answer w-[10%]  h-[500px] rounded-[10px] ml-[10px] ">
+                                    <div className="w-[100%] h-[500px] mt-[20px] overflow-auto">
+                                        {dataExam.ExamQuestionData &&
+                                            dataExam.ExamQuestionData.length > 0 &&
+                                            dataExam.ExamQuestionData.map((item, index) => {
+                                                return (
+                                                    <button
+                                                        key={item.id}
+                                                        className={`w-[100%] my-[2px] rounded-[10px]  py-[10px] border-[1px] border-solid border-[#ccc] ${
+                                                            index === currentQuestion ? 'current-question' : ''
+                                                        }`}
+                                                        onClick={() => setCurrentQuestion(index)}
+                                                    >
+                                                        Câu {index + 1}
+                                                    </button>
+                                                );
+                                            })}
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="form-answer w-[10%]  h-[500px] rounded-[10px] ml-[10px] ">
-                                <div className="w-[100%] h-[500px] mt-[20px] overflow-auto">
-                                    {dataExam.ExamQuestionData &&
-                                        dataExam.ExamQuestionData.length > 0 &&
-                                        dataExam.ExamQuestionData.map((item, index) => {
-                                            return (
-                                                <button
-                                                    key={item.id}
-                                                    className={`w-[100%] my-[2px] rounded-[10px]  py-[10px] border-[1px] border-solid border-[#ccc] ${
-                                                        index === currentQuestion ? 'current-question' : ''
-                                                    }`}
-                                                    onClick={() => setCurrentQuestion(index)}
-                                                >
-                                                    Câu {index + 1}
-                                                </button>
-                                            );
-                                        })}
-                                </div>
-                            </div>
-                        </div>
-
+                        ) : (
+                            <Empty />
+                        )}
                         <div className="my-[40px] flex gap-5 justify-center ">
                             <button
                                 className={`${

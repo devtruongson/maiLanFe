@@ -66,7 +66,6 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
     const handleBooking = async (date: string, calendar: ICalendar) => {
         const timeStart = new Date(`${date} ${calendar.time_start.slice(0, -2)}:0:0`).getTime();
         const calendarTeacher = listTeacherBooking.filter((item) => item.time_stamp_start === `${timeStart}`);
-        console.log(calendarTeacher);
 
         await Swal.fire({
             title: isCreate ? 'Bạn muốn đặt lịch ?' : ' Bạn muốn thay đổi ?',

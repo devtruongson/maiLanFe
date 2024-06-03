@@ -36,13 +36,10 @@ const ManageQuestions: React.FC = () => {
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     const fetch = async (questionId: number = 0) => {
-        const res = await getQuestionService(
-            pagination.page,
-            pagination.pageSize,
-            // idUser,
-            1,
-            currentLevel,
-        );
+        if (!idUser) {
+            return;
+        }
+        const res = await getQuestionService(pagination.page, pagination.pageSize, idUser, currentLevel);
         if (res.code === HttpStatusCode.Ok) {
             setListQuestion(res.data.items);
             setMeta(res.data.meta);
@@ -55,8 +52,6 @@ const ManageQuestions: React.FC = () => {
     };
 
     useEffect(() => {
-        if (!idUser) return;
-
         fetch();
     }, [pagination, isReload]);
 
@@ -86,13 +81,10 @@ const ManageQuestions: React.FC = () => {
     // get by level
 
     const handleGetQuestion = async (value: number) => {
-        const res = await getQuestionService(
-            1,
-            10,
-            // idUser,
-            1,
-            value,
-        );
+        if (!idUser) {
+            return;
+        }
+        const res = await getQuestionService(1, 10, idUser, value);
         if (res.code === HttpStatusCode.Ok) {
             setListQuestion(res.data.items);
             setMeta(res.data.meta);
@@ -164,8 +156,7 @@ const ManageQuestions: React.FC = () => {
             title: title,
             suggest: suggest,
             level: levelQuestion,
-            author_id: 1,
-            // author_id: idUser,
+            author_id: idUser ? idUser : 0,
         };
 
         const res = isCreate
@@ -176,8 +167,9 @@ const ManageQuestions: React.FC = () => {
             title: `${res.msg}`,
         });
 
-        if (isCreate && res.code === HttpStatusCode.Ok) {
+        if (res.code === HttpStatusCode.Ok) {
             handleReset();
+            setIsReload(!isReload);
         }
     };
 

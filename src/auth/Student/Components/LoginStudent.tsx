@@ -33,7 +33,7 @@ export default function RegisterStudent() {
                     data: {
                         id: data.data.user.id,
                         email: data.data.user.email,
-                        role_detail: ROLE.USER,
+                        role_detail: ROLE.TEACHER,
                     },
                     isLoginIn: true,
                 },

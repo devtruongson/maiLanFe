@@ -17,7 +17,7 @@ export const loginStudent = async (
                 user: IStudent;
                 tokens: ITokens;
             }>
-        > = await axios.post(`/student/login`, {
+        > = await axios.post(`/user/login`, {
             ...body,
         });
         return data.data;

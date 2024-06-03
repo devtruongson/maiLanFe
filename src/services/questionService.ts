@@ -91,12 +91,11 @@ export const createAnswerService = async (body: IAnswerCreate): Promise<IRespons
 export const createExamQuestionService = async (
     examId: number,
     totalQuestion: number,
-    authorId: number,
     level: number,
 ): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.post(
-            `/exam_question/auto?examId=${examId}&totalQuestion=${totalQuestion}&authorId=${authorId}&level=${level}`,
+            `/exam_question/auto?examId=${examId}&totalQuestion=${totalQuestion}&level=${level}`,
             configHeaderAxios(),
         );
         return data.data;

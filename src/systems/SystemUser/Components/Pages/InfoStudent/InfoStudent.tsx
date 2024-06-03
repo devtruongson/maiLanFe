@@ -25,6 +25,7 @@ const InfoStudent: React.FC = () => {
     const [nameParent, setNameParent] = useState<string>('');
     const [association, setAssociation] = useState<number>(0);
     const [listAssociation, setListAssociation] = useState<IAllCode[]>([]);
+    const [courseCode, setCourseCode] = useState<string>('ENG');
 
     useEffect(() => {
         const fetch = async () => {
@@ -73,6 +74,7 @@ const InfoStudent: React.FC = () => {
         setAddressDetail('');
         setGender(0);
         setIsLoading(false);
+        setCourseCode('');
     };
 
     const handleResetInfoParent = () => {
@@ -91,7 +93,8 @@ const InfoStudent: React.FC = () => {
             !currentProvince ||
             !currentDistrict ||
             !currentCommune ||
-            !addressDetail
+            !addressDetail ||
+            !courseCode
         ) {
             Swal.fire({
                 icon: 'warning',
@@ -102,7 +105,7 @@ const InfoStudent: React.FC = () => {
         return true;
     };
 
-    const handleCreateInfoStudent = async () => {
+    const handleCreateInfoStudent = async (type: boolean = false) => {
         try {
             // setIsLoading(true);
             const check = handleValidate();
@@ -122,23 +125,29 @@ const InfoStudent: React.FC = () => {
                 district: currentDistrict,
                 commune: currentCommune,
                 address_detail: addressDetail,
+                course_code: courseCode,
             };
 
             const res = await registerStudent(dataBuider);
 
-            if (res.code === 200) {
+            if (!type) {
                 Swal.fire({
-                    icon: 'success',
-                    title: `${res.msg}`,
+                    icon: res.code === 200 ? 'success' : 'warning',
+                    title: res.msg,
                 });
                 setIdStudent(res.data.id);
+                return;
+            }
+
+            if (res.code === 200) {
+                // setIdStudent(res.data.id);
                 handleResetInfoStudent();
                 return res.data.id;
             }
 
             Swal.fire({
                 icon: 'warning',
-                title: `${res.msg}`,
+                title: res.msg,
             });
 
             setIsLoading(false);
@@ -149,16 +158,12 @@ const InfoStudent: React.FC = () => {
     };
 
     const handleCreateInfoParent = async () => {
-        let check;
-
+        let id;
         if (!idStudent) {
-            check = await handleCreateInfoStudent();
-            if (!check) {
-                return;
-            }
+            id = await handleCreateInfoStudent(true);
         }
 
-        if (!nameParent || !association || !check) {
+        if (!nameParent || !association) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Vui lòng nhập đủ thông tin phụ huynh !',
@@ -169,19 +174,21 @@ const InfoStudent: React.FC = () => {
         const dataBuider = {
             fullName: nameParent,
             association_for_student: association,
-            child: check,
+            child: idStudent ? idStudent : id,
         };
 
         const res = await addParentService(dataBuider);
-
-        if (res.code === 200) {
-            handleResetInfoParent();
-        }
 
         Swal.fire({
             icon: `${res.code === 200 ? 'success' : 'warning'}`,
             title: `${res.msg}`,
         });
+
+        if (res.code === 200) {
+            handleResetInfoParent();
+            handleResetInfoStudent();
+            setIdStudent(0);
+        }
     };
 
     return (
@@ -382,6 +389,23 @@ const InfoStudent: React.FC = () => {
                         value={addressDetail}
                         onChange={(e) => setAddressDetail(e.target.value)}
                     />
+                </div>
+
+                <div className="mt-[20px]">
+                    <label className="text-[16px]" htmlFor="province">
+                        Môn học
+                    </label>{' '}
+                    <br />
+                    <select
+                        name=""
+                        id="province"
+                        className="mt-[10px] w-[100%] p-[8px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+                        onChange={(e) => setCourseCode(e.target.value)}
+                        value={courseCode}
+                    >
+                        <option value="ENG">Tiếng Anh</option>
+                        <option value="MATH">Toán</option>
+                    </select>
                 </div>
             </div>
 

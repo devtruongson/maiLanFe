@@ -52,10 +52,11 @@ export const getCalendarConfirmed = async (
     page: number,
     pageSize: number,
     idTeacher: number,
+    isNotStudent: string = 'false',
 ): Promise<IResponse<IDataGet<ICalendarTeacher[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
-            `/calendar/book-exam?page=${page}&pageSize=${pageSize}&idTeacher=${idTeacher}`,
+            `/calendar/book-exam?page=${page}&pageSize=${pageSize}&idTeacher=${idTeacher}&isNotStudent=${isNotStudent}`,
             configHeaderAxios(),
         );
         return data.data;

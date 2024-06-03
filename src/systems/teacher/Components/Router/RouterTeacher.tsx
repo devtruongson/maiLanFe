@@ -9,7 +9,7 @@ export default function RouterTeacher() {
             <Routes>
                 <Route path="/teacher-booking" element={<TeacherBooking />} />
                 <Route path="/exam/*" element={<TeacherExam />} />
-                <Route path="/schedule" element={<ManageSchedule />} />
+                <Route path="/schedule/*" element={<ManageSchedule />} />
             </Routes>
         </div>
     );
