@@ -1,11 +1,23 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
-import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IDataGet, IResponse } from '../utils/interface';
+import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IDataGet, IResponse, TStatus } from '../utils/interface';
 import { configHeaderAxios } from './tokenService';
 
 export const getCalendarService = async (): Promise<IResponse<ICalendar[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendar[]>> = await axios.get(`/calendar`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getCalendarBookingByStudent = async (email: string): Promise<IResponse<ICalendarTeacher>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher>> = await axios.get(
+            `/calendar/student?email=${email}`,
+            configHeaderAxios(),
+        );
         return data.data;
     } catch (error) {
         throw error;
@@ -21,13 +33,10 @@ export const teacherBookingService = async (body: ICreateTeacherBooking): Promis
     }
 };
 
-export const getCalendarBookingService = async (
-    idTeacher: number = 0,
-    date: number = 0,
-): Promise<IResponse<ICalendarTeacher[]>> => {
+export const getCalendarBookingService = async (): Promise<IResponse<ICalendarTeacher[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
-            `/calendar/book/${idTeacher}?day=${date}`,
+            `/calendar/all`,
             configHeaderAxios(),
         );
         return data.data;
@@ -77,10 +86,31 @@ export const searchCalendarService = async (textSearch: string): Promise<IRespon
     }
 };
 
-export const addStudentToCalendarTeacher = async (idStudent: number, idCalendar: number): Promise<IResponse<null>> => {
+export const addStudentToCalendarTeacher = async (
+    idStudent: number,
+    idCalendar: number,
+    status: TStatus,
+): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.patch(
-            `/calendar?idStudent=${idStudent}&idCalendar=${idCalendar}`,
+            `/calendar?idStudent=${idStudent}&idCalendar=${idCalendar}&status=${status}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const changeStatusStudent = async (
+    status: TStatus,
+    idUser: number,
+    idCalendar: number,
+    isCancel?: string,
+): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.patch(
+            `/calendar/change-status?status=${status}&id=${idUser}&idCalendar=${idCalendar}&isCancel=${isCancel}`,
             configHeaderAxios(),
         );
         return data.data;

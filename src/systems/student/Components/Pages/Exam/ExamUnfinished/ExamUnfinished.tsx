@@ -13,8 +13,7 @@ const ExamUnfinished: React.FC = () => {
         pageSize: 10,
     });
 
-    const studentId = useAppSelector((state) => state.authSlice.auth.data?.id);
-
+    const studentId = 1;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const ExamUnfinished: React.FC = () => {
         };
 
         fetch();
-    }, []);
+    }, [studentId]);
 
     const handleChangePagination = (e: number) => {
         setPagination((prev) => {

@@ -11,7 +11,7 @@ export default function DashboardSale() {
                 }}
             >
                 <Row gutter={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-                    <Col className="gutter-row relative h-[calc(100vh-70px)]" span={4}>
+                    <Col className="gutter-row relative h-[calc(100vh)]" span={4}>
                         <MenuSideBar />
                     </Col>
                     <Col className="gutter-row" span={20}>

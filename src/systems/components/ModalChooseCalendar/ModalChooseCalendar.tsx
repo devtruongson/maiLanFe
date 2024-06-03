@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import {
     addStudentToCalendarTeacher,
     getCalendarBookingService,
@@ -7,8 +7,18 @@ import {
 import { HttpStatusCode } from 'axios';
 import { ICalendar, ICalendarTeacher } from '../../../utils/interface';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { reloadAction } from '../../../features/auth/configSlice';
 
-const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCreate: boolean }) => {
+const ContentModalBookingCalendar = ({
+    idStudent,
+    isCreate,
+    setIsReloadKey,
+}: {
+    idStudent: number;
+    isCreate: boolean;
+    setIsReloadKey?: React.Dispatch<SetStateAction<boolean>>;
+}) => {
     const [calendars, setCalendars] = useState<ICalendar[]>([]);
     const [listDate, setListDate] = useState<string[]>([]);
     const [listTeacherBooking, setListTeacherBooking] = useState<ICalendarTeacher[]>([]);
@@ -37,9 +47,7 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
 
     useEffect(() => {
         const fetch = async () => {
-            const date = new Date().getTime();
-            const res = await getCalendarBookingService(0, date);
-
+            const res = await getCalendarBookingService();
             if (res.code === HttpStatusCode.Ok) {
                 const arr: string[] = [];
                 const newList = res.data.filter((item) => {
@@ -63,6 +71,7 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
         return 2;
     };
 
+    const dispatch = useDispatch();
     const handleBooking = async (date: string, calendar: ICalendar) => {
         const timeStart = new Date(`${date} ${calendar.time_start.slice(0, -2)}:0:0`).getTime();
         const calendarTeacher = listTeacherBooking.filter((item) => item.time_stamp_start === `${timeStart}`);
@@ -74,15 +83,25 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
         }).then((result) => {
             if (result.isConfirmed) {
                 const _fetch = async () => {
-                    const res = await addStudentToCalendarTeacher(idStudent, calendarTeacher[0].id);
+                    const res = await addStudentToCalendarTeacher(
+                        idStudent,
+                        calendarTeacher[0].id,
+                        isCreate ? 'is_reservation' : 'is_confirm',
+                    );
 
                     Swal.fire({
                         icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
-                        title: `${res.msg}`,
+                        title: isCreate ? 'Bạn đã book lịch thành công!' : 'Bạn đã thay đổi lịch thành công!',
                     });
 
                     if (res.code === HttpStatusCode.Ok) {
                         setIsReload(!isReload);
+                        if (setIsReloadKey) {
+                            setIsReloadKey((prev) => {
+                                return !prev;
+                            });
+                            dispatch(reloadAction());
+                        }
                     }
                 };
                 _fetch();
@@ -138,7 +157,7 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
                                                     <p
                                                         className={`${
                                                             handleCheckTime(itemChild.time_start, item) == 1
-                                                                ? 'text-[#000] cursor-pointer'
+                                                                ? 'text-[#0866ff] cursor-pointer'
                                                                 : 'text-[#ddd] cursor-not-allowed'
                                                         } text-center`}
                                                         onClick={() => {
@@ -166,4 +185,4 @@ const ModalChooseCalendar = ({ idStudent, isCreate }: { idStudent: number; isCre
     );
 };
 
-export default ModalChooseCalendar;
+export default ContentModalBookingCalendar;

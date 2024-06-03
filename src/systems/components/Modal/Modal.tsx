@@ -8,7 +8,7 @@ const ModalSystem: React.FC<{
         title: string;
         content: React.ReactNode;
         className?: string;
-        width: number | string;
+        width?: number | string;
     };
 }> = ({ isOpen, setIsOpen, data }) => {
     const handleOk = () => {

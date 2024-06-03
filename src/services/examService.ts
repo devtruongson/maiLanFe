@@ -25,6 +25,15 @@ export const getExamService = async ({
     }
 };
 
+export const getExamStudentService = async ({ studentId }: { studentId: number }): Promise<IResponse<IExam[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<IExam[]>> = await axios.get(`/exam/student-desc?studentId=${studentId}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getOneExamService = async (id: number, isCompleted: boolean): Promise<IResponse<IExam>> => {
     try {
         const data: AxiosResponse<IResponse<IExam>> = await axios.get(
@@ -46,7 +55,7 @@ export const handleSubmitService = async ({
 }): Promise<IResponse<{ point: number }>> => {
     try {
         const data: AxiosResponse<IResponse<{ point: number }>> = await axios.put(
-            `/exam//score`,
+            `/exam/score`,
             { listAnswer: listAnswer, examId: examId },
             configHeaderAxios(),
         );

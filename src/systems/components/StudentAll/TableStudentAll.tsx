@@ -3,10 +3,11 @@ import { Card, Col, Divider, Row, Table, Tabs } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { getAllStudentService } from '../../../services/StudentService';
 import { HttpStatusCode } from 'axios';
-import { IStudent } from '../../../utils/interface';
+import { IStudent, TStudent } from '../../../utils/interface';
 import { Typography } from 'antd';
 import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
+import Operate from '../Operate/Operate';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -20,7 +21,6 @@ const columns: TableColumnsType<IStudent> = [
             return <span className="block w-full text-center">{props[2] + 1}</span>;
         },
     },
-    Table.SELECTION_COLUMN,
     {
         title: 'Tên con',
         width: 100,
@@ -59,17 +59,14 @@ const columns: TableColumnsType<IStudent> = [
         render: () => <span>Phỏng vấn</span>,
     },
     {
-        title: 'Trạng thái',
-        dataIndex: 'status',
-        key: '3',
-        width: 150,
-    },
-    {
         title: 'Môn học',
         dataIndex: 'course',
         key: '4',
         width: 150,
-        render: () => <span>Tiếng anh</span>,
+        render: (...props) => {
+            console.log(props[1]);
+            return <>{props[1]?.course_code === 'ENG' ? 'Tiếng Anh' : 'Toán'}</>;
+        },
     },
     {
         title: 'Sinh nhật',
@@ -98,18 +95,12 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
     const items: TabsProps['items'] = [
         {
             key: '1',
-            label: 'Trao Đổi',
-            children: <div>Trao Đổi Đơn Hàng</div>,
-        },
-        {
-            key: '2',
             label: 'Vận Hành',
-            children: <div>Vận Hành Đơn Hàng</div>,
-        },
-        {
-            key: '3',
-            label: 'Đơn Hàng',
-            children: <div>Đơn Hàng</div>,
+            children: (
+                <>
+                    <Operate type={data.course_code} email={data.email} idStudent={data.id} />
+                </>
+            ),
         },
     ];
 
@@ -176,33 +167,13 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             >
                 Thao tác
             </button>
-            <a
-                href={`tel:${data.phoneNumber}`}
-                className="flex justify-center  text-white bg-red-700 hover:bg-red-800  font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-            >
-                <span className="flex gap-2 items-center">
-                    Gọi{' '}
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
-                        />
-                    </svg>
-                </span>
-            </a>
         </>
     );
 }
 
-const TableStudentAll: React.FC = () => {
+const TableStudentAll: React.FC<{
+    typeStudent: TStudent;
+}> = ({ typeStudent }) => {
     const [data, setData] = useState<IStudent[]>([]);
     const [page, setPage] = useState<number>(1);
     const [total, setTotal] = useState<number>(10);
@@ -210,7 +181,7 @@ const TableStudentAll: React.FC = () => {
     useEffect(() => {
         const _fetch = async () => {
             try {
-                const data = await getAllStudentService(page, 10);
+                const data = await getAllStudentService(page, 10, typeStudent);
                 if (data.code === HttpStatusCode.Ok) {
                     setData(data.data.items);
                     setTotal(data.data.meta.totalIteams);
@@ -221,7 +192,7 @@ const TableStudentAll: React.FC = () => {
         };
 
         _fetch();
-    }, [page]);
+    }, [page, typeStudent]);
 
     const handleChangePage = (page: number) => {
         setPage(page);
@@ -230,16 +201,16 @@ const TableStudentAll: React.FC = () => {
     return (
         <div className="table-all-student">
             <Table
-                rowSelection={{}}
                 columns={columns}
                 dataSource={data}
-                scroll={{ x: 1800, y: '50vh' }}
+                scroll={{ x: 1800, y: '60vh' }}
                 pagination={{
                     total,
                     pageSize: 10,
                     onChange: handleChangePage,
                     current: page,
                 }}
+                size="small"
             />
         </div>
     );

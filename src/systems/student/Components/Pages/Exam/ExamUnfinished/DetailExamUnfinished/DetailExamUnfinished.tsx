@@ -23,6 +23,10 @@ const DetailExamUnfinished: React.FC = () => {
     useBeforeunload(isStart ? (event) => event.preventDefault() : undefined);
 
     // const { isComplated, id } = useLocation().state;
+    //useLocation().state
+    // const { isComplated, id } = {false, 1} ;
+    const isComplated = false;
+    const id = 5;
     const navigate = useNavigate();
 
     const count = useAppSelector((state) => state.countSlice.value);

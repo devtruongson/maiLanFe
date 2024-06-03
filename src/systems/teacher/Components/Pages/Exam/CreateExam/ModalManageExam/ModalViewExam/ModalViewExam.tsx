@@ -84,7 +84,6 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
                         <p className="text-center my-[10px] text-xl">
                             Mã Đề : <span>{dataExam.code}</span>
                         </p>
-
                         {dataExam.is_completed ? (
                             <div className="w-[60%] ml-[50%] translate-x-[-50%] my-[10px] flex justify-around">
                                 <p className="text-xl">

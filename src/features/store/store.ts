@@ -6,6 +6,7 @@ import persistStore from 'redux-persist/es/persistStore';
 import authSlice from '../auth/AuthSlice';
 import countSlice from '../count/countSlice';
 import { Persistor } from 'redux-persist';
+import configSlice from '../auth/configSlice';
 
 const persistConfig = {
     key: 'root',
@@ -19,6 +20,7 @@ export const store = configureStore({
     reducer: {
         authSlice: authPersist,
         countSlice: countPersist,
+        configSlice: configSlice,
     },
     middleware: [thunk],
 });
