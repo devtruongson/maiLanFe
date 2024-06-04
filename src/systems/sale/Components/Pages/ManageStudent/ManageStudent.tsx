@@ -277,7 +277,8 @@ const ManageStudent = () => {
                     </Tooltip>
                 </div>
 
-                <div className="w-[50%] flex justify-end items-center my-[20px] pr-[40px]">
+                <div className="w-[60%] flex justify-end items-center my-[20px] pr-[40px]">
+                    <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px] mr-[20px]" />
                     <select
                         name=""
                         id=""
