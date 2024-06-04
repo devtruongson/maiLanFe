@@ -17,13 +17,13 @@ export const sideBarListStudent: string[] = ['Dashboard', 'Tài Khoản', 'Học
 export const childrenListSale: string[][] = [
     ['Trang Chủ'],
     ['Cơ Bản', 'Quan Hệ Gia Đình', 'Toàn Bộ Thông Tin'],
-    ['Thêm học sinh'],
+    ['Thêm học sinh', 'Quản Lí Thông Tin Học Sinh'],
 ];
 
 export const urlchildrenListSale: string[][] = [
     ['/'],
     [`/system/dashboard/sale/all-task-student`, `/student/dashboard/relations`, `/student/dashboard/full-info`],
-    ['/system/dashboard/sale/info-student'],
+    ['/system/dashboard/sale/info-student', '/system/dashboard/sale/manage-student'],
 ];
 
 export const sideBarListSale: string[] = ['Dashboard', 'Tác nghiệp', 'Khóa Học'];

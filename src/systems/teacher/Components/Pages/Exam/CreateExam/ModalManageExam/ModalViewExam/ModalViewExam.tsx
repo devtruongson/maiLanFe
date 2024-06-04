@@ -1,15 +1,29 @@
 import { Empty, Modal } from 'antd';
-import { useState } from 'react';
-import { IExam } from '../../../../../../../../utils/interface';
+import { useEffect, useState } from 'react';
+import { IAllCode, IExam } from '../../../../../../../../utils/interface';
 import './ModalViewExam.css';
 import Swal from 'sweetalert2';
-import { deleteExamService } from '../../../../../../../../services/examService';
+import { changeLevelExam, deleteExamService } from '../../../../../../../../services/examService';
 import { HttpStatusCode } from 'axios';
+import { getAllCodeByCode } from '../../../../../../../../services/AllCodeService';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+    const [listAcademic, setListAcademic] = useState<IAllCode[]>([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            console.log('run');
+            const res = await getAllCodeByCode('ACADEMIC');
+            if (res.code === HttpStatusCode.Ok) {
+                setListAcademic(res.data);
+            }
+        };
+
+        fetch();
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -52,6 +66,26 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
         });
     };
 
+    const handleChangeAcademic = async (academic: number) => {
+        await Swal.fire({
+            title: `Bạn có muốn đánh giá cho bài kiểm tra này ?`,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const _fetch = async () => {
+                    const res = await changeLevelExam(dataExam.id, academic);
+
+                    Swal.fire({
+                        icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
+                        title: `${res.msg}`,
+                    });
+                };
+                _fetch();
+            }
+        });
+    };
+
     return (
         <>
             <div
@@ -63,11 +97,10 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
                 <p className="text-[16px] mt-[10px] text-center">
                     Thời gian làm bài : <span className="text-[green]">{dataExam.time_end}</span> phút
                 </p>
-
                 <p className="text-[16px] mt-[10px] text-center">
                     trạng thái :{' '}
                     <span className={`${dataExam.is_completed ? 'text-[green]' : 'text-[red]'}`}>
-                        {dataExam.is_completed ? 'Đã làm ' : ' Chưa làm'}
+                        {dataExam.is_completed || dataExam.is_tested ? 'Đã làm ' : ' Chưa làm'}
                     </span>
                 </p>
             </div>
@@ -117,12 +150,32 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
                             </p>
                         )}
 
-                        <button
-                            className="bg-[red] text-[#fff] rounded-[10px] p-[10px] hover:opacity-[0.6]"
-                            onClick={() => handleDeleteExam(dataExam.id)}
-                        >
-                            Xóa bài <i className="bi bi-trash3 ml-[10px]"></i>
-                        </button>
+                        <div className="flex justify-end w-[100%] my-[20px]">
+                            <select
+                                name=""
+                                id=""
+                                className="w-[20%] mr-[20px] shadow rounded-[10px] border-solid border-[1px] border-[#ccc]"
+                                value={dataExam.level}
+                                onChange={(e) => handleChangeAcademic(+e.target.value)}
+                            >
+                                <option value={0}>Đánh giá bài kiểm tra</option>
+                                {listAcademic &&
+                                    listAcademic.length > 0 &&
+                                    listAcademic.map((item) => {
+                                        return (
+                                            <option key={item.id} value={item.id}>
+                                                {item.title}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
+                            <button
+                                className="bg-[red] text-[#fff] rounded-[10px] p-[10px] hover:opacity-[0.6]"
+                                onClick={() => handleDeleteExam(dataExam.id)}
+                            >
+                                Xóa bài <i className="bi bi-trash3 ml-[10px]"></i>
+                            </button>
+                        </div>
 
                         <div className="my-[20px] w-[80%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
 

@@ -33,10 +33,10 @@ export const teacherBookingService = async (body: ICreateTeacherBooking): Promis
     }
 };
 
-export const getCalendarBookingService = async (): Promise<IResponse<ICalendarTeacher[]>> => {
+export const getCalendarBookingService = async (idUser: number): Promise<IResponse<ICalendarTeacher[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
-            `/calendar/all`,
+            `/calendar/all?idUser=${idUser}&isNotStudent=false`,
             configHeaderAxios(),
         );
         return data.data;
@@ -111,6 +111,24 @@ export const changeStatusStudent = async (
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.patch(
             `/calendar/change-status?status=${status}&id=${idUser}&idCalendar=${idCalendar}&isCancel=${isCancel}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getCalendarWaitByExpried = async (
+    page: number,
+    pageSize: number,
+    idTeacher: number,
+    isNotStudent: string = 'false',
+    isExpired: string,
+): Promise<IResponse<IDataGet<ICalendarTeacher[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
+            `/calendar/book-exam?page=${page}&pageSize=${pageSize}&idTeacher=${idTeacher}&isNotStudent=${isNotStudent}&isExpired=${isExpired}`,
             configHeaderAxios(),
         );
         return data.data;

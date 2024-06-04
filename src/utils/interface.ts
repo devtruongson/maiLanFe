@@ -138,7 +138,7 @@ export interface IStudent {
     district: string;
     commune: string;
     address_detail: string | null;
-    course_code: string;
+    // course_code: string;
     createdAt: string;
     updatedAt: string;
     AllCodeData: IAllCode;
@@ -231,6 +231,9 @@ export interface IExam {
     total_result: number;
     level: number;
     is_completed: boolean;
+    is_booked: boolean;
+    is_testing: boolean;
+    is_tested: boolean;
     ExamQuestionData: IExamQuestion[];
 }
 
@@ -284,3 +287,19 @@ export interface ICommune {
 
 export type TStatus = 'is_reservation' | 'is_confirm' | 'is_interviewed_meet';
 export type TStudent = 'ENG' | 'MATH' | 'All';
+export type TStatusExam = 'is_booked' | 'is_testing' | 'is_tested' | 'is_completed';
+export type TCode = 'ACADEMIC';
+
+export interface IDataSets {
+    label: string;
+    data: number[];
+    fill: boolean;
+    borderColor: string;
+    tension: number;
+    backgroundColor: string[];
+}
+
+export interface IDataLineChart {
+    labels: string[];
+    datasets: IDataSets[];
+}

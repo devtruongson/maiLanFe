@@ -76,7 +76,8 @@ const MenuTeacher: React.FC = () => {
                 <div
                     className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
                         location === RouterDTO.Student.dashboard_teacher.manageSchedule ||
-                        location === RouterDTO.Student.dashboard_teacher.calendarConfim
+                        location === RouterDTO.Student.dashboard_teacher.calendarConfim ||
+                        location === RouterDTO.Student.dashboard_teacher.calendarWait
                             ? 'active-choose'
                             : ''
                     }`}
@@ -108,6 +109,26 @@ const MenuTeacher: React.FC = () => {
                 >
                     <p className="icon-item text-center text-xl">
                         <i className="bi bi-book"></i>
+                    </p>
+                </div>
+            </Tooltip>
+
+            <Tooltip
+                placement="right"
+                title={
+                    <div className="tooltip-text">
+                        <p className="text-[#fff] m-[20px]">Quản Lí Bài Kiểm Tra</p>
+                    </div>
+                }
+            >
+                <div
+                    className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
+                        location === RouterDTO.Student.dashboard_teacher.manageStudent ? 'active-choose' : ''
+                    }`}
+                    onClick={() => handleNavigate(`${RouterDTO.Student.dashboard_teacher.manageStudent}`)}
+                >
+                    <p className="icon-item text-center text-xl">
+                        <i className="bi bi-people"></i>
                     </p>
                 </div>
             </Tooltip>

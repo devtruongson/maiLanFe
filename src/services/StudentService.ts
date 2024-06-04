@@ -66,7 +66,7 @@ export const getAllStudentService = async (
 ): Promise<IResponse<IDataGet<IStudent[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
-            `/student?page=${page}&limit=${pageSize}&course_code=${type}`,
+            `/student?page=${page}&pageSize=${pageSize}&course_code=${type}`,
         );
         return data.data;
     } catch (error) {
@@ -84,3 +84,57 @@ export const getCountUser = async (type: string = 'all') => {
 };
 
 export const createInfoStudentService = async () => {};
+
+export const updateLevelStudentService = async (id: number, level: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.patch(`/student/update-level?id=${id}&level=${level}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const searchStudentService = async (
+    textSearch: string,
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<IStudent[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
+            `/student?page=${page}&pageSize=${pageSize}&textSearch=${textSearch}`,
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getStudentByLevelService = async (
+    level: number,
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<IStudent[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
+            `/student?page=${page}&pageSize=${pageSize}&level=${level}`,
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getBySubjectService = async (
+    page: number,
+    pageSize: number,
+    subject: TStudent,
+): Promise<IResponse<IDataGet<IStudent[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
+            `/student?page=${page}&pageSize=${pageSize}&course_code=${subject}`,
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};

@@ -20,7 +20,7 @@ const CreateExam: React.FC = () => {
     const columns: TableColumnsType<IStudent> = [
         {
             title: '',
-            width: 50,
+            width: 15,
             dataIndex: 'name',
             key: 'index',
             fixed: 'left',
@@ -31,21 +31,32 @@ const CreateExam: React.FC = () => {
         // Table.SELECTION_COLUMN,
         {
             title: 'Tên con',
-            width: 80,
+            width: 60,
             dataIndex: 'fullName',
             key: 'fullName',
             fixed: 'left',
+            render: (...props) => {
+                return (
+                    <span className="">
+                        {props[1].fullName}
+                        {props[1].gender ? (
+                            <i className="bi bi-gender-male text-[blue] ml-[20px]"></i>
+                        ) : (
+                            <i className="bi bi-gender-female text-[red] ml-[20px]"></i>
+                        )}
+                    </span>
+                );
+            },
         },
         {
             title: 'Số điện thoại',
-            width: 80,
+            width: 40,
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
-            fixed: 'left',
         },
         {
             title: 'Email',
-            width: 150,
+            width: 80,
             dataIndex: 'email',
             key: 'email',
         },
@@ -53,14 +64,16 @@ const CreateExam: React.FC = () => {
             title: 'Môn học',
             dataIndex: 'course',
             key: '4',
-            width: 50,
+            width: 40,
             render: () => <span>Toán</span>,
         },
         {
             title: 'Tạo Bài kiểm tra',
             dataIndex: 'examData',
             key: '3',
-            width: 80,
+            width: 30,
+            fixed: 'right',
+
             render: (...props) => {
                 return <ModalCreateExam studentId={props[1].id} func={fetch} />;
             },
@@ -69,7 +82,8 @@ const CreateExam: React.FC = () => {
             title: 'Quản Lí Bài Kiểm Tra',
             dataIndex: 'examData',
             key: '3',
-            width: 50,
+            width: 30,
+            fixed: 'right',
             render: (...props) => {
                 if (props[1].examData.length > 0) {
                     return <ModalManageExam listExam={props[1].examData} func={fetch} />;
@@ -128,7 +142,8 @@ const CreateExam: React.FC = () => {
 
     return (
         <div className="">
-            <div className="w-[100%] flex justify-end items-center my-[20px] pr-[40px]">
+            <div className="w-[100%] flex justify-end items-center mb-[20px] pr-[40px]">
+                <img src="/PublicHome/cat-edit.png" alt="cat" className="w-[60px] mr-[20px]" />
                 <input
                     type="text"
                     className="p-[10px] border-solid border-[1px] border-[#ccc] rounded-[10px] w-[40%] shadow-md mr-[20px]"

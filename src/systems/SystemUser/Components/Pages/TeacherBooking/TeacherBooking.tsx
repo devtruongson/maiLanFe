@@ -40,9 +40,11 @@ const TeacherBooking: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        if (!idUser) {
+            return;
+        }
         const fetch = async () => {
-            const date = new Date().getTime();
-            const res = await getCalendarBookingService(idUser, date);
+            const res = await getCalendarBookingService(+idUser);
             if (res.code === HttpStatusCode.Ok) {
                 setListTimeBooked(
                     res.data.map((item) => {
@@ -125,13 +127,19 @@ const TeacherBooking: React.FC = () => {
     };
 
     return (
-        <div className="w-[100%]  pb-[50px]">
-            <h3 className="text-xl font-[600]  text-[#ff6609] uppercase text-center">Đặt lịch phỏng vấn</h3>
+        <div
+            className="w-[100%]  pb-[50px] bg-[url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/474027ptz/mau-background-don-gian-dep-3.jpg')] bg-center bg-no-repeat bg-cover"
+            // bg-[url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/474027ptz/mau-background-don-gian-dep-3.jpg')] bg-center bg-no-repeat bg-cover
+        >
+            <div className="w-[100%] flex justify-center">
+                <img src="/PublicHome/cat-edit.png" alt="" className="w-[50px] mr-[10px]" />
+                <h3 className="text-xl font-[600]  text-[#ff6609] uppercase text-center">Đặt lịch phỏng vấn</h3>
+            </div>
 
             <div className="w-[80%] ml-[50%] translate-x-[-50%] h-[1px] bg-[#ccc] my-[20px]"></div>
 
-            <div className="w-[100%] pl-[50px] flex justify-start items-start pt-[20px]">
-                <div className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mr-[40px]">
+            <div className="w-[100%]  pl-[50px] flex justify-center items-start pt-[20px] ">
+                <div className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mr-[40px] bg-[#fff]">
                     <div className="w-[100%] h-[5%] border-b-1px">
                         <p className="text-xl text-center">Thời gian</p>
                         <div className="w-[100%] h-[1px] bg-[#ddd] mt-[10px]"></div>
@@ -156,7 +164,7 @@ const TeacherBooking: React.FC = () => {
                     listDate.map((item) => {
                         return (
                             <div
-                                className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mx-[10px]"
+                                className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mx-[10px] bg-[#fff]"
                                 key={item}
                             >
                                 <div className="w-[100%] h-[5%] border-b-1px">

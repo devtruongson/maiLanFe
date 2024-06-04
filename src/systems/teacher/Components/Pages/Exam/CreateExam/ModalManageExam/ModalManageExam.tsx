@@ -7,8 +7,6 @@ import ModalViewExam from './ModalViewExam/ModalViewExam';
 const ModalManageExam = ({ listExam, func }: { listExam: IExam[]; func: any }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    console.log(listExam);
-
     const showModal = () => {
         setIsModalOpen(true);
     };
