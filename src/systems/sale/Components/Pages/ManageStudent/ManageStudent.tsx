@@ -87,7 +87,7 @@ const ManageStudent = () => {
                         value={props[1].level ? props[1].level : 0}
                         onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
                     >
-                        <option value={0}>Chọn level</option>
+                        <option value={0}>Chọn Học Lực</option>
 
                         {listLevel &&
                             listLevel.length > 0 &&

@@ -10,6 +10,7 @@ import './TeacherBooking.css';
 import Swal from 'sweetalert2';
 import { HttpStatusCode } from 'axios';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
+import { Tooltip } from 'antd';
 
 const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     const [listCalendar, setListCalendar] = useState<ICalendar[]>([]);
@@ -45,7 +46,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
             return;
         }
         const fetch = async () => {
-            const res = await getCalendarBookingService(+idUser, 'false');
+            const res = await getCalendarBookingService(`${idUser}`, 'false');
             if (res.code === HttpStatusCode.Ok) {
                 setCalenDarBookedStudents(res.data);
                 setListTimeBooked(
@@ -72,7 +73,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                         time_stamp_start: `${new Date(`${date} ${timeStart.slice(0, -2)}:0:0`).getTime()}`,
                         time_stamp_end: `${new Date(`${date} ${timeEnd.slice(0, -2)}:0:0`).getTime()}`,
                         calendar_id: calendarId,
-                        teacher_id: idUserExit ? idUserExit : idUser,
+                        teacher_id: idUserExit ? +idUserExit : idUser ? idUser : 0,
                     };
 
                     const res = await teacherBookingService(dataBuider);
@@ -136,19 +137,140 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
         return 3;
     };
 
+    const handleReload = () => {
+        if (isReload) {
+            setIsReload(false);
+        } else {
+            setIsReload(true);
+        }
+    };
+
     return (
         <div
-            className="w-[100%]  pb-[50px] bg-[url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/474027ptz/mau-background-don-gian-dep-3.jpg')] bg-center bg-no-repeat bg-cover"
+            className="w-[100%] pt-[10px] pb-[50px] bg-[url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/cach-thiet-ke-background-dep.jpg')] bg-center bg-no-repeat bg-cover"
             // bg-[url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/474027ptz/mau-background-don-gian-dep-3.jpg')] bg-center bg-no-repeat bg-cover
         >
-            <div className="w-[100%] flex justify-center">
+            <div className="w-[100%] flex justify-center items-center">
                 <img src="/PublicHome/cat-edit.png" alt="" className="w-[50px] mr-[10px]" />
                 <h3 className="text-xl font-[600]  text-[#ff6609] uppercase text-center">Đặt lịch phỏng vấn</h3>
             </div>
 
-            <div className="w-[80%] ml-[50%] translate-x-[-50%] h-[1px] bg-[#ccc] my-[20px]"></div>
+            <div className="w-[80%] ml-[50%] translate-x-[-50%] h-[1px] bg-[#fff] my-[20px]"></div>
 
-            <div className="w-[100%]  pl-[50px] flex justify-center items-start pt-[20px] ">
+            <div
+                style={{
+                    flex: '1',
+                }}
+                className="flex justify-start items-center pe-10 gap-4 ml-[10%] my-[10px]"
+            >
+                <Tooltip placement="bottom" title="Lịch chưa đặt">
+                    <label htmlFor="" className="inline-flex gap-2 items-center">
+                        <strong className="cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                                />
+                            </svg>
+                        </strong>
+                    </label>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Lịch đã booked">
+                    <label htmlFor="" className="inline-flex gap-2 items-center">
+                        <strong className="cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6 fill-[blue]"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                                />
+                            </svg>
+                        </strong>
+                    </label>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Lịch đã hủy">
+                    <label htmlFor="" className="inline-flex gap-2 items-center">
+                        <strong className="cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6 fill-[#de2727]"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                                />
+                            </svg>
+                        </strong>
+                    </label>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Lịch đã hết hạn">
+                    <label htmlFor="" className="inline-flex gap-2 items-center">
+                        <strong
+                            className="cursor-pointer"
+                            style={{
+                                opacity: '0.5',
+                            }}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6 fill-[blue]"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                                />
+                            </svg>
+                        </strong>
+                    </label>
+                </Tooltip>
+                <Tooltip placement="bottom" title="Lịch đã có học sinh booked">
+                    <label htmlFor="" className="inline-flex gap-2 items-center">
+                        <strong className="cursor-pointer">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="size-6 fill-[#bdee1d]"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                                />
+                            </svg>
+                        </strong>
+                    </label>
+                </Tooltip>
+            </div>
+
+            <div className="w-[100%]  pl-[50px] flex justify-center items-start pt-[20px]">
                 <div className="w-[150px] h-[650px]  border-solid border-[1px] border-[#ccc] p-[10px] rounded-[10px] shadow mr-[40px] bg-[#fff]">
                     <div className="w-[100%] h-[5%] border-b-1px">
                         <p className="text-xl text-center">Thời gian</p>
@@ -194,6 +316,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                                                     hanndleRemoveBooking={hanndleRemoveBooking}
                                                     item={item}
                                                     itemChild={itemChild}
+                                                    handleReload={handleReload}
                                                 />
                                             );
                                         })}
@@ -215,6 +338,7 @@ function CheckComp({
     handleBooking,
     handleCheckTime,
     hanndleRemoveBooking,
+    handleReload,
 }: {
     itemChild: ICalendar;
     item: string;
@@ -222,6 +346,7 @@ function CheckComp({
     hanndleRemoveBooking: (time_start: string, item: string) => void;
     handleCheckTime: (time_start: string, item: string) => number;
     calenDarBookedStudents: ICalendarTeacher[];
+    handleReload: () => void;
 }) {
     const [isBooked, setIsBooked] = useState<boolean>(false);
     const [isExpire, setIsExpire] = useState<boolean>(false);
@@ -285,8 +410,10 @@ function CheckComp({
 
         if (isBooked) {
             hanndleRemoveBooking(itemChild.time_start, item);
+            handleReload();
         } else {
             handleBooking(itemChild.time_start, itemChild.time_end, item, itemChild.id);
+            handleReload();
         }
     };
 

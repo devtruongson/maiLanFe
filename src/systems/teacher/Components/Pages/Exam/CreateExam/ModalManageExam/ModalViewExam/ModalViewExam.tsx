@@ -99,7 +99,7 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
                 </p>
                 <p className="text-[16px] mt-[10px] text-center">
                     trạng thái :{' '}
-                    <span className={`${dataExam.is_completed ? 'text-[green]' : 'text-[red]'}`}>
+                    <span className={`${dataExam.is_completed || dataExam.is_tested ? 'text-[green]' : 'text-[red]'}`}>
                         {dataExam.is_completed || dataExam.is_tested ? 'Đã làm ' : ' Chưa làm'}
                     </span>
                 </p>

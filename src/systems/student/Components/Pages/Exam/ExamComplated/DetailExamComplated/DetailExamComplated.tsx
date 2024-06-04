@@ -78,7 +78,7 @@ const DetailExamComplated: React.FC = () => {
     };
 
     return (
-        <div className="w-[100%] px-[100px] h-[100vh] overflow-auto">
+        <div className="w-[100%] px-[100px] h-[100vh] overflow-auto bg-[url('https://img.freepik.com/free-vector/hand-drawn-school-supplies-pattern-background_23-2150855728.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1717286400&semt=ais_user')] bg-center bg-no-repeat bg-cover">
             <>
                 {exam ? (
                     <div className="w-[100%] pt-[10px]">
@@ -121,7 +121,7 @@ const DetailExamComplated: React.FC = () => {
                             <></>
                         )}
 
-                        <div className="p-[20px] w-[80%] ml-[50%] translate-x-[-50%] my-[20px] flex justify-center rounded-[10px] border-solid border-[1px] border-[#ccc] shadow items-center">
+                        <div className="p-[20px] w-[80%] ml-[50%] translate-x-[-50%] my-[20px] flex justify-center rounded-[10px] border-solid border-[1px] border-[#ccc] shadow items-center bg-[#f4f4f4]">
                             <img src="/PublicHome/cat-edit.png" alt="" className="w-[80px] mr-[20px]" />
                             {exam.total_result < 8 ? (
                                 <p className="text-xl text-[green] text-center">
@@ -132,10 +132,10 @@ const DetailExamComplated: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="my-[20px] w-[100%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
+                        <div className="my-[20px] w-[100%] h-[1px] bg-[#FFF] ml-[50%] translate-x-[-50%]"></div>
 
                         <div className="w-[100%] flex justify-center items-start">
-                            <div className="w-[90%]">
+                            <div className="w-[90%] bg-[#f4f4f4]">
                                 <div className="form-answer w-[100%] relative h-[550px] rounded-[10px] overflow-auto border-solid border-[1px] border-[#ccc] p-[10px]">
                                     <p className="text-center text-xl text-[#ff6609] mb-[20px]">
                                         Câu {currentQuestion + 1}
@@ -143,7 +143,7 @@ const DetailExamComplated: React.FC = () => {
 
                                     <div className="w-[100%] bg-[#61f8e3] rounded-[10px] p-[10px]">
                                         <p>{exam.ExamQuestionData[currentQuestion].QuestionData.title}</p>
-                                        <p className="text-xl">
+                                        <p className="text-xl text-[#ff6609]">
                                             {exam.ExamQuestionData[currentQuestion].QuestionData.suggest}
                                         </p>
                                     </div>
@@ -163,7 +163,7 @@ const DetailExamComplated: React.FC = () => {
                                                         } w-[100%] flex justify-between items-center my-[20px] p-[10px]`}
                                                     >
                                                         <div className="w-[90%]">
-                                                            <p>{item.answer_title}</p>
+                                                            <p className="text-[20px]">{item.answer_title}</p>
                                                         </div>
                                                         {item.id ===
                                                         exam.ExamQuestionData[currentQuestion].selected_answer ? (
@@ -192,7 +192,7 @@ const DetailExamComplated: React.FC = () => {
                                             return (
                                                 <button
                                                     key={item.id}
-                                                    className="w-[100%] my-[2px] rounded-[10px]  py-[10px] border-[1px] border-solid border-[#ccc]"
+                                                    className="w-[100%] my-[2px] rounded-[10px]  py-[10px] border-[1px] border-solid border-[#ccc] bg-[#f4f4f4]"
                                                     onClick={() => setCurrentQuestion(index)}
                                                 >
                                                     Câu {index + 1}

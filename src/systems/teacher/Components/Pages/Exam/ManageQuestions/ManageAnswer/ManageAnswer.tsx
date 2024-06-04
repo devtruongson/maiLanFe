@@ -43,6 +43,7 @@ const ManageAnswer = memo(function ManageAnswer({
 
     const handleDeleteAnswer = async (id: number) => {
         await Swal.fire({
+            icon: 'question',
             title: `Bạn muốn Xóa câu trả lời ?`,
             showCancelButton: true,
             confirmButtonText: 'Yes',
