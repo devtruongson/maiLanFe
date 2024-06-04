@@ -361,7 +361,10 @@ export default function Operate({ email, idStudent, type }: IProps) {
                                                     >
                                                         <Paragraph
                                                             className="whitespace-nowrap"
-                                                            copyable={{ text: 'Link baif thi' }}
+                                                            copyable={{
+                                                                text:
+                                                                    window.location.origin + `/exam/student/${item.id}`,
+                                                            }}
                                                         >
                                                             <span>Sao chép link bài thi</span>
                                                         </Paragraph>

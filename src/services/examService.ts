@@ -92,6 +92,21 @@ export const deleteExamService = async (id: number): Promise<IResponse<null>> =>
     }
 };
 
+export const getAllExams = async (
+    page: number,
+    pageSize: number,
+    teacherId: number,
+): Promise<IResponse<IDataGet<IExam[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IExam[]>>> = await axios.get(
+            `/exam/teacher?page=${page}&pageSize=${pageSize}&teacherId=${teacherId}`,
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const changeStatusExamService = async (status: TStatusExam, id: number): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.patch(

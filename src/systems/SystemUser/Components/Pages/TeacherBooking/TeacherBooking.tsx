@@ -5,7 +5,7 @@ import {
     teacherBookingService,
     unbookingService,
 } from '../../../../../services/calendarService';
-import { ICalendar } from '../../../../../utils/interface';
+import { ICalendar, ICalendarTeacher } from '../../../../../utils/interface';
 import './TeacherBooking.css';
 import Swal from 'sweetalert2';
 import { HttpStatusCode } from 'axios';
@@ -16,6 +16,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     const [listDate, setListDate] = useState<string[]>([]);
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
     const [isReload, setIsReload] = useState<boolean>(false);
+    const [calenDarBookedStudents, setCalenDarBookedStudents] = useState<ICalendarTeacher[]>([]);
 
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
@@ -44,8 +45,9 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
             return;
         }
         const fetch = async () => {
-            const res = await getCalendarBookingService(+idUser);
+            const res = await getCalendarBookingService(+idUser, 'false');
             if (res.code === HttpStatusCode.Ok) {
+                setCalenDarBookedStudents(res.data);
                 setListTimeBooked(
                     res.data.map((item) => {
                         return item.time_stamp_start;
@@ -102,14 +104,22 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                 const _fetch = async () => {
                     const res = await unbookingService(
                         `${new Date(`${date} ${time_start.slice(0, -2)}:0:0`).getTime()}`,
+                        idUser ? '' + idUser : '',
                     );
 
-                    Swal.fire({
-                        icon: res.code === 200 ? 'success' : 'warning',
-                        title: `${res.msg}`,
-                    });
+                    if (res.code === HttpStatusCode.Ok) {
+                        Swal.fire({
+                            icon: res.code === 200 ? 'success' : 'warning',
+                            title: `Bạn đã hủy lịch thành công!`,
+                        });
 
-                    setIsReload(!isReload);
+                        setIsReload(!isReload);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: res.msg,
+                        });
+                    }
                 };
                 _fetch();
             }
@@ -177,38 +187,14 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                                         listCalendar.length > 0 &&
                                         listCalendar.map((itemChild) => {
                                             return (
-                                                <div className="w-[100%]" key={itemChild.id}>
-                                                    <p
-                                                        className={`${
-                                                            handleCheckTime(itemChild.time_start, item) == 1
-                                                                ? 'text-[#ddd] cursor-not-allowed'
-                                                                : handleCheckTime(itemChild.time_start, item) === 2
-                                                                ? 'text-[green] cursor-pointer'
-                                                                : 'text-[#000] cursor-pointer'
-                                                        } text-center`}
-                                                        onClick={() => {
-                                                            if (handleCheckTime(itemChild.time_start, item) === 1) {
-                                                                return;
-                                                            }
-                                                            if (handleCheckTime(itemChild.time_start, item) === 2) {
-                                                                hanndleRemoveBooking(itemChild.time_start, item);
-                                                            } else {
-                                                                handleBooking(
-                                                                    itemChild.time_start,
-                                                                    itemChild.time_end,
-                                                                    item,
-                                                                    itemChild.id,
-                                                                );
-                                                            }
-                                                        }}
-                                                    >
-                                                        {handleCheckTime(itemChild.time_start, item) === 2 ? (
-                                                            <i className="bi bi-check-circle-fill text-xl"></i>
-                                                        ) : (
-                                                            <i className="bi bi-check-circle text-xl"></i>
-                                                        )}
-                                                    </p>
-                                                </div>
+                                                <CheckComp
+                                                    calenDarBookedStudents={calenDarBookedStudents}
+                                                    handleBooking={handleBooking}
+                                                    handleCheckTime={handleCheckTime}
+                                                    hanndleRemoveBooking={hanndleRemoveBooking}
+                                                    item={item}
+                                                    itemChild={itemChild}
+                                                />
                                             );
                                         })}
                                 </div>
@@ -221,3 +207,133 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
 };
 
 export default TeacherBooking;
+
+function CheckComp({
+    itemChild,
+    item,
+    calenDarBookedStudents,
+    handleBooking,
+    handleCheckTime,
+    hanndleRemoveBooking,
+}: {
+    itemChild: ICalendar;
+    item: string;
+    handleBooking: (time_start: string, time_end: string, item: string, id: number) => void;
+    hanndleRemoveBooking: (time_start: string, item: string) => void;
+    handleCheckTime: (time_start: string, item: string) => number;
+    calenDarBookedStudents: ICalendarTeacher[];
+}) {
+    const [isBooked, setIsBooked] = useState<boolean>(false);
+    const [isExpire, setIsExpire] = useState<boolean>(false);
+    const [disabled, setDisabled] = useState(false);
+    const [isCancel, setIsCancel] = useState(false);
+    const [isStudentBooked, setIsStudentBooked] = useState(false);
+
+    useEffect(() => {
+        const calendarDetail = calenDarBookedStudents.find(
+            (itemCalendar) =>
+                itemCalendar.calendarData.time_start === itemChild.time_start &&
+                new Date(`${item} 0:0:0`).getTime() === parseInt(itemCalendar.day),
+        );
+
+        if (calendarDetail) {
+            if (
+                handleCheckTime(calendarDetail.calendarData.time_start, item) == 2 &&
+                calendarDetail.calendarData.time_start === itemChild.time_start
+            ) {
+                setIsBooked(true);
+            }
+            if (
+                handleCheckTime(calendarDetail.calendarData.time_start, item) == 1 &&
+                calendarDetail.calendarData.time_start === itemChild.time_start
+            ) {
+                setIsExpire(true);
+            }
+
+            if (calendarDetail.is_cancel && calendarDetail.calendarData.time_start === itemChild.time_start) {
+                setIsCancel(true);
+            }
+
+            if (calendarDetail.student_id && calendarDetail) {
+                setIsStudentBooked(true);
+            }
+        }
+
+        if (handleCheckTime(itemChild.time_start, item) == 1) {
+            setDisabled(true);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [itemChild, item, calenDarBookedStudents]);
+
+    const handleBookingClickView = () => {
+        if (disabled) {
+            Swal.fire({
+                icon: 'info',
+                text: 'Xin lỗi thời gian này là quá khứ',
+            });
+            return;
+        }
+
+        if (isCancel) {
+            Swal.fire({
+                icon: 'info',
+                text: 'Xin lỗi lịch này không thể hủy',
+            });
+            return;
+        }
+
+        if (isBooked) {
+            hanndleRemoveBooking(itemChild.time_start, item);
+        } else {
+            handleBooking(itemChild.time_start, itemChild.time_end, item, itemChild.id);
+        }
+    };
+
+    return (
+        <div className="w-[100%]" key={itemChild.id}>
+            <p className={`text-center ${disabled ? 'disable' : ''}`} onClick={handleBookingClickView}>
+                <strong className="cursor-pointer flex justify-center items-center">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className={
+                            !isCancel
+                                ? isBooked
+                                    ? isStudentBooked
+                                        ? 'size-6 fill-[#bdee1d]'
+                                        : 'size-6 fill-[blue]'
+                                    : isExpire
+                                    ? 'size-6 fill-[blue]'
+                                    : isStudentBooked
+                                    ? 'size-6 fill-[#bdee1d]'
+                                    : 'size-6'
+                                : 'size-6 fill-[#de2727]'
+                        }
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                        />
+                    </svg>
+                </strong>
+            </p>
+        </div>
+    );
+}
+
+/* 
+
+`${
+                    calenDarBookedStudents.find((item) => item.calendarData.time_start === itemChild.time_start)
+                        ? 'text-[red] '
+                        : handleCheckTime(itemChild.time_start, item) == 1
+                        ? 'text-[#ddd] cursor-not-allowed'
+                        : handleCheckTime(itemChild.time_start, item) === 2
+                        ? 'text-[green] cursor-pointer'
+                        : 'text-[#000] cursor-pointer'
+*/

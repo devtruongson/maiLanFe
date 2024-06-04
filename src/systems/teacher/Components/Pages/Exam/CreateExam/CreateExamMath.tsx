@@ -7,8 +7,9 @@ import { HttpStatusCode } from 'axios';
 import ModalCreateExam from './ModalCreateExam/ModalCreateExam';
 import { useAppSelector } from '../../../../../../features/hooks/hooks';
 import ModalManageExam from './ModalManageExam/ModalManageExam';
+import { getAllExams } from '../../../../../../services/examService';
 
-const CreateExam: React.FC = () => {
+const CreateExamMath: React.FC = () => {
     const [listStudent, setListStudent] = useState<IStudent[]>([]);
     const [meta, setMeta] = useState<IMeta | null>(null);
     const [pagination, setPagination] = useState<IPagination>({
@@ -68,27 +69,20 @@ const CreateExam: React.FC = () => {
             render: (...props) => <span>{props[1].course_code === 'ENG' ? 'Tiếng anh' : 'Toán'}</span>,
         },
         {
-            title: 'Tạo Bài kiểm tra',
-            dataIndex: 'examData',
-            key: '3',
-            width: 30,
-            fixed: 'right',
-
-            render: (...props) => {
-                return <ModalCreateExam studentId={props[1].id} func={fetch} />;
-            },
-        },
-        {
             title: 'Quản Lí Bài Kiểm Tra',
             dataIndex: 'examData',
             key: '3',
             width: 30,
             fixed: 'right',
             render: (...props) => {
-                if (props[1].examData.length > 0) {
-                    return <ModalManageExam listExam={props[1].examData} func={fetch} />;
+                if (props[1] && props[1].examData) {
+                    if (props[1].examData.length > 0) {
+                        return <ModalManageExam listExam={props[1].examData} func={fetch} />;
+                    } else {
+                        return <>Chưa có bài kiểm tra</>;
+                    }
                 } else {
-                    return <>Chưa có bài kiểm tra</>;
+                    return null;
                 }
             },
         },
@@ -100,17 +94,36 @@ const CreateExam: React.FC = () => {
         if (!idUser) {
             return;
         }
-        const res = await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser);
+        const res = await getAllExams(pagination.page, pagination.pageSize, idUser);
         if (res.code === HttpStatusCode.Ok) {
             setMeta(res.data.meta);
-            setListStudent(
-                res.data.items.map((item) => {
-                    return {
-                        ...item.studentData,
-                        key: item.studentData.id,
-                    };
-                }),
-            );
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const dataBuilder: any = res.data.items.map((item) => {
+                return {
+                    ...item.studentData,
+                    examData: [
+                        {
+                            id: item.id,
+                            ExamQuestionData: item.ExamQuestionData,
+                            code: item.code,
+                            student_id: item.student_id,
+                            teacher_id: item.teacher_id,
+                            title: item.title,
+                            time_end: item.time_end,
+                            correct_result_count: item.correct_result_count,
+                            total_question: item.total_question,
+                            total_result: item.total_result,
+                            level: item.level,
+                            is_completed: item.is_completed,
+                            is_booked: item.is_booked,
+                            is_testing: item.is_testing,
+                            is_tested: item.is_tested,
+                        },
+                    ],
+                };
+            });
+            setListStudent(dataBuilder);
         }
     };
     useEffect(() => {
@@ -176,4 +189,4 @@ const CreateExam: React.FC = () => {
     );
 };
 
-export default CreateExam;
+export default CreateExamMath;

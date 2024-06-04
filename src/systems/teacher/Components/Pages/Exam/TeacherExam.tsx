@@ -3,6 +3,7 @@ import { RouterDTO } from '../../../../../utils/routers.dto';
 import CreateExam from './CreateExam/CreateExam';
 import ManageQuestions from './ManageQuestions/ManageQuestions';
 import { Tabs } from 'antd';
+import CreateExamMath from './CreateExam/CreateExamMath';
 
 const TeacherExam: React.FC = () => {
     const exam = [
@@ -15,6 +16,11 @@ const TeacherExam: React.FC = () => {
             key: RouterDTO.Student.dashboard_teacher.createExam,
             label: 'Quản lí bài kiểm tra',
             children: <CreateExam />,
+        },
+        {
+            key: RouterDTO.Student.dashboard_teacher.mathExam,
+            label: 'Đánh giá kiểm tra',
+            children: <CreateExamMath />,
         },
     ];
 

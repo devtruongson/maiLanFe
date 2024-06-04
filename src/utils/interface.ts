@@ -239,6 +239,7 @@ export interface IExam {
     is_testing: boolean;
     is_tested: boolean;
     ExamQuestionData: IExamQuestion[];
+    studentData?: IStudent[];
 }
 
 export interface IExamQuestion {

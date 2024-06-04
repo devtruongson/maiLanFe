@@ -15,6 +15,7 @@ export const RouterDTO = Object.freeze({
             exam: '/system/dashboard/teacher/exam',
             manageQuestions: '/system/dashboard/teacher/exam/question',
             createExam: '/system/dashboard/teacher/exam/create',
+            mathExam: '/system/dashboard/teacher/exam/math',
             manageSchedule: '/system/dashboard/teacher/schedule',
             calendarConfim: '/system/dashboard/teacher/schedule/calendar-confim',
             calendarWait: '/system/dashboard/teacher/schedule/calendar-wait',

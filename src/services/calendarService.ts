@@ -45,10 +45,13 @@ export const teacherBookingService = async (body: ICreateTeacherBooking): Promis
     }
 };
 
-export const getCalendarBookingService = async (idUser?: string): Promise<IResponse<ICalendarTeacher[]>> => {
+export const getCalendarBookingService = async (
+    idUser?: string,
+    isNot?: string,
+): Promise<IResponse<ICalendarTeacher[]>> => {
     try {
         const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
-            `/calendar/all?idUser=${idUser ? idUser : ''}isNotStudent=false`,
+            `/calendar/all?idUser=${idUser ? idUser : ''}&isNotStudent=${isNot ? isNot : 'true'}`,
             configHeaderAxios(),
         );
         return data.data;

@@ -113,7 +113,7 @@ const ManageStudent = () => {
     const [currentSubject, setCurrentSubject] = useState<TStudent>('ENG');
     const [pagination, setPagination] = useState<IPagination>({
         page: 1,
-        pageSize: 2,
+        pageSize: 10,
     });
     const [typeGet, setTypeGet] = useState<IGet>('GETALL');
 
