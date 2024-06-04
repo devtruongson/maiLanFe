@@ -158,17 +158,17 @@ const InfoStudent: React.FC = () => {
     };
 
     const handleCreateInfoParent = async () => {
-        let id;
-        if (!idStudent) {
-            id = await handleCreateInfoStudent(true);
-        }
-
         if (!nameParent || !association) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Vui lòng nhập đủ thông tin phụ huynh !',
             });
             return;
+        }
+
+        let id;
+        if (!idStudent) {
+            id = await handleCreateInfoStudent(true);
         }
 
         const dataBuider = {
@@ -272,29 +272,17 @@ const InfoStudent: React.FC = () => {
                         Giới tính
                     </label>{' '}
                     <br />
-                    <div className="flex justify-start items-center w-[50%] mt-[30px]">
-                        <div className="flex items-center mr-[40px]">
-                            <input
-                                type="radio"
-                                className="mr-[10px] p-[10px] w-[20px] h-[20px]"
-                                name="gender"
-                                value={1}
-                                onChange={() => setGender(1)}
-                            />
-                            <label htmlFor="">Nam</label>
-                        </div>
-
-                        <div className="flex items-center">
-                            <input
-                                type="radio"
-                                className="mr-[10px] p-[10px] w-[20px] h-[20px]"
-                                name="gender"
-                                value={2}
-                                onChange={() => setGender(2)}
-                            />
-                            <label htmlFor="">Nữ</label>
-                        </div>
-                    </div>
+                    <select
+                        name=""
+                        id="gender"
+                        className="mt-[10px] w-[100%] p-[8px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+                        onChange={(e) => setGender(+e.target.value)}
+                        value={gender}
+                    >
+                        <option value={0}>Chọn giới tính</option>
+                        <option value={1}>Nam</option>
+                        <option value={2}>Nữ</option>
+                    </select>
                 </div>
                 <div className="mt-[20px]">
                     <label className="text-[16px]" htmlFor="district">
@@ -445,28 +433,28 @@ const InfoStudent: React.FC = () => {
                 </div>
 
                 <div className="mt-[20px]">
-                    <label className="text-[16px]" htmlFor="">
+                    <label className="text-[16px]" htmlFor="association">
                         Phụ huynh
                     </label>{' '}
                     <br />
-                    <div className="flex justify-start items-center w-[50%] mt-[30px]">
+                    <select
+                        name=""
+                        id="association"
+                        className="mt-[10px] w-[100%] p-[8px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+                        onChange={(e) => setAssociation(+e.target.value)}
+                        value={association}
+                    >
+                        <option value={0}>Chọn quan hệ</option>
                         {listAssociation &&
                             listAssociation.length > 0 &&
                             listAssociation.map((item) => {
                                 return (
-                                    <div className="flex items-center mr-[40px]" key={item.id}>
-                                        <input
-                                            type="radio"
-                                            className="mr-[10px] p-[10px] w-[20px] h-[20px]"
-                                            name="association"
-                                            value={item.id}
-                                            onChange={(e) => setAssociation(+e.target.value)}
-                                        />
-                                        <label htmlFor="">{item.title}</label>
-                                    </div>
+                                    <option value={item.id} key={item.id}>
+                                        {item.title}
+                                    </option>
                                 );
                             })}
-                    </div>
+                    </select>
                 </div>
             </div>
 

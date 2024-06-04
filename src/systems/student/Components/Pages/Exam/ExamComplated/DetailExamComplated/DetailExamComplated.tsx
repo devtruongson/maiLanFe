@@ -1,31 +1,74 @@
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './DetailExamComplated.css';
 import { getOneExamService } from '../../../../../../../services/examService';
-import { IExam } from '../../../../../../../utils/interface';
+import { IDataLineChart, IExam } from '../../../../../../../utils/interface';
 import { useEffect, useState } from 'react';
 import { Empty } from 'antd';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
+
+import { PolarArea } from 'react-chartjs-2';
 
 const DetailExamComplated: React.FC = () => {
     const [exam, setExam] = useState<IExam | null>(null);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+    const [dataLineChart, setDataLineChart] = useState<IDataLineChart | null>(null);
 
-    const { isComplated, id } = useLocation().state;
+    const { idExam } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!id) {
+        if (!idExam) {
             return;
         }
 
         const fetch = async () => {
-            const res = await getOneExamService(id, isComplated);
+            const res = await getOneExamService(+idExam, true);
             if (res.code === 200) {
+                if (!res.data.is_completed && !res.data.is_tested) {
+                    navigate(`/exam/student/${idExam}`);
+                    return;
+                }
                 setExam(res.data);
+
+                let count: number = 0;
+                res.data.ExamQuestionData.forEach((item) => {
+                    if (!item.selected_answer) {
+                        count += 1;
+                    }
+                });
+                const totalQuestion = res.data.total_question;
+                const totalResult = res.data.correct_result_count;
+                const totalUnResult = totalQuestion - totalResult - count;
+
+                setDataLineChart({
+                    labels: ['Tổng số câu', 'Số câu đúng', 'Số câu sai', 'Số câu chưa làm'],
+                    datasets: [
+                        {
+                            label: 'My First Dataset',
+                            data: [totalQuestion, totalResult, totalUnResult, count],
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                            backgroundColor: ['blue', 'green', 'red', '#ccc'],
+                        },
+                    ],
+                });
             }
         };
 
         fetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+    };
 
     const handleChangeQuestion = (index: number) => {
         if (index < 0 || !exam?.ExamQuestionData || index >= exam?.ExamQuestionData?.length) {
@@ -35,7 +78,7 @@ const DetailExamComplated: React.FC = () => {
     };
 
     return (
-        <div className="w-[100%] px-[100px] form-main">
+        <div className="w-[100%] px-[100px] h-[100vh] overflow-auto">
             <>
                 {exam ? (
                     <div className="w-[100%] pt-[10px]">
@@ -70,7 +113,26 @@ const DetailExamComplated: React.FC = () => {
                             </p>
                         </div>
 
-                        <div className="my-[20px] w-[80%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
+                        {dataLineChart ? (
+                            <div className="w-[30%] ml-[50%] translate-x-[-50%] mt-[10px]">
+                                <PolarArea data={dataLineChart} options={options} className="w-[100%]" />
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+
+                        <div className="p-[20px] w-[80%] ml-[50%] translate-x-[-50%] my-[20px] flex justify-center rounded-[10px] border-solid border-[1px] border-[#ccc] shadow items-center">
+                            <img src="/PublicHome/cat-edit.png" alt="" className="w-[80px] mr-[20px]" />
+                            {exam.total_result < 8 ? (
+                                <p className="text-xl text-[green] text-center">
+                                    Đừng bỏ cuộc bạn nhé , Hãy cố gắng để đạt điểm cao hơn
+                                </p>
+                            ) : (
+                                <p>Điểm của bạn thật tuyệt , Cùng cố gắng để đạt điểm cao hơn nữa nhé </p>
+                            )}
+                        </div>
+
+                        <div className="my-[20px] w-[100%] h-[1px] bg-[#ddd] ml-[50%] translate-x-[-50%]"></div>
 
                         <div className="w-[100%] flex justify-center items-start">
                             <div className="w-[90%]">

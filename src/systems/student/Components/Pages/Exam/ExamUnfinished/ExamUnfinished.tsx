@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../../../../../features/hooks/hooks';
+// import { useAppSelector } from '../../../../../../features/hooks/hooks';
 import { getExamService } from '../../../../../../services/examService';
 import { IExam, IMeta, IPagination } from '../../../../../../utils/interface';
 import { Pagination } from 'antd';

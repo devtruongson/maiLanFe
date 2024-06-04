@@ -14,11 +14,16 @@ export const urlchildrenListStudent: string[][] = [
 
 export const sideBarListStudent: string[] = ['Tài Khoản', 'Học Sinh'];
 
-export const childrenListSale: string[][] = [['Cơ Bản', 'Lịch làm việc'], ['Thêm học sinh']];
+export const childrenListSale: string[][] = [
+    ['Trang Chủ'],
+    ['Cơ Bản', 'Quan Hệ Gia Đình', 'Toàn Bộ Thông Tin'],
+    ['Thêm học sinh', 'Quản Lí Thông Tin Học Sinh'],
+];
 
 export const urlchildrenListSale: string[][] = [
-    [`/system/dashboard/sale/all-task-student`, `/system/dashboard/sale/task-system`],
-    ['/system/dashboard/sale/info-student'],
+    ['/'],
+    [`/system/dashboard/sale/all-task-student`, `/student/dashboard/relations`, `/student/dashboard/full-info`],
+    ['/system/dashboard/sale/info-student', '/system/dashboard/sale/manage-student'],
 ];
 
 export const sideBarListSale: string[] = ['Tác nghiệp', 'Học viên'];

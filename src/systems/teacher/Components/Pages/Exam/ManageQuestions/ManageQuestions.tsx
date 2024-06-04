@@ -211,23 +211,27 @@ const ManageQuestions: React.FC = () => {
             <div className="w-[50%] pb-[40px] px-[20px] border-solid border-r-[1px] border-[#ccc]">
                 <h3 className="text-[16px] font-[600] text-center text-[#ff6609] uppercase ">Ngân hàng đề</h3>
 
-                <select
-                    name=""
-                    id=""
-                    className="p-[8px] w-[20%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[20px]"
-                    onChange={(e) => handleGetQuestion(+e.target.value)}
-                >
-                    <option value="0">Tất cả</option>
-                    {listLevel &&
-                        listLevel.length > 0 &&
-                        listLevel.map((item) => {
-                            return (
-                                <option value={item.id} key={item.id}>
-                                    {item.title}
-                                </option>
-                            );
-                        })}
-                </select>
+                <div className="flex items-start">
+                    <select
+                        name=""
+                        id=""
+                        className="p-[8px] w-[20%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[20px]"
+                        onChange={(e) => handleGetQuestion(+e.target.value)}
+                    >
+                        <option value="0">Tất cả</option>
+                        {listLevel &&
+                            listLevel.length > 0 &&
+                            listLevel.map((item) => {
+                                return (
+                                    <option value={item.id} key={item.id}>
+                                        {item.title}
+                                    </option>
+                                );
+                            })}
+                    </select>
+
+                    {/* <img src="/PublicHome/cat-edit.png" alt="" className="w-[100px]" /> */}
+                </div>
 
                 <div
                     className="w-[100%] h-[50px] mt-[20px] rounded-[10px] cursor-pointer border-[1px] border-dashed border-[#ccc] flex justify-center items-center"
@@ -309,7 +313,7 @@ const ManageQuestions: React.FC = () => {
                     </button>
                 </Modal>
 
-                <div className="form-list-question w-[100%] p-[10px] mt-[10px] h-[100vh] overflow-auto">
+                <div className="form-list-question w-[100%]  mt-[10px] h-[100vh] overflow-auto">
                     {listQuestion &&
                         listQuestion.length > 0 &&
                         listQuestion.map((item) => {
@@ -317,7 +321,7 @@ const ManageQuestions: React.FC = () => {
                                 <div
                                     key={item.id}
                                     className={`${
-                                        questionEditAnswer === item.id ? 'bg-[#ccc]' : 'bg-[#53c1f8]'
+                                        questionEditAnswer === item.id ? 'bg-[#e2e2e2]' : 'bg-[#00fff3]'
                                     } item-question  my-[10px] rounded-[10px] cursor-pointer p-[10px]`}
                                     onClick={() => handleChooseQuestion(item)}
                                 >
@@ -336,13 +340,13 @@ const ManageQuestions: React.FC = () => {
 
                                         <div className="form-action w-[30%] flex justify-around items-center">
                                             <button
-                                                className="w-[40%] bg-[red] p-[10px] rounded-[10px] text-[#fff] hover:opacity-[0.6]"
+                                                className="w-[40%] bg-[#ff6b6a] p-[10px] rounded-[10px] text-[#fff] hover:opacity-[0.6]"
                                                 onClick={() => handleDeleteQuestion(item.id)}
                                             >
                                                 Xóa
                                             </button>
                                             <button
-                                                className="w-[40%] bg-[orange] p-[10px] rounded-[10px] text-[#fff] hover:opacity-[0.6]"
+                                                className="w-[40%] bg-[#ffd560] p-[10px] rounded-[10px] text-[#fff] hover:opacity-[0.6]"
                                                 onClick={() => showModal('update', item)}
                                             >
                                                 Sửa
@@ -365,7 +369,7 @@ const ManageQuestions: React.FC = () => {
                 )}
             </div>
 
-            <div className="w-[50%]  pl-[20px]">
+            <div className="w-[50%] ">
                 <h3 className="text-[16px] font-[600] text-center text-[#ff6609] uppercase ">Đáp án</h3>
 
                 <ManageAnswer listAnswer={listAnswer} handleReaload={fetch} questionEditAnswer={questionEditAnswer} />

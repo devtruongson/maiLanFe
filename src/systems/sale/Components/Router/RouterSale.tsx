@@ -3,6 +3,7 @@ import InfoStudent from '../../../SystemUser/Components/Pages/InfoStudent/InfoSt
 import TeacherBooking from '../../../SystemUser/Components/Pages/TeacherBooking/TeacherBooking';
 import StudentAll from '../../../components/StudentAll/StudentAll';
 import TaskSystem from '../../../components/TaskSystem/TaskSystem';
+import ManageStudent from '../Pages/ManageStudent/ManageStudent';
 
 export default function RouterSale() {
     return (
@@ -12,6 +13,7 @@ export default function RouterSale() {
                 <Route path="/info-student" element={<InfoStudent />} />
                 <Route path="/teacher-booking" element={<TeacherBooking />} />
                 <Route path="/task-system" element={<TaskSystem />} />
+                <Route path="/manage-student" element={<ManageStudent />} />
             </Routes>
         </div>
     );

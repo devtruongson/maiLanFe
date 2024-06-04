@@ -1,7 +1,7 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
 import { configHeaderAxios } from './tokenService';
-import { IDataGet, IExam, IResponse } from '../utils/interface';
+import { IDataGet, IExam, IResponse, TStatusExam } from '../utils/interface';
 
 export const getExamService = async ({
     page,
@@ -86,6 +86,30 @@ export const CreateExamService = async (body: IExamCreate): Promise<IResponse<nu
 export const deleteExamService = async (id: number): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.delete(`/exam/${id}`, configHeaderAxios());
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const changeStatusExamService = async (status: TStatusExam, id: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.patch(
+            `/exam/change-status?status=${status}&id=${id}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const changeLevelExam = async (id: number, level: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.put(
+            `/exam/level?id=${id}&level=${level}`,
+            configHeaderAxios(),
+        );
         return data.data;
     } catch (error) {
         throw error;

@@ -5,10 +5,7 @@ import { useEffect, useState } from 'react';
 import { getCalendarConfirmed, searchCalendarService } from '../../../../../../services/calendarService';
 import { HttpStatusCode } from 'axios';
 import ModalCreateExam from './ModalCreateExam/ModalCreateExam';
-import ModalViewExam from './ModalViewExam/ModalViewExam';
 import { useAppSelector } from '../../../../../../features/hooks/hooks';
-import Swal from 'sweetalert2';
-import { deleteExamService } from '../../../../../../services/examService';
 import ModalManageExam from './ModalManageExam/ModalManageExam';
 
 const CreateExam: React.FC = () => {
@@ -23,7 +20,7 @@ const CreateExam: React.FC = () => {
     const columns: TableColumnsType<IStudent> = [
         {
             title: '',
-            width: 50,
+            width: 15,
             dataIndex: 'name',
             key: 'index',
             fixed: 'left',
@@ -34,21 +31,32 @@ const CreateExam: React.FC = () => {
         // Table.SELECTION_COLUMN,
         {
             title: 'Tên con',
-            width: 80,
+            width: 60,
             dataIndex: 'fullName',
             key: 'fullName',
             fixed: 'left',
+            render: (...props) => {
+                return (
+                    <span className="">
+                        {props[1].fullName}
+                        {props[1].gender ? (
+                            <i className="bi bi-gender-male text-[blue] ml-[20px]"></i>
+                        ) : (
+                            <i className="bi bi-gender-female text-[red] ml-[20px]"></i>
+                        )}
+                    </span>
+                );
+            },
         },
         {
             title: 'Số điện thoại',
-            width: 80,
+            width: 40,
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
-            fixed: 'left',
         },
         {
             title: 'Email',
-            width: 150,
+            width: 80,
             dataIndex: 'email',
             key: 'email',
         },
@@ -56,18 +64,17 @@ const CreateExam: React.FC = () => {
             title: 'Môn học',
             dataIndex: 'course',
             key: '4',
-            width: 50,
+            width: 40,
             render: () => <span>Toán</span>,
         },
         {
             title: 'Tạo Bài kiểm tra',
             dataIndex: 'examData',
             key: '3',
-            width: 80,
+            width: 30,
+            fixed: 'right',
+
             render: (...props) => {
-                // if (props[1].examData.length > 0) {
-                //     return <ModalViewExam dataExam={props[1].examData[0]} />;
-                // }
                 return <ModalCreateExam studentId={props[1].id} func={fetch} />;
             },
         },
@@ -75,18 +82,11 @@ const CreateExam: React.FC = () => {
             title: 'Quản Lí Bài Kiểm Tra',
             dataIndex: 'examData',
             key: '3',
-            width: 50,
+            width: 30,
+            fixed: 'right',
             render: (...props) => {
                 if (props[1].examData.length > 0) {
-                    // return (
-                    //     <button
-                    //         onClick={() => handleDeleteExam(props[1].examData[0].id)}
-                    //         className="w-[100%] bg-[red] text-[#fff] p-[10px] rounded-[10px] "
-                    //     >
-                    //         Xóa Bài
-                    //     </button>
-                    // );
-                    return <ModalManageExam listExam={props[1].examData} />;
+                    return <ModalManageExam listExam={props[1].examData} func={fetch} />;
                 }
             },
         },
@@ -140,33 +140,10 @@ const CreateExam: React.FC = () => {
         }
     };
 
-    const handleDeleteExam = async (id: number) => {
-        await Swal.fire({
-            title: `Bạn muốn Xóa bài test ?`,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const _fetch = async () => {
-                    const res = await deleteExamService(id);
-
-                    Swal.fire({
-                        icon: res.code === 200 ? 'success' : 'warning',
-                        title: `${res.msg}`,
-                    });
-
-                    if (res.code === HttpStatusCode.Ok) {
-                        fetch();
-                    }
-                };
-                _fetch();
-            }
-        });
-    };
-
     return (
         <div className="">
-            <div className="w-[100%] flex justify-end items-center my-[20px] pr-[40px]">
+            <div className="w-[100%] flex justify-end items-center mb-[20px] pr-[40px]">
+                <img src="/PublicHome/cat-edit.png" alt="cat" className="w-[60px] mr-[20px]" />
                 <input
                     type="text"
                     className="p-[10px] border-solid border-[1px] border-[#ccc] rounded-[10px] w-[40%] shadow-md mr-[20px]"

@@ -180,7 +180,7 @@ const ManageAnswer = memo(function ManageAnswer({
                             <div
                                 key={item.id}
                                 className={`${
-                                    item.is_right ? 'bg-[#7eebab]' : 'bg-[#f75c5c]'
+                                    item.is_right ? 'bg-[#b1f55b]' : 'bg-[#ff7782]'
                                 } form-item  p-[10px] my-[10px] w-[100%] rounded-[10px] text-[#fff] flex  items-center`}
                             >
                                 <div className="w-[60%]"> {item.answer_title}</div>
