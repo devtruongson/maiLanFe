@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { HttpStatusCode } from 'axios';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
 
-const TeacherBooking: React.FC = () => {
+const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     const [listCalendar, setListCalendar] = useState<ICalendar[]>([]);
     const [listDate, setListDate] = useState<string[]>([]);
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
@@ -68,7 +68,7 @@ const TeacherBooking: React.FC = () => {
                         time_stamp_start: `${new Date(`${date} ${timeStart.slice(0, -2)}:0:0`).getTime()}`,
                         time_stamp_end: `${new Date(`${date} ${timeEnd.slice(0, -2)}:0:0`).getTime()}`,
                         calendar_id: calendarId,
-                        teacher_id: idUser ? idUser : 0,
+                        teacher_id: idUserExit ? idUserExit : idUser,
                     };
 
                     const res = await teacherBookingService(dataBuider);

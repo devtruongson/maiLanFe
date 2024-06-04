@@ -1,5 +1,15 @@
 import { AxiosResponse } from 'axios';
-import { IDataGet, ILogin, IRegister, IResponse, IStudent, ITokens, TStudent } from '../utils/interface';
+import {
+    ICalendarTeacher,
+    IDataGet,
+    IExam,
+    ILogin,
+    IRegister,
+    IResponse,
+    IStudent,
+    ITokens,
+    TStudent,
+} from '../utils/interface';
 import axios from '../../axios';
 import { configHeaderAxios } from './tokenService';
 
@@ -81,6 +91,24 @@ export const getCountUser = async (type: string = 'all') => {
     } catch (error) {
         throw error;
     }
+};
+
+export const getOneStudent = async (
+    id: number,
+): Promise<IResponse<{ student: IStudent; exam: IExam[]; calendar: ICalendarTeacher[] }>> => {
+    try {
+        const data: AxiosResponse<IResponse<{ student: IStudent; exam: IExam[]; calendar: ICalendarTeacher[] }>> =
+            await axios.get(`/student/one/${id}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getAddressVercel = async (url: string) => {
+    return fetch(url)
+        .then((res) => res.json())
+        .then((data) => data);
 };
 
 export const createInfoStudentService = async () => {};

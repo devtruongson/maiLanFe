@@ -8,6 +8,8 @@ import { Typography } from 'antd';
 import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
 import Operate from '../Operate/Operate';
+import { Link } from 'react-router-dom';
+import { InfoCircleOutlined } from '@ant-design/icons';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -64,7 +66,6 @@ const columns: TableColumnsType<IStudent> = [
         key: '4',
         width: 150,
         render: (...props) => {
-            console.log(props[1]);
             return <>{props[1]?.course_code === 'ENG' ? 'Tiếng Anh' : 'Toán'}</>;
         },
     },
@@ -106,6 +107,10 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
 
     const onChange = (key: string) => {
         console.log(key);
+    };
+
+    const handleClickViewInfo = (id: number) => {
+        window.location.href = `/info/student/${id}`;
     };
 
     return (
@@ -153,6 +158,9 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
                 setIsOpen={setIsOpen}
             />
             <button
+                onClick={() => {
+                    handleClickViewInfo(data.id);
+                }}
                 type="button"
                 className="mx-auto flex  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
@@ -165,7 +173,7 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
                 type="button"
                 className="mx-auto flex  py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
             >
-                Thao tác
+                <InfoCircleOutlined />
             </button>
         </>
     );

@@ -68,13 +68,13 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
     const [countOther, setCountOther] = useState<{
         is_booked: number;
         is_testing: number;
+        is_tested: number;
         is_completed: number;
-        result: number;
     }>({
-        is_booked: 0,
+        is_booked: 5,
         is_testing: 0,
-        is_completed: 0,
-        result: 0,
+        is_tested: 1,
+        is_completed: 1,
     });
 
     const isReload = useSelector((state: RootState) => state.configSlice.isReload);
@@ -290,10 +290,10 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
                                                     {countOther.is_testing ? countOther.is_testing : 0}
                                                 </td>
                                                 <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 font-medium dark:border-[#ccc]">
-                                                    {countOther.is_completed ? countOther.is_completed : 0}
+                                                    {countOther.is_tested ? countOther.is_tested : 0}
                                                 </td>
                                                 <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
-                                                    {countOther.result ? countOther.result : 0}
+                                                    {countOther.is_completed ? countOther.is_completed : 0}
                                                 </td>
                                             </>
                                         )}

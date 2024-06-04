@@ -14,10 +14,14 @@ const ContentModalBookingCalendar = ({
     idStudent,
     isCreate,
     setIsReloadKey,
+    idCalendarCurrent,
+    setIdCalendarCurrent,
 }: {
     idStudent: number;
     isCreate: boolean;
     setIsReloadKey?: React.Dispatch<SetStateAction<boolean>>;
+    setIdCalendarCurrent?: React.Dispatch<SetStateAction<number>>;
+    idCalendarCurrent?: number | string;
 }) => {
     const [calendars, setCalendars] = useState<ICalendar[]>([]);
     const [listDate, setListDate] = useState<string[]>([]);
@@ -83,24 +87,40 @@ const ContentModalBookingCalendar = ({
         }).then((result) => {
             if (result.isConfirmed) {
                 const _fetch = async () => {
+                    const idOld = (idCalendarCurrent ? idCalendarCurrent : '') as string;
                     const res = await addStudentToCalendarTeacher(
                         idStudent,
                         calendarTeacher[0].id,
                         isCreate ? 'is_reservation' : 'is_confirm',
+                        idOld,
                     );
 
-                    Swal.fire({
-                        icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
-                        title: isCreate ? 'Bạn đã book lịch thành công!' : 'Bạn đã thay đổi lịch thành công!',
-                    });
-
                     if (res.code === HttpStatusCode.Ok) {
+                        Swal.fire({
+                            icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
+                            title: isCreate ? 'Bạn đã book lịch thành công!' : 'Bạn đã thay đổi lịch thành công!',
+                        });
+
                         setIsReload(!isReload);
                         if (setIsReloadKey) {
                             setIsReloadKey((prev) => {
                                 return !prev;
                             });
                             dispatch(reloadAction());
+                        }
+                        if (setIdCalendarCurrent) {
+                            setIdCalendarCurrent(-1);
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: res.msg,
+                        });
+                        setIsReload(!isReload);
+                        if (setIsReloadKey) {
+                            setIsReloadKey((prev) => {
+                                return !prev;
+                            });
                         }
                     }
                 };

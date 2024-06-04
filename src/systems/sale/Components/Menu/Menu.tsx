@@ -1,13 +1,13 @@
 'use client';
 
-import { FileDoneOutlined, PieChartOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { BookOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Divider, Menu, Popover } from 'antd';
 import React from 'react';
 import { childrenListSale, sideBarListSale, urlchildrenListSale } from '../../../../utils/data';
 import { Link, useNavigate } from 'react-router-dom';
 
-const items = [PieChartOutlined, FileDoneOutlined, UnorderedListOutlined].map((icon: React.FC, index: number) => {
+const items = [BookOutlined, UserSwitchOutlined].map((icon: React.FC, index: number) => {
     const key: number = index;
     return {
         key: `sub${key}`,
@@ -69,7 +69,7 @@ const MenuSideBar: React.FC = () => {
                             }
                             alt="Avatar"
                         />
-                        <span>Sale</span>
+                        <span>Xin chào</span>
                     </div>
                 </Popover>
                 <Divider />

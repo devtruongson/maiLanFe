@@ -9,6 +9,7 @@ import { RouterDTO } from '../utils/routers.dto';
 import DashboardSale from '../systems/sale/Dashboard';
 import DashboardTeacher from '../systems/teacher/DashboardTeacher';
 import ModalChooseCalendar from '../systems/components/ModalChooseCalendar/ModalChooseCalendar';
+import InfoStudent from '../Components/InfoStudent/InfoStudent';
 
 export default function RouterCom() {
     return (
@@ -17,6 +18,7 @@ export default function RouterCom() {
                 <Route path="/" element={<RedirectHome />} />
                 <Route path="/home" element={<PageHome />} />
                 <Route path="/auth/student/*" element={<AuthStudent />} />
+                <Route path="/info/student/:id" element={<InfoStudent />} />
                 <Route
                     path={`${RouterDTO.Student.dashboard}`}
                     element={

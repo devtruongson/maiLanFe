@@ -74,6 +74,7 @@ export interface ICalendarTeacher {
     calendarData: ICalendar;
     teacherData: IUser;
     studentData: IStudent;
+    is_cancel: boolean;
 }
 
 export interface ICreateTeacherBooking {
@@ -104,6 +105,9 @@ export interface IUser {
     age: number;
     gender: boolean;
     addressData: IAllCode;
+    countCalendar?: number;
+    calendarData?: ICalendarTeacher[];
+    listTimeBooked?: string[];
 }
 
 export interface IAuthBuild {
@@ -138,7 +142,6 @@ export interface IStudent {
     district: string;
     commune: string;
     address_detail: string | null;
-    course_code: string;
     createdAt: string;
     updatedAt: string;
     AllCodeData: IAllCode;
