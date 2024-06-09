@@ -127,9 +127,9 @@ const Students = () => {
             const res = await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser);
             if (res.code === 200) {
                 setListStudent(
-                    res.data.items.map((item) => {
-                        return item.studentData;
-                    }),
+                    res.data.items
+                        .map((item) => item.studentData)
+                        .filter((studentData): studentData is IStudent => studentData !== null),
                 );
                 setMeta(res.data.meta);
             }
@@ -172,10 +172,11 @@ const Students = () => {
 
     return (
         <div className="mt-[20px] px-[40px]">
-            <div className="flex justify-center items-center mb-[20px]">
+            <div className="flex justify-center items-center mb-[40px]">
                 <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px]" />
                 <p className="ml-[20px] font-[600] text-xl text-[#ff6609] uppercase">Quản Lí Học Sinh</p>
             </div>
+
             <Table
                 className="h-[1000px] mt-[20px]"
                 columns={columns}

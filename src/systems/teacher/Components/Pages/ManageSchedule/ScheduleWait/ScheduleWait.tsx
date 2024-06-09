@@ -63,7 +63,7 @@ const ScheduleWait = () => {
     };
 
     return (
-        <div className="w-[100%] ">
+        <div className="w-[100%]">
             <Select
                 className="my-[20px]"
                 defaultValue="Tất cả"

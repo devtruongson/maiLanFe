@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { HttpStatusCode } from 'axios';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
 import { Tooltip } from 'antd';
+import handleConvertDateToString from '../../../../../helpers/handleConvertDateToString';
 
 const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     const [listCalendar, setListCalendar] = useState<ICalendar[]>([]);
@@ -18,6 +19,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     const [listTimeBooked, setListTimeBooked] = useState<string[]>([]);
     const [isReload, setIsReload] = useState<boolean>(false);
     const [calenDarBookedStudents, setCalenDarBookedStudents] = useState<ICalendarTeacher[]>([]);
+    const [dateCurrent, setDateCurrent] = useState<string>(handleConvertDateToString(0));
 
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
@@ -30,16 +32,26 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
         };
 
         fetch();
-
-        for (let i = 0; i < 6; i++) {
-            const currentDate = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * i);
-            const day = currentDate.getDate();
-            const month = currentDate.getMonth() + 1;
-            const year = currentDate.getFullYear();
-            const time = `${year}-${month}-${day}`;
-            setListDate((prev) => [...prev, time]);
-        }
     }, []);
+
+    useEffect(() => {
+        const arrNew = [];
+        for (let i = 0; i < 6; i++) {
+            let date;
+            if (dateCurrent === handleConvertDateToString(0)) {
+                date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * i);
+            } else {
+                date = new Date(new Date(`${dateCurrent}`).getTime() + 24 * 60 * 60 * 1000 * i);
+            }
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            const time = `${year}-${month}-${day}`;
+
+            arrNew.push(time);
+        }
+        setListDate(arrNew);
+    }, [dateCurrent]);
 
     useEffect(() => {
         if (!idUser) {
@@ -69,7 +81,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
             if (result.isConfirmed) {
                 const _fetch = async () => {
                     const dataBuider = {
-                        day: `${new Date(date).getTime()}`,
+                        day: `${new Date(`${date} 0:0:0`).getTime()}`,
                         time_stamp_start: `${new Date(`${date} ${timeStart.slice(0, -2)}:0:0`).getTime()}`,
                         time_stamp_end: `${new Date(`${date} ${timeEnd.slice(0, -2)}:0:0`).getTime()}`,
                         calendar_id: calendarId,
@@ -146,12 +158,9 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
     };
 
     return (
-        <div
-            className="w-[100%] pt-[10px] pb-[50px] bg-[url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/cach-thiet-ke-background-dep.jpg')] bg-center bg-no-repeat bg-cover"
-            // bg-[url('https://gcs.tripi.vn/public-tripi/tripi-feed/img/474027ptz/mau-background-don-gian-dep-3.jpg')] bg-center bg-no-repeat bg-cover
-        >
+        <div className="w-[100%] pt-[10px] pb-[50px] bg-[url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/cach-thiet-ke-background-dep.jpg')] bg-center bg-no-repeat bg-cover">
             <div className="w-[100%] flex justify-center items-center">
-                <img src="/PublicHome/cat-edit.png" alt="" className="w-[50px] mr-[10px]" />
+                <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px] mr-[10px]" />
                 <h3 className="text-xl font-[600]  text-[#ff6609] uppercase text-center">Đặt lịch phỏng vấn</h3>
             </div>
 
@@ -163,6 +172,13 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                 }}
                 className="flex justify-start items-center pe-10 gap-4 ml-[10%] my-[10px]"
             >
+                <input
+                    type="date"
+                    className="p-[10px] shadow rounded-[10px] mr-[10px]"
+                    value={dateCurrent}
+                    onChange={(e) => setDateCurrent(e.target.value)}
+                />
+
                 <Tooltip placement="bottom" title="Lịch chưa đặt">
                     <label htmlFor="" className="inline-flex gap-2 items-center">
                         <strong className="cursor-pointer">

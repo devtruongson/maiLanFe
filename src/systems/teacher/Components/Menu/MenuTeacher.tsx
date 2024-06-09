@@ -101,7 +101,8 @@ const MenuTeacher: React.FC = () => {
                     className={`p-[10px] py-[25px] w-[100%] hover:cursor-pointer hover:bg-[#fff] hover:text-[#ff6609] ${
                         location === RouterDTO.Student.dashboard_teacher.exam ||
                         location === RouterDTO.Student.dashboard_teacher.manageQuestions ||
-                        location === RouterDTO.Student.dashboard_teacher.createExam
+                        location === RouterDTO.Student.dashboard_teacher.createExam ||
+                        location === RouterDTO.Student.dashboard_teacher.mathExam
                             ? 'active-choose'
                             : ''
                     }`}

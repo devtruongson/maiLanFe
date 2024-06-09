@@ -8,7 +8,6 @@ import { Typography } from 'antd';
 import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
 import Operate from '../Operate/Operate';
-import { Link } from 'react-router-dom';
 import { InfoCircleOutlined } from '@ant-design/icons';
 const { Paragraph } = Typography;
 

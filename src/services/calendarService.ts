@@ -1,6 +1,14 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
-import { ICalendar, ICalendarTeacher, ICreateTeacherBooking, IDataGet, IResponse, TStatus } from '../utils/interface';
+import {
+    ICalendar,
+    ICalendarTeacher,
+    ICountSchedule,
+    ICreateTeacherBooking,
+    IDataGet,
+    IResponse,
+    TStatus,
+} from '../utils/interface';
 import { configHeaderAxios } from './tokenService';
 
 export const getCalendarService = async (): Promise<IResponse<ICalendar[]>> => {
@@ -145,6 +153,86 @@ export const getCalendarWaitByExpried = async (
     try {
         const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
             `/calendar/book-exam?page=${page}&pageSize=${pageSize}&idTeacher=${idTeacher}&isNotStudent=${isNotStudent}&isExpired=${isExpired}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getScheduleService = async (
+    idTeacher: number,
+    page: number,
+    pageSize: number,
+    dateStart: number,
+    dateEnd: number,
+    isStudent: string = '',
+): Promise<IResponse<IDataGet<ICalendarTeacher[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
+            `/calendar/get-schedule?idTeacher=${idTeacher}&page=${page}&pageSize=${pageSize}&dateStart=${dateStart}&dateEnd=${dateEnd}&isStudent=${isStudent}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const countScheduleTeacher = async (idTeacher: number): Promise<IResponse<ICountSchedule>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICountSchedule>> = await axios.get(
+            `/calendar/count-schedule-teacher?idTeacher=${idTeacher}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getDataExportService = async (
+    idTeacher: number,
+    dateStart: number,
+    dateEnd: number,
+    isStudent: string = '',
+): Promise<IResponse<ICalendarTeacher[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
+            `/calendar/get-schedule?idTeacher=${idTeacher}&dateStart=${dateStart}&dateEnd=${dateEnd}&isStudent=${isStudent}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+interface IUpdateNote {
+    id: number;
+    link_video?: string | null;
+    note?: string;
+}
+
+export const updateNoteService = async (body: IUpdateNote): Promise<IResponse<ICalendarTeacher[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.put(
+            `/calendar/change-note`,
+            { ...body },
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const updateMoreInterView = async (listCalender: number[]): Promise<IResponse<ICalendarTeacher[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.put(
+            `/calendar/change-more-interview`,
+            { listCalender: listCalender },
             configHeaderAxios(),
         );
         return data.data;

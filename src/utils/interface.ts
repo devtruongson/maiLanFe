@@ -71,9 +71,11 @@ export interface ICalendarTeacher {
     is_reservation: boolean | null;
     is_confirm: boolean | null;
     is_interviewed_meet: boolean | null;
+    link_video: string;
+    note: string;
     calendarData: ICalendar;
     teacherData: IUser;
-    studentData: IStudent;
+    studentData?: IStudent;
     is_cancel: boolean;
 }
 
@@ -142,9 +144,9 @@ export interface IStudent {
     district: string;
     commune: string;
     address_detail: string | null;
-    // course_code: string;
-    createdAt: string;
-    updatedAt: string;
+    sale_created_id: number;
+    createdAt?: string;
+    updatedAt?: string;
     AllCodeData: IAllCode;
     ParentData: IParentData;
     examData: IExam[];
@@ -182,6 +184,7 @@ export interface IRegister {
     commune: string;
     address_detail: string;
     course_code: string;
+    sale_created_id: number;
 }
 
 export interface IStudentBooking {
@@ -307,4 +310,24 @@ export interface IDataSets {
 export interface IDataLineChart {
     labels: string[];
     datasets: IDataSets[];
+}
+
+export interface IDataExport {
+    day?: string;
+    time?: string;
+    fullname?: string;
+    phonenumber?: string;
+    email?: string;
+    birthday: string;
+    subject?: string;
+}
+
+export interface ICountSchedule {
+    all: number;
+    notStudent: number;
+    haveStudent: number;
+    interview: number;
+    meet: number;
+    fail: number;
+    cancel: number;
 }

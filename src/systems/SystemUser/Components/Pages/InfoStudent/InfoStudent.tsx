@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { registerStudent } from '../../../../../services/StudentService';
 import { getAllCodeByType } from '../../../../../services/AllCodeService';
 import { addParentService } from '../../../../../services/parentService';
+import { useAppSelector } from '../../../../../features/hooks/hooks';
 
 const InfoStudent: React.FC = () => {
     const [listProvince, setListProvince] = useState<IProvince[]>([]);
@@ -26,6 +27,8 @@ const InfoStudent: React.FC = () => {
     const [association, setAssociation] = useState<number>(0);
     const [listAssociation, setListAssociation] = useState<IAllCode[]>([]);
     const [courseCode, setCourseCode] = useState<string>('ENG');
+
+    const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
         const fetch = async () => {
@@ -74,7 +77,7 @@ const InfoStudent: React.FC = () => {
         setAddressDetail('');
         setGender(0);
         setIsLoading(false);
-        setCourseCode('');
+        setCourseCode('ENG');
     };
 
     const handleResetInfoParent = () => {
@@ -114,6 +117,10 @@ const InfoStudent: React.FC = () => {
                 return;
             }
 
+            if (!idUser) {
+                return;
+            }
+
             const dataBuider: IRegister = {
                 fullName: fullname,
                 phoneNumber: phonenumber,
@@ -126,6 +133,7 @@ const InfoStudent: React.FC = () => {
                 commune: currentCommune,
                 address_detail: addressDetail,
                 course_code: courseCode,
+                sale_created_id: +idUser,
             };
 
             const res = await registerStudent(dataBuider);
