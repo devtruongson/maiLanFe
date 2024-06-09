@@ -468,15 +468,3 @@ function CheckComp({
         </div>
     );
 }
-
-/* 
-
-`${
-                    calenDarBookedStudents.find((item) => item.calendarData.time_start === itemChild.time_start)
-                        ? 'text-[red] '
-                        : handleCheckTime(itemChild.time_start, item) == 1
-                        ? 'text-[#ddd] cursor-not-allowed'
-                        : handleCheckTime(itemChild.time_start, item) === 2
-                        ? 'text-[green] cursor-pointer'
-                        : 'text-[#000] cursor-pointer'
-*/
