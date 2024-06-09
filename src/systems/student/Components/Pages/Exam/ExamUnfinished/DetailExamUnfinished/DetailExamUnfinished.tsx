@@ -48,25 +48,23 @@ const DetailExamUnfinished: React.FC = () => {
         }
 
         const fetch = async () => {
-            if (isStart) {
-                const res = await getOneExamService(+idExam, isComplated);
-                if (res.code === 200) {
-                    if (res.data.is_completed || res.data.is_tested) {
-                        navigate(`/exam-complated/student/${idExam}`);
-                        return;
-                    }
-                    setExam(res.data);
-                    setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
-                    dispatch(addCount(res.data.time_end * 60));
+            const res = await getOneExamService(+idExam, isComplated);
+            if (res.code === 200) {
+                if (res.data.is_completed || res.data.is_tested) {
+                    navigate(`/exam-complated/student/${idExam}`);
                     return;
                 }
+                setExam(res.data);
+                setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
+                dispatch(addCount(res.data.time_end * 60));
             }
-            await changeStatusExamService('is_booked', +idExam);
+
+            if (!isStart) {
+                await changeStatusExamService('is_booked', +idExam);
+            }
         };
 
         fetch();
-
-        // const resUpdateStatus = await changeStatusExamService('is_booked', +idExam);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isStart]);
@@ -230,7 +228,7 @@ const DetailExamUnfinished: React.FC = () => {
                                     <img
                                         src="/PublicHome/cat-edit.png"
                                         alt="cat"
-                                        className="w-[150px] absolute z-1 mr-[35%] "
+                                        className="w-[80px] absolute z-1 mr-[35%] "
                                     />
                                     <p className="text-xl font-[600] absolute z-2 text-center text-[green]">
                                         Hãy bình tĩnh làm bài nhé
@@ -248,7 +246,7 @@ const DetailExamUnfinished: React.FC = () => {
 
                                             <div className="w-[100%] bg-[#61f8e3] rounded-[10px] p-[10px]">
                                                 <p>{exam.ExamQuestionData[currentQuestion].QuestionData.title}</p>
-                                                <p className="text-xl">
+                                                <p className="text-xl text-[#ff6609]">
                                                     {exam.ExamQuestionData[currentQuestion].QuestionData.suggest}
                                                 </p>
 

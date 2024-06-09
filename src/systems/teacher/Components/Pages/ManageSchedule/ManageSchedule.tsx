@@ -25,7 +25,8 @@ const ManageSchedule: React.FC = () => {
     };
 
     return (
-        <div className="">
+        <div className="pt-[20px] px-[40px]">
+            {/* bg-[#D7FFFE] */}
             <Tabs
                 className=""
                 activeKey={locations.pathname}

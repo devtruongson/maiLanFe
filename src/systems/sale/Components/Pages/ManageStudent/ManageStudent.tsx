@@ -87,7 +87,7 @@ const ManageStudent = () => {
                         value={props[1].level ? props[1].level : 0}
                         onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
                     >
-                        <option value={0}>Chọn level</option>
+                        <option value={0}>Chọn Học Lực</option>
 
                         {listLevel &&
                             listLevel.length > 0 &&
@@ -277,7 +277,8 @@ const ManageStudent = () => {
                     </Tooltip>
                 </div>
 
-                <div className="w-[50%] flex justify-end items-center my-[20px] pr-[40px]">
+                <div className="w-[60%] flex justify-end items-center my-[20px] pr-[40px]">
+                    <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px] mr-[20px]" />
                     <select
                         name=""
                         id=""

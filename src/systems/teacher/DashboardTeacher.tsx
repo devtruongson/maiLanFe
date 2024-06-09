@@ -8,8 +8,8 @@ export default function DashboardTeacher() {
                 <MenuTeacher />
             </div>
 
-            <div className="form-content w-[95%] h-[100%] mb-[50px]  overflow-auto shadow-lg bg-[#fff]">
-                <div className="detail-content mt-[20px] px-[40px]  w-[100%] h-[100%]">
+            <div className="w-[95%] h-[100%] mb-[50px]  overflow-auto shadow-lg bg-[#fff]">
+                <div className="detail-content   w-[100%] h-[100%]">
                     <RouterTeacher />
                 </div>
             </div>

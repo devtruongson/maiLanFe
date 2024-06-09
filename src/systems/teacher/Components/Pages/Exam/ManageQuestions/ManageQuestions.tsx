@@ -177,6 +177,7 @@ const ManageQuestions: React.FC = () => {
 
     const handleDeleteQuestion = async (id: number) => {
         await Swal.fire({
+            icon: 'question',
             title: `Bạn muốn Xóa câu hỏi chứ ?`,
             showCancelButton: true,
             confirmButtonText: 'Yes',
@@ -309,7 +310,7 @@ const ManageQuestions: React.FC = () => {
                         className="w-[20%] bg-[blue] text-[#fff] border-none rounded-[10px] p-[8px] mt-[20px]"
                         onClick={() => handleCreateQuestion()}
                     >
-                        Tạo Câu Hỏi
+                        {isCreate ? 'Tạo Câu Hỏi' : 'Sửa Câu Hỏi'}
                     </button>
                 </Modal>
 

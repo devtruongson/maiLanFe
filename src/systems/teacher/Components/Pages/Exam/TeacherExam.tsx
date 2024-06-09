@@ -30,7 +30,7 @@ const TeacherExam: React.FC = () => {
         navigate(`${key}`);
     };
     return (
-        <div className="w-[100%] ">
+        <div className="w-[100%] mt-[20px] px-[40px]">
             <Tabs
                 className=""
                 activeKey={locations.pathname}

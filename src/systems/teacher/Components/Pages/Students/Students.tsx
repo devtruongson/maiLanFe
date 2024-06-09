@@ -139,7 +139,9 @@ const Students = () => {
 
     const handleChangLevel = async (idStudent: number, level: number) => {
         await Swal.fire({
-            title: `Bạn có chắc muốn cập nhật level ?`,
+            icon: 'question',
+            title: `Bạn có chắc muốn thay đổi học lực ?`,
+            width: 1000,
             showCancelButton: true,
             confirmButtonText: 'Yes',
         }).then((result) => {
@@ -169,7 +171,7 @@ const Students = () => {
     };
 
     return (
-        <div className="">
+        <div className="mt-[20px] px-[40px]">
             <div className="flex justify-center items-center mb-[20px]">
                 <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px]" />
                 <p className="ml-[20px] font-[600] text-xl text-[#ff6609] uppercase">Quản Lí Học Sinh</p>
@@ -178,7 +180,7 @@ const Students = () => {
                 className="h-[1000px] mt-[20px]"
                 columns={columns}
                 dataSource={listStudent}
-                scroll={{ x: 1800, y: '100vh' }}
+                scroll={{ x: 1800, y: '50vh' }}
                 pagination={{
                     total: meta?.totalIteams,
                     pageSize: pagination.pageSize,
