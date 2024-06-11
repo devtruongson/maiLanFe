@@ -1,9 +1,8 @@
 import { Button, Col, Row } from 'antd';
-import { IAllCode, IUser } from '../../../utils/interface';
+import { IAllCode } from '../../../utils/interface';
 import React, { SetStateAction, useEffect, useState } from 'react';
 import { getAllCodeByType } from '../../../services/AllCodeService';
 import { HttpStatusCode } from 'axios';
-import { getAllUserByType } from '../../../services/userService';
 import { CreateExamService } from '../../../services/examService';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
@@ -17,7 +16,7 @@ export default function CreateExamForStudent({
     setIsReloadKey?: React.Dispatch<SetStateAction<boolean>>;
 }) {
     const [levels, setLevels] = useState<IAllCode[]>([]);
-    const [teachers, setTeachers] = useState<IUser[]>([]);
+    // const [teachers, setTeachers] = useState<IUser[]>([]);
 
     const [data, setData] = useState<{
         student_id: number;
@@ -39,14 +38,14 @@ export default function CreateExamForStudent({
         const _fetch = async () => {
             try {
                 const res = await getAllCodeByType('level');
-                const resTeacher = await getAllUserByType('4');
+                // const resTeacher = await getAllUserByType('4');
                 if (res.code === HttpStatusCode.Ok) {
                     setLevels(res.data);
                 }
 
-                if (resTeacher.code === HttpStatusCode.Ok) {
-                    setTeachers(resTeacher.data);
-                }
+                // if (resTeacher.code === HttpStatusCode.Ok) {
+                //     setTeachers(resTeacher.data);
+                // }
             } catch (error) {
                 console.log(error);
             }
@@ -58,14 +57,7 @@ export default function CreateExamForStudent({
 
     const handleSubmit = async () => {
         let isValid = true;
-        if (
-            !data.time_end ||
-            !data.level ||
-            !data.student_id ||
-            !data.teacher_id ||
-            !data.title ||
-            !data.total_question
-        ) {
+        if (!data.time_end || !data.level || !data.student_id || !data.title || !data.total_question) {
             isValid = false;
             alert('Vui long nhập đẩy đủ các trường!');
         }
@@ -201,7 +193,7 @@ export default function CreateExamForStudent({
                         </select>
                     </div>
                 </Col>
-                <Col span={24}>
+                {/* <Col span={24}>
                     <div className="mb-5">
                         <label className="block mb-2 text-sm font-medium ">Chọn giáo viên đánh giá</label>
                         <select
@@ -227,7 +219,7 @@ export default function CreateExamForStudent({
                                 ))}
                         </select>
                     </div>
-                </Col>
+                </Col> */}
                 <Col span={24}>
                     <div className="mb-5 flex justify-center">
                         <Button onClick={handleSubmit} type="primary">

@@ -95,7 +95,7 @@ export const deleteExamService = async (id: number): Promise<IResponse<null>> =>
 export const getAllExams = async (
     page: number,
     pageSize: number,
-    teacherId: number,
+    teacherId?: number,
 ): Promise<IResponse<IDataGet<IExam[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IExam[]>>> = await axios.get(

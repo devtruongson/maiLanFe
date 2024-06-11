@@ -11,6 +11,7 @@ import {
 import { HttpStatusCode } from 'axios';
 import { getAllCodeByCode } from '../../../../../services/AllCodeService';
 import Swal from 'sweetalert2';
+import ModalInfoParent from './ModalInfoParent/ModalInfoParent';
 
 type IGet = 'GETALL' | 'GETLEVEL' | 'GETSEARCH' | 'GETSUBJECT';
 
@@ -72,6 +73,45 @@ const ManageStudent = () => {
                 return <span>{props[1].course_code === 'ENG' ? 'Tiếng Anh ' : 'Toán'}</span>;
             },
         },
+        {
+            title: 'Thông tin cha mẹ',
+            dataIndex: 'parent',
+            key: 'parent',
+            width: 50,
+            render: (...props) => {
+                return <ModalInfoParent infoParent={props[1].ParentData} />;
+            },
+        },
+        {
+            title: 'Học Lực',
+            dataIndex: 'level',
+            key: 'level',
+            width: 60,
+            fixed: 'right',
+            render: (...props) => {
+                return (
+                    <select
+                        name=""
+                        id=""
+                        className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+                        value={props[1].level ? props[1].level : 0}
+                        onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
+                    >
+                        <option value={0}>Chọn Học Lực</option>
+
+                        {listLevel &&
+                            listLevel.length > 0 &&
+                            listLevel.map((item) => {
+                                return (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                );
+                            })}
+                    </select>
+                );
+            },
+        },
     ];
 
     const [textSearch, setTextSearch] = useState('');
@@ -125,27 +165,27 @@ const ManageStudent = () => {
         });
     };
 
-    // const handleChangLevel = async (idStudent: number, level: number) => {
-    //     await Swal.fire({
-    //         title: `Bạn có chắc muốn cập nhật level ?`,
-    //         showCancelButton: true,
-    //         confirmButtonText: 'Yes',
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             const _fetch = async () => {
-    //                 const res = await updateLevelStudentService(idStudent, level);
-    //                 Swal.fire({
-    //                     icon: res.code === 200 ? 'success' : 'warning',
-    //                     title: `${res.msg}`,
-    //                 });
-    //                 if (res.code === HttpStatusCode.Ok) {
-    //                     setIsReload(!isReload);
-    //                 }
-    //             };
-    //             _fetch();
-    //         }
-    //     });
-    // };
+    const handleChangLevel = async (idStudent: number, level: number) => {
+        await Swal.fire({
+            title: `Bạn có chắc muốn cập nhật level ?`,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const _fetch = async () => {
+                    const res = await updateLevelStudentService(idStudent, level);
+                    Swal.fire({
+                        icon: res.code === 200 ? 'success' : 'warning',
+                        title: `${res.msg}`,
+                    });
+                    if (res.code === HttpStatusCode.Ok) {
+                        setIsReload(!isReload);
+                    }
+                };
+                _fetch();
+            }
+        });
+    };
 
     const handleSortAge = () => {
         setListStudent([
@@ -193,7 +233,7 @@ const ManageStudent = () => {
     };
 
     return (
-        <div className="">
+        <div className="px-[10px]">
             <div className="w-[100%] flex justify-between items-center py-[10px]">
                 <div className="w-[40%]">
                     <Tooltip

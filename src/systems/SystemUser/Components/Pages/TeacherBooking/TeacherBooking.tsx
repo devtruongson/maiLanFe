@@ -326,6 +326,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                                         listCalendar.map((itemChild) => {
                                             return (
                                                 <CheckComp
+                                                    key={itemChild.id}
                                                     calenDarBookedStudents={calenDarBookedStudents}
                                                     handleBooking={handleBooking}
                                                     handleCheckTime={handleCheckTime}

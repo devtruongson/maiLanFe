@@ -1,7 +1,14 @@
 import RouterTeacher from './Components/Router/RouterTeacher';
 import MenuTeacher from './Components/Menu/MenuTeacher';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { RouterDTO } from '../../utils/routers.dto';
 
 export default function DashboardTeacher() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        navigate(RouterDTO.Student.dashboard_teacher.calendarConfim);
+    }, []);
     return (
         <div className="flex w-[100%] h-[100vh]">
             <div className="w-[5%]">

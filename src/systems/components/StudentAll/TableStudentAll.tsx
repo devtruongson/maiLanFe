@@ -12,6 +12,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../features/store/store';
 import { setIdSelectOperate } from '../../../features/auth/configSlice';
+import Log from '../Log/Log';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -103,6 +104,15 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             children: (
                 <>
                     <Operate type={data.course_code} email={data.email} idStudent={data.id} />
+                </>
+            ),
+        },
+        {
+            key: '2',
+            label: 'Log',
+            children: (
+                <>
+                    <Log idStudent={data.id} key={data.id} />
                 </>
             ),
         },

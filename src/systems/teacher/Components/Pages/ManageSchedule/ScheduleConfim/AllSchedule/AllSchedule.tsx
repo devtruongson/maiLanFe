@@ -24,6 +24,9 @@ const AllSchedule = ({ listCalendar, handleReload }: { listCalendar: number[]; h
     }, [listCalendar]);
 
     const handleUpdateInterView = async () => {
+        if (listCalendar.length <= 0) {
+            return;
+        }
         Swal.fire({
             icon: 'question',
             title: `Bạn có chắc cập nhật trạng thái phỏng vấn cho các học sinh đã chọn ?`,

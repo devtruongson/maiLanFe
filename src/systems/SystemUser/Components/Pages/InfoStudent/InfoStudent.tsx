@@ -28,7 +28,7 @@ const InfoStudent: React.FC = () => {
     const [listAssociation, setListAssociation] = useState<IAllCode[]>([]);
     const [courseCode, setCourseCode] = useState<string>('ENG');
 
-    const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
+    const emailSale = useAppSelector((state) => state.authSlice.auth.data?.email);
 
     useEffect(() => {
         const fetch = async () => {
@@ -117,11 +117,11 @@ const InfoStudent: React.FC = () => {
                 return;
             }
 
-            if (!idUser) {
+            if (!emailSale) {
                 return;
             }
 
-            const dataBuider: IRegister = {
+            const dataBuider: Partial<IRegister> = {
                 fullName: fullname,
                 phoneNumber: phonenumber,
                 email: email,
@@ -133,7 +133,6 @@ const InfoStudent: React.FC = () => {
                 commune: currentCommune,
                 address_detail: addressDetail,
                 course_code: courseCode,
-                sale_created_id: +idUser,
             };
 
             const res = await registerStudent(dataBuider);

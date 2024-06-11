@@ -14,6 +14,7 @@ const PrivateRouter: React.FC<{ role: TRole; children: React.ReactNode }> = ({ r
                 window.location.href = '/notfound/404';
                 return;
             }
+
             const decoded: IPayloadJwt | null = jwtDecode(token);
 
             if (!decoded) {
