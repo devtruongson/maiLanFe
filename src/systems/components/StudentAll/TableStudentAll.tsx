@@ -9,6 +9,7 @@ import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
 import Operate from '../Operate/Operate';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import Log from '../Log/Log';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -99,6 +100,15 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             children: (
                 <>
                     <Operate type={data.course_code} email={data.email} idStudent={data.id} />
+                </>
+            ),
+        },
+        {
+            key: '2',
+            label: 'Log',
+            children: (
+                <>
+                    <Log idStudent={data.id} key={data.id} />
                 </>
             ),
         },

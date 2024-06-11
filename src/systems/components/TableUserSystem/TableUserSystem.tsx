@@ -10,6 +10,7 @@ import { RootState } from '../../../features/store/store';
 import { setDayAction } from '../../../features/auth/configSlice';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
+import handleConvertDateToString from '../../../helpers/handleConvertDateToString';
 const { Paragraph } = Typography;
 
 export default function TableUserSystem() {
@@ -21,6 +22,7 @@ export default function TableUserSystem() {
     const day = useSelector((state: RootState) => state.configSlice.day);
     const [isReload, setIsReload] = useState<boolean>(false);
     const [filterCustom, setFilterCustom] = useState<string>('all');
+    const [dateCurrent, setDateCurrent] = useState<string>(handleConvertDateToString(0));
 
     const params = useParams();
     const dispatch = useDispatch();
@@ -195,8 +197,14 @@ export default function TableUserSystem() {
         setPage(page);
     };
 
-    const handleChange = (value: string) => {
-        dispatch(setDayAction(parseInt(value)));
+    // const handleChange = (value: string) => {
+    //     console.log(value);
+    //     dispatch(setDayAction(parseInt(value)));
+    // };
+
+    const handleChangeDate = (date: string) => {
+        setDateCurrent(date);
+        dispatch(setDayAction(new Date(new Date(date).setHours(0, 0, 0, 0)).getTime()));
     };
 
     const handleChangeFilter = (value: string) => {
@@ -207,7 +215,13 @@ export default function TableUserSystem() {
         <div>
             <div className="my-3 py-3 ps-4">
                 <Flex gap="small">
-                    <Select
+                    <input
+                        type="date"
+                        className="p-[4px] shadow rounded-[5px] border-solid border-[1px] border-[#ccc]"
+                        value={dateCurrent}
+                        onChange={(e) => handleChangeDate(e.target.value)}
+                    />
+                    {/* <Select
                         defaultValue={new Date(new Date().setHours(0, 0, 0, 0)).getTime().toString()}
                         style={{ width: 120 }}
                         onChange={handleChange}
@@ -257,7 +271,7 @@ export default function TableUserSystem() {
                                 label: new Date(new Date().setDate(new Date().getDate() + 5)).toLocaleDateString(),
                             },
                         ]}
-                    />
+                    /> */}
                     <Select
                         defaultValue="all"
                         style={{

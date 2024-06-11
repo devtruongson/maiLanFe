@@ -20,10 +20,6 @@ const ModalNote = ({
     const [note, setNote] = useState<string>(content);
     const [link, setLink] = useState<string>(content);
 
-    // useEffect(() => {
-    //     setNote(content);
-    // }, []);
-
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -74,7 +70,7 @@ const ModalNote = ({
     };
 
     return (
-        <div className="">
+        <div className="w-[90%]">
             <button onClick={showModal} className="w-[100%] shadow rounded-[10px] p-[10px] bg-[blue] text-[#fff]">
                 {type ? 'Nhận xét' : 'Cập nhật'}
             </button>

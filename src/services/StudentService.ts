@@ -3,6 +3,7 @@ import {
     ICalendarTeacher,
     IDataGet,
     IExam,
+    ILog,
     ILogin,
     IRegister,
     IResponse,
@@ -36,7 +37,7 @@ export const loginStudent = async (
     }
 };
 
-export const registerStudent = async (body: IRegister): Promise<IResponse<IStudent>> => {
+export const registerStudent = async (body: Partial<IRegister>): Promise<IResponse<IStudent>> => {
     try {
         const data: AxiosResponse<IResponse<IStudent>> = await axios.post(`/student/register`, {
             ...body,
@@ -161,6 +162,15 @@ export const getBySubjectService = async (
         const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
             `/student?page=${page}&pageSize=${pageSize}&course_code=${subject}`,
         );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getLogService = async (idStudent: number): Promise<IResponse<ILog[]>> => {
+    try {
+        const data: AxiosResponse<IResponse<ILog[]>> = await axios.get(`/log?idStudent=${idStudent}`);
         return data.data;
     } catch (error) {
         throw error;

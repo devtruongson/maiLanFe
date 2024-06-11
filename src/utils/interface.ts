@@ -148,7 +148,7 @@ export interface IStudent {
     createdAt?: string;
     updatedAt?: string;
     AllCodeData: IAllCode;
-    ParentData: IParentData;
+    ParentData: IParentData[];
     examData: IExam[];
     course_code: TStudent;
 }
@@ -330,4 +330,15 @@ export interface ICountSchedule {
     meet: number;
     fail: number;
     cancel: number;
+}
+
+export interface ILog {
+    id: number;
+    student_id: number;
+    user_id: number;
+    calendar_id: number;
+    event: string;
+    description: string;
+    createdAt: number;
+    updatedAt: number;
 }

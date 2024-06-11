@@ -32,17 +32,17 @@ export default function RouterCom() {
                 <Route
                     path={RouterDTO.Student.dashboard_sale}
                     element={
-                        <DashboardSale />
-                        // <PrivateRouter role="SYSTEM">
-                        // </PrivateRouter>
+                        <PrivateRouter role="SYSTEM">
+                            <DashboardSale />
+                        </PrivateRouter>
                     }
                 />
                 <Route
                     path={RouterDTO.Student.dashboard_teacher.dashboard}
                     element={
-                        <DashboardTeacher />
-                        // <PrivateRouter role="TEACHER">
-                        // </PrivateRouter>
+                        <PrivateRouter role="SYSTEM">
+                            <DashboardTeacher />
+                        </PrivateRouter>
                     }
                 />
 

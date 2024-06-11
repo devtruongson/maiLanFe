@@ -35,7 +35,10 @@ const ScheduleConfim: React.FC = () => {
                         {props[1].studentData ? (
                             props[1].studentData.fullName
                         ) : (
-                            <span className="text-[orange]">Chưa có học sinh đăng ký</span>
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
+                            // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
                         )}
                     </p>
                 );
@@ -52,7 +55,10 @@ const ScheduleConfim: React.FC = () => {
                         {props[1].studentData ? (
                             props[1].studentData.phoneNumber
                         ) : (
-                            <span className="text-[orange]">Chưa có học sinh đăng ký</span>
+                            // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
                         )}
                     </p>
                 );
@@ -69,7 +75,10 @@ const ScheduleConfim: React.FC = () => {
                         {props[1].studentData ? (
                             props[1].studentData.email
                         ) : (
-                            <span className="text-[orange]">Chưa có học sinh đăng ký</span>
+                            // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
                         )}
                     </p>
                 );
@@ -175,7 +184,10 @@ const ScheduleConfim: React.FC = () => {
                         <option value={1}>Đã vào học</option>
                     </select>
                 ) : (
-                    <p className="text-[orange]">Chưa có học sinh đăng ký</p>
+                    // <p className="text-[orange]">Chưa có học sinh đăng ký</p>
+                    <p className="text-[orange] text-center text-xl">
+                        <i className="bi bi-person-slash "></i>
+                    </p>
                 );
             },
         },
@@ -210,7 +222,10 @@ const ScheduleConfim: React.FC = () => {
                                 )}
                             </>
                         ) : (
-                            <p className="text-[orange]">Chưa có học sinh đăng ký</p>
+                            // <p className="text-[orange]">Chưa có học sinh đăng ký</p>
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
                         )}
                     </>
                 );
@@ -223,7 +238,29 @@ const ScheduleConfim: React.FC = () => {
             key: 'note',
             width: 80,
             render: (...props) => {
-                return <ModalNote content={props[1].note} id={props[1].id} type={true} handleReload={handleReload} />;
+                return (
+                    <>
+                        {props[1].studentData ? (
+                            <div className="w-[100%] flex items-center justify-end">
+                                {props[1].note ? (
+                                    <i className="bi bi-journal-check font-[600] text-[green] mr-[10px] "></i>
+                                ) : (
+                                    <i className="bi bi-journal-x font-[600] text-[red] mr-[10px] "></i>
+                                )}
+                                <ModalNote
+                                    content={props[1].note}
+                                    id={props[1].id}
+                                    type={true}
+                                    handleReload={handleReload}
+                                />
+                            </div>
+                        ) : (
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
+                        )}
+                    </>
+                );
             },
         },
     ];
@@ -408,6 +445,26 @@ const ScheduleConfim: React.FC = () => {
 
             <AllSchedule listCalendar={selectedRowKeys} handleReload={handleReloadChangeInterview} />
 
+            <div className="w-[100%] flex justify-end items-center my-[10px]">
+                <div className="rounded-[10px] border-solid border-[1px] border-[#ccc] flex justify-center items-center p-[10px] shadow">
+                    <p className="text-[16px]">
+                        <i className="bi bi-person-slash text-[orange] mr-[10px]"></i>
+                        <span>Chưa có học sinh nhập học</span>
+                    </p>
+                    <span className="text-[#ccc] mx-[20px]">|</span>
+                    <p className="text-[16px]">
+                        {' '}
+                        <i className="bi bi-journal-check font-[900] text-[green] mr-[10px] "></i>
+                        <span>Đã có nhận xét</span>
+                    </p>
+                    <span className="text-[#ccc] mx-[20px]">|</span>
+                    <p className="text-[16px]">
+                        <i className="bi bi-journal-x font-[600] text-[red] mr-[10px] "></i>{' '}
+                        <span>Chưa có nhận xét</span>
+                    </p>
+                </div>
+            </div>
+
             <Table
                 rowSelection={{
                     type: 'checkbox',
@@ -416,7 +473,7 @@ const ScheduleConfim: React.FC = () => {
                 className="h-[1000px] mt-[20px]"
                 columns={columns}
                 dataSource={listData}
-                scroll={{ x: 1800, y: '100vh' }}
+                scroll={{ x: 1800, y: '50vh' }}
                 rowKey="id"
                 pagination={{
                     total: meta?.totalIteams,

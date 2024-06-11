@@ -11,6 +11,7 @@ import {
 import { HttpStatusCode } from 'axios';
 import { getAllCodeByCode } from '../../../../../services/AllCodeService';
 import Swal from 'sweetalert2';
+import ModalInfoParent from './ModalInfoParent/ModalInfoParent';
 
 type IGet = 'GETALL' | 'GETLEVEL' | 'GETSEARCH' | 'GETSUBJECT';
 
@@ -70,6 +71,15 @@ const ManageStudent = () => {
             width: 40,
             render: (...props) => {
                 return <span>{props[1].course_code === 'ENG' ? 'Tiếng Anh ' : 'Toán'}</span>;
+            },
+        },
+        {
+            title: 'Thông tin cha mẹ',
+            dataIndex: 'parent',
+            key: 'parent',
+            width: 50,
+            render: (...props) => {
+                return <ModalInfoParent infoParent={props[1].ParentData} />;
             },
         },
         {
@@ -223,7 +233,7 @@ const ManageStudent = () => {
     };
 
     return (
-        <div className="">
+        <div className="px-[10px]">
             <div className="w-[100%] flex justify-between items-center py-[10px]">
                 <div className="w-[40%]">
                     <Tooltip
