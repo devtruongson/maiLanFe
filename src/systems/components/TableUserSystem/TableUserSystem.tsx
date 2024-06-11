@@ -10,6 +10,7 @@ import { RootState } from '../../../features/store/store';
 import { setDayAction } from '../../../features/auth/configSlice';
 import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
+import ExportData from '../../teacher/Components/Pages/ManageSchedule/ScheduleConfim/ExportData/ExportData';
 const { Paragraph } = Typography;
 
 export default function TableUserSystem() {

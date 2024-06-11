@@ -9,6 +9,9 @@ import { TabsProps } from 'antd/lib';
 import ModalSystem from '../Modal/Modal';
 import Operate from '../Operate/Operate';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../features/store/store';
+import { setIdSelectOperate } from '../../../features/auth/configSlice';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -22,6 +25,7 @@ const columns: TableColumnsType<IStudent> = [
             return <span className="block w-full text-center">{props[2] + 1}</span>;
         },
     },
+    Table.SELECTION_COLUMN,
     {
         title: 'Tên con',
         width: 100,
@@ -184,11 +188,12 @@ const TableStudentAll: React.FC<{
     const [data, setData] = useState<IStudent[]>([]);
     const [page, setPage] = useState<number>(1);
     const [total, setTotal] = useState<number>(10);
+    const textSearch = useSelector((state: RootState) => state.configSlice.dataOperate.textSearch);
 
     useEffect(() => {
         const _fetch = async () => {
             try {
-                const data = await getAllStudentService(page, 10, typeStudent);
+                const data = await getAllStudentService(page, 10, typeStudent, textSearch);
                 if (data.code === HttpStatusCode.Ok) {
                     setData(data.data.items);
                     setTotal(data.data.meta.totalIteams);
@@ -199,15 +204,29 @@ const TableStudentAll: React.FC<{
         };
 
         _fetch();
-    }, [page, typeStudent]);
+    }, [page, typeStudent, textSearch]);
 
     const handleChangePage = (page: number) => {
         setPage(page);
+    };
+    const dispatch = useDispatch();
+    const idSelectOperate = useSelector((state: RootState) => state.configSlice.dataOperate.idSelectOperate);
+    const rowSelection = {
+        idSelectOperate,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onChange: (selectedRowKeys: any) => {
+            dispatch(setIdSelectOperate(selectedRowKeys));
+        },
     };
 
     return (
         <div className="table-all-student">
             <Table
+                rowKey="id"
+                rowSelection={{
+                    type: 'checkbox',
+                    ...rowSelection,
+                }}
                 columns={columns}
                 dataSource={data}
                 scroll={{ x: 1800, y: '60vh' }}

@@ -3,8 +3,12 @@ import TableStudentAll from './TableStudentAll';
 import { TStudent } from '../../../utils/interface';
 import { SetStateAction, useEffect, useState } from 'react';
 import { getCountUser } from '../../../services/StudentService';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../features/store/store';
+import ExportData from '../../teacher/Components/Pages/ManageSchedule/ScheduleConfim/ExportData/ExportData';
+import ModalSystem from '../Modal/Modal';
+import InfoStudentOperate from '../InfoStudentOperate/InfoStudentOperate';
+import { setTextSearchAction } from '../../../features/auth/configSlice';
 
 export default function StudentAll() {
     const [typeStudent, setTypeStudent] = useState<TStudent>('ENG');
@@ -25,8 +29,43 @@ export function NavCourseStudent({
     typeStudent: TStudent;
     setTypeStudent: React.Dispatch<SetStateAction<TStudent>>;
 }) {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const dispatch = useDispatch();
+    const handleLoadData = () => {
+        dispatch(setTextSearchAction(''));
+    };
+
     return (
         <>
+            <ModalSystem
+                data={{
+                    content: (
+                        <>
+                            <InfoStudentOperate />
+                        </>
+                    ),
+                    title: 'Thông tin học sinh',
+                    width: '50vw',
+                }}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            />
+            <div className=" flex items-center w-[100%] mt-[30px]">
+                <button
+                    onClick={() => setIsOpen(true)}
+                    className="p-[10px] w-[10%] shadow rounded-[10px]  mr-[20px] bg-[#ff6609] text-[#fff]"
+                >
+                    Tìm Kiếm
+                </button>
+                <button
+                    onClick={() => handleLoadData()}
+                    className="p-[10px] mr-[16px] w-[10%] text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                >
+                    LoadData
+                </button>
+                <ExportData isSale />
+            </div>
             <div className="flex gap-4 items-center pt-10 pb-2 px-4">
                 <Button
                     onClick={() => {
@@ -51,6 +90,7 @@ export function NavCourseStudent({
 }
 
 export function NaviStudentAll({ type }: { type: TStudent }) {
+    const idSelectOperate = useSelector((state: RootState) => state.configSlice.dataOperate.idSelectOperate);
     const [count, setCount] = useState<number>(0);
     const [countMeet, setCountMeet] = useState<{
         reservation: number;
@@ -82,20 +122,31 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
     useEffect(() => {
         const _fetch = async () => {
             try {
-                const [resAll, resMeet, resOther] = await Promise.all([
-                    await getCountUser(type),
-                    await getCountUser('meet'),
-                    await getCountUser('other'),
-                ]);
-                setCount(+resAll);
-                setCountMeet(resMeet);
-                setCountOther(resOther);
+                if (idSelectOperate.length === 0 || idSelectOperate.length > 1) {
+                    const [resAll, resMeet, resOther] = await Promise.all([
+                        await getCountUser(type),
+                        await getCountUser('meet'),
+                        await getCountUser('other'),
+                    ]);
+                    setCount(+resAll);
+                    setCountMeet(resMeet);
+                    setCountOther(resOther);
+                } else {
+                    const [resAllUser, resMeetUser, resOtherUser] = await Promise.all([
+                        await getCountUser(type),
+                        await getCountUser('meet', idSelectOperate[0]),
+                        await getCountUser('other', idSelectOperate[0]),
+                    ]);
+                    setCount(+resAllUser);
+                    setCountMeet(resMeetUser);
+                    setCountOther(resOtherUser);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
         _fetch();
-    }, [type, isReload]);
+    }, [type, isReload, idSelectOperate]);
 
     return (
         <div className="py-3">

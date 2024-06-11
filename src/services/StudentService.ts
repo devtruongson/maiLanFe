@@ -73,10 +73,11 @@ export const getAllStudentService = async (
     page: number,
     pageSize: number,
     type: TStudent,
+    textSearch?: string,
 ): Promise<IResponse<IDataGet<IStudent[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
-            `/student?page=${page}&pageSize=${pageSize}&course_code=${type}`,
+            `/student?page=${page}&pageSize=${pageSize}&course_code=${type}&textSearch=${textSearch ? textSearch : ''}`,
         );
         return data.data;
     } catch (error) {
@@ -84,9 +85,9 @@ export const getAllStudentService = async (
     }
 };
 
-export const getCountUser = async (type: string = 'all') => {
+export const getCountUser = async (type: string = 'all', idStudent?: number) => {
     try {
-        const data = await axios.get(`/student/count?type=${type}`);
+        const data = await axios.get(`/student/count?type=${type}&idStudent=${idStudent ? idStudent : ''}`);
         return data.data;
     } catch (error) {
         throw error;
