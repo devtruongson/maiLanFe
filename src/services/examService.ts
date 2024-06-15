@@ -72,6 +72,8 @@ interface IExamCreate {
     total_question: number;
     level: number;
     teacher_id: number;
+    class: number;
+    course_code: string;
 }
 
 export const CreateExamService = async (body: IExamCreate): Promise<IResponse<number>> => {

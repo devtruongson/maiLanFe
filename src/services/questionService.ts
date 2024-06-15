@@ -8,10 +8,12 @@ export const getQuestionService = async (
     pageSize: number,
     authorId: number,
     level: number,
+    classId: number,
+    course: string,
 ): Promise<IResponse<IDataGet<IQuestion[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IQuestion[]>>> = await axios.get(
-            `/question?page=${page}&pageSize=${pageSize}&authorId=${authorId}&level=${level}`,
+            `/question?page=${page}&pageSize=${pageSize}&authorId=${authorId}&level=${level}&classId=${classId}&course=${course}`,
             configHeaderAxios(),
         );
         return data.data;
@@ -29,14 +31,14 @@ export const deleteQuestionService = async (id: number): Promise<IResponse<null>
     }
 };
 
-interface IDataCreate {
-    title: string;
-    suggest: string;
-    level: number;
-    author_id: number;
-}
+// interface IDataCreate {
+//     title: string;
+//     suggest: string;
+//     level: number;
+//     author_id: number;
+// }
 
-export const createQuestionService = async (body: IDataCreate): Promise<IResponse<null>> => {
+export const createQuestionService = async (body: Partial<IQuestion>): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.post(`/question`, { ...body }, configHeaderAxios());
         return data.data;

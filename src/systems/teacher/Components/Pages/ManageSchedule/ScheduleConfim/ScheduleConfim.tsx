@@ -10,6 +10,7 @@ import handleConvertDateToString from '../../../../../../helpers/handleConvertDa
 import AllSchedule from './AllSchedule/AllSchedule';
 import ExportData from './ExportData/ExportData';
 import ModalNote from '../ModalNote/ModalNote';
+import ModalListExam from './ModalListExam/ModalListExam';
 
 const ScheduleConfim: React.FC = () => {
     const columns: TableColumnsType<ICalendarTeacher> = [
@@ -35,9 +36,9 @@ const ScheduleConfim: React.FC = () => {
                         {props[1].studentData ? (
                             props[1].studentData.fullName
                         ) : (
-                            <p className="text-[orange] text-center text-xl">
+                            <span className="text-[orange] text-center text-xl">
                                 <i className="bi bi-person-slash "></i>
-                            </p>
+                            </span>
                             // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
                         )}
                     </p>
@@ -56,9 +57,9 @@ const ScheduleConfim: React.FC = () => {
                             props[1].studentData.phoneNumber
                         ) : (
                             // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
-                            <p className="text-[orange] text-center text-xl">
+                            <span className="text-[orange] text-center text-xl">
                                 <i className="bi bi-person-slash "></i>
-                            </p>
+                            </span>
                         )}
                     </p>
                 );
@@ -76,9 +77,9 @@ const ScheduleConfim: React.FC = () => {
                             props[1].studentData.email
                         ) : (
                             // <span className="text-[orange]">Chưa có học sinh đăng ký</span>
-                            <p className="text-[orange] text-center text-xl">
+                            <span className="text-[orange] text-center text-xl">
                                 <i className="bi bi-person-slash "></i>
-                            </p>
+                            </span>
                         )}
                     </p>
                 );
@@ -231,6 +232,31 @@ const ScheduleConfim: React.FC = () => {
                 );
             },
         },
+        {
+            title: 'Bài kiểm tra',
+            dataIndex: 'exam',
+            key: 'exam',
+            width: 80,
+            render: (...props) => {
+                return (
+                    <>
+                        {props[1].studentData ? (
+                            <div>
+                                {props[1].studentData.examData.length > 0 ? (
+                                    <ModalListExam listExam={props[1].studentData.examData} />
+                                ) : (
+                                    'chưa có bài kiểm tra'
+                                )}
+                            </div>
+                        ) : (
+                            <p className="text-[orange] text-center text-xl">
+                                <i className="bi bi-person-slash "></i>
+                            </p>
+                        )}
+                    </>
+                );
+            },
+        },
 
         {
             title: 'Nhận xét',
@@ -243,9 +269,9 @@ const ScheduleConfim: React.FC = () => {
                         {props[1].studentData ? (
                             <div className="w-[100%] flex items-center justify-end">
                                 {props[1].note ? (
-                                    <i className="bi bi-journal-check font-[600] text-[green] mr-[10px] "></i>
+                                    <i className="bi bi-journal-check font-[600] text-[green] mr-[10px] text-xl"></i>
                                 ) : (
-                                    <i className="bi bi-journal-x font-[600] text-[red] mr-[10px] "></i>
+                                    <i className="bi bi-journal-x font-[600] text-[red] mr-[10px] text-xl"></i>
                                 )}
                                 <ModalNote
                                     content={props[1].note}

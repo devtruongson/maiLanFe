@@ -11,19 +11,27 @@ import { useAppSelector } from '../../../../../../../features/hooks/hooks';
 const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { studentId: number; func: any }) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [listLevel, setListLevel] = useState<IAllCode[]>([]);
+    const [listClass, setListClass] = useState<IAllCode[]>([]);
     const [level, setLevel] = useState<number>(0);
     const [coutQuestion, setCountQuestion] = useState<number>(0);
     const [title, setTitle] = useState<string>('');
     const [time, setTime] = useState<number>(0);
+    const [classId, setClassId] = useState<number>(0);
+    const [subject, setSubject] = useState<string>('ENG');
 
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
     useEffect(() => {
         const fetch = async () => {
-            const res = await getAllCodeByType('LEVEL');
-            if (res.code === HttpStatusCode.Ok) {
+            const [res, resClass] = await Promise.all([
+                await getAllCodeByType('LEVEL'),
+                await getAllCodeByType('CLASS'),
+            ]);
+            if (res.code === HttpStatusCode.Ok && resClass.code === HttpStatusCode.Ok) {
                 setListLevel(res.data);
                 setLevel(res.data[0].id);
+                setListClass(resClass.data);
+                setClassId(resClass.data[0].id);
             }
         };
 
@@ -43,7 +51,7 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
     };
 
     const handleValidate = (): boolean => {
-        if (!title || !time || !coutQuestion || !level) {
+        if (!title || !time || !coutQuestion || !level || !classId || !subject) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Vui lòng nhập đủ thông tin ',
@@ -67,8 +75,10 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
             title: title,
             time_end: time,
             total_question: coutQuestion,
-            level: level,
             teacher_id: idUser,
+            level: level,
+            class: classId,
+            course_code: subject,
         };
 
         const resExam = await CreateExamService(dataBuider);
@@ -83,6 +93,8 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
             setTitle('');
             setCountQuestion(0);
             setLevel(listLevel[0].id);
+            setClassId(listClass[0].id);
+            setSubject('ENG');
             func();
         }
     };
@@ -124,6 +136,41 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
                                             </option>
                                         );
                                     })}
+                            </select>
+                        </div>
+
+                        <div className="">
+                            <label htmlFor="">Chọn Lớp</label>
+                            <select
+                                name=""
+                                id=""
+                                value={classId}
+                                onChange={(e) => setClassId(+e.target.value)}
+                                className="w-[100%] p-[10px] rounded-[10px] border-solid border-[1px] border-[#ccc] shadow mt-[10px]"
+                            >
+                                {listClass &&
+                                    listClass.length > 0 &&
+                                    listClass.map((item) => {
+                                        return (
+                                            <option key={item.id} value={item.id}>
+                                                {item.title}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
+                        </div>
+
+                        <div className="">
+                            <label htmlFor="">Chọn môn</label>
+                            <select
+                                name=""
+                                id=""
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
+                                className="w-[100%] p-[10px] rounded-[10px] border-solid border-[1px] border-[#ccc] shadow mt-[10px]"
+                            >
+                                <option value="ENG">Tiếng anh</option>
+                                <option value="MATH">Toán</option>
                             </select>
                         </div>
 

@@ -261,6 +261,8 @@ export interface IQuestion {
     suggest: string;
     level: number;
     author_id: number;
+    class: number;
+    course_code: string;
     answers: IAnswer[];
 }
 

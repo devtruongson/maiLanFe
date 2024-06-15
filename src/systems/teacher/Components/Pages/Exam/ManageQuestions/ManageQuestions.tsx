@@ -32,6 +32,9 @@ const ManageQuestions: React.FC = () => {
     const [idQuestion, setIdQuestion] = useState<number>(0);
     const [currentLevel, setCurrentLevel] = useState<number>(0);
     const [questionEditAnswer, setQuestionEditAnswer] = useState<number>(0);
+    const [listClass, setListClass] = useState<IAllCode[]>([]);
+    const [currentClass, setCurrentClass] = useState<number>(0);
+    const [currentCourseCode, setCurrentCourseCode] = useState<string>('');
 
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
@@ -39,7 +42,15 @@ const ManageQuestions: React.FC = () => {
         if (!idUser) {
             return;
         }
-        const res = await getQuestionService(pagination.page, pagination.pageSize, idUser, currentLevel);
+
+        const res = await getQuestionService(
+            pagination.page,
+            pagination.pageSize,
+            idUser,
+            currentLevel,
+            currentClass,
+            currentCourseCode,
+        );
         if (res.code === HttpStatusCode.Ok) {
             setListQuestion(res.data.items);
             setMeta(res.data.meta);
@@ -59,9 +70,14 @@ const ManageQuestions: React.FC = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const res = await getAllCodeByType('LEVEL');
-            if (res.code === HttpStatusCode.Ok) {
+            const [res, resClass] = await Promise.all([
+                await getAllCodeByType('LEVEL'),
+                await getAllCodeByType('CLASS'),
+            ]);
+            // const res = await getAllCodeByType('LEVEL');
+            if (res.code === HttpStatusCode.Ok && resClass.code == HttpStatusCode.Ok) {
                 setListLevel(res.data);
+                setListClass(resClass.data);
             }
         };
         fetch();
@@ -80,18 +96,28 @@ const ManageQuestions: React.FC = () => {
 
     // get by level
 
-    const handleGetQuestion = async (value: number) => {
-        if (!idUser) {
-            return;
-        }
-        const res = await getQuestionService(1, 10, idUser, value);
-        if (res.code === HttpStatusCode.Ok) {
-            setListQuestion(res.data.items);
-            setMeta(res.data.meta);
-            setCurrentLevel(value);
-            setQuestionEditAnswer(0);
-            setListAnswer([]);
-        }
+    const handleGetQuestion = async (level: number, classId: number = 0, course: string = '') => {
+        // if (!idUser) {
+        //     return;
+        // }
+        // const res = await getQuestionService(1, 10, idUser, level, classId, course);
+        // if (res.code === HttpStatusCode.Ok) {
+        //     setListQuestion(res.data.items);
+        //     setMeta(res.data.meta);
+        //     setCurrentLevel(level);
+        //     setQuestionEditAnswer(0);
+        //     setListAnswer([]);
+        // }
+
+        setPagination({
+            page: 1,
+            pageSize: pagination.pageSize,
+        });
+        setCurrentLevel(level);
+        setCurrentClass(classId);
+        setCurrentCourseCode(course);
+        setQuestionEditAnswer(0);
+        setListAnswer([]);
     };
 
     //modal
@@ -126,7 +152,8 @@ const ManageQuestions: React.FC = () => {
     // validate
 
     const handleValidate = (): boolean => {
-        if (!title || !suggest || !levelQuestion || !idUser) {
+        console.log(title);
+        if (!title || !suggest || !levelQuestion || !idUser || !currentClass) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Vui lòng nhập đủ thông tin',
@@ -156,6 +183,8 @@ const ManageQuestions: React.FC = () => {
             title: title,
             suggest: suggest,
             level: levelQuestion,
+            class: currentClass,
+            course_code: currentCourseCode,
             author_id: idUser ? idUser : 0,
         };
 
@@ -212,24 +241,69 @@ const ManageQuestions: React.FC = () => {
             <div className="w-[50%] pb-[40px] px-[20px] border-solid border-r-[1px] border-[#ccc]">
                 <h3 className="text-[16px] font-[600] text-center text-[#ff6609] uppercase ">Ngân hàng đề</h3>
 
-                <div className="flex items-start">
-                    <select
-                        name=""
-                        id=""
-                        className="p-[8px] w-[20%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[20px]"
-                        onChange={(e) => handleGetQuestion(+e.target.value)}
-                    >
-                        <option value="0">Tất cả</option>
-                        {listLevel &&
-                            listLevel.length > 0 &&
-                            listLevel.map((item) => {
-                                return (
-                                    <option value={item.id} key={item.id}>
-                                        {item.title}
-                                    </option>
-                                );
-                            })}
-                    </select>
+                <div className="flex items-start mt-[20px]">
+                    <div className="w-[30%]">
+                        <label htmlFor="" className="block font-[600] ml-[10px]">
+                            level
+                        </label>
+                        <select
+                            name=""
+                            id=""
+                            className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
+                            onChange={(e) => handleGetQuestion(+e.target.value, currentClass, currentCourseCode)}
+                        >
+                            <option value="0">Tất cả</option>
+                            {listLevel &&
+                                listLevel.length > 0 &&
+                                listLevel.map((item) => {
+                                    return (
+                                        <option value={item.id} key={item.id}>
+                                            {item.title}
+                                        </option>
+                                    );
+                                })}
+                        </select>
+                    </div>
+
+                    <div className="w-[30%] mx-[10px]">
+                        <label htmlFor="" className="block font-[600] ml-[10px]">
+                            Lớp
+                        </label>
+
+                        <select
+                            name=""
+                            id=""
+                            className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
+                            onChange={(e) => handleGetQuestion(currentLevel, +e.target.value, currentCourseCode)}
+                        >
+                            <option value="0">Tất cả</option>
+                            {listClass &&
+                                listClass.length > 0 &&
+                                listClass.map((item) => {
+                                    return (
+                                        <option value={item.id} key={item.id}>
+                                            {item.title}
+                                        </option>
+                                    );
+                                })}
+                        </select>
+                    </div>
+
+                    <div className="w-[30%]">
+                        <label htmlFor="" className="font-[600] block ml-[10px]">
+                            Môn học
+                        </label>
+                        <select
+                            name=""
+                            id=""
+                            className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
+                            onChange={(e) => handleGetQuestion(currentLevel, currentClass, e.target.value)}
+                        >
+                            <option value="">Tất cả</option>
+                            <option value="ENG">Tiếng anh</option>
+                            <option value="MATH">Toán</option>
+                        </select>
+                    </div>
 
                     {/* <img src="/PublicHome/cat-edit.png" alt="" className="w-[100px]" /> */}
                 </div>
@@ -247,8 +321,10 @@ const ManageQuestions: React.FC = () => {
                 <Modal title="Tạo câu hỏi" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
                     <div className="w-[100%] grid grid-cols-2 gap-5">
                         <div className="mt-[20px]">
-                            <label htmlFor="title">Tiêu Đề</label>
-                            <br />
+                            <label htmlFor="title" className="block">
+                                Tiêu Đề
+                            </label>
+
                             <input
                                 id="title"
                                 type="text"
@@ -259,10 +335,10 @@ const ManageQuestions: React.FC = () => {
                         </div>
 
                         <div className="mt-[20px]">
-                            <label htmlFor="suggest" className="mb-[10px]">
+                            <label htmlFor="suggest" className=" block">
                                 Câu hỏi
                             </label>
-                            <br />
+
                             <input
                                 id="suggest"
                                 type="text"
@@ -271,11 +347,12 @@ const ManageQuestions: React.FC = () => {
                                 onChange={(e) => setSuggest(e.target.value)}
                             />
                         </div>
+
                         <div className="mt-[20px]">
-                            <label htmlFor="" className="mb-[10px]">
+                            <label htmlFor="" className=" block">
                                 Level
                             </label>
-                            <br />
+
                             <select
                                 name=""
                                 id=""
@@ -295,15 +372,38 @@ const ManageQuestions: React.FC = () => {
                             </select>
                         </div>
                         <div className="mt-[20px]">
-                            <label htmlFor="" className="mb-[10px]">
-                                File
+                            <label htmlFor="" className=" block">
+                                Chọn lớp
                             </label>
-                            <br />
-                            <input
-                                type="file"
+                            <select
                                 className="p-[8px] w-[100%] mt-[10px] border-[1px] border-solid border-[#ccc] shadow rounded-[10px]"
-                            />
+                                value={currentClass}
+                                onChange={(e) => setCurrentClass(+e.target.value)}
+                            >
+                                {listClass &&
+                                    listClass.length > 0 &&
+                                    listClass.map((item) => {
+                                        return (
+                                            <option key={item.id} value={item.id}>
+                                                {item.title}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
                         </div>
+                    </div>
+
+                    <div className="mt-[20px]">
+                        <label htmlFor="" className=" block">
+                            Chọn loại câu hỏi
+                        </label>
+                        <select
+                            className="p-[8px] w-[100%] mt-[10px] border-[1px] border-solid border-[#ccc] shadow rounded-[10px]"
+                            onChange={(e) => setCurrentCourseCode(e.target.value)}
+                        >
+                            <option value="ENG">Tiếng anh</option>
+                            <option value="MATH">Toán</option>
+                        </select>
                     </div>
 
                     <button
