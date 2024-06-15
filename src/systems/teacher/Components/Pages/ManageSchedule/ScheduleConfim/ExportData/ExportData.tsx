@@ -1,12 +1,14 @@
 import { Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
-import { IDataExport } from '../../../../../../../utils/interface';
+import { IDataExport, IUser } from '../../../../../../../utils/interface';
 import handleConvertDateToString from '../../../../../../../helpers/handleConvertDateToString';
 import { useAppSelector } from '../../../../../../../features/hooks/hooks';
 import { getDataExportService } from '../../../../../../../services/calendarService';
 import { HttpStatusCode } from 'axios';
 import handleConvertHours from '../../../../../../../helpers/handleConvertHours';
+import { getAllUserByType } from '../../../../../../../services/userService';
+import Swal from 'sweetalert2';
 
 const headers = [
     { label: 'Ngày', key: 'day' },
@@ -20,14 +22,42 @@ const headers = [
     { label: 'Đánh giá', key: 'note' },
 ];
 
-const ExportData = () => {
+const ExportData = ({ isSale = false }: { isSale?: boolean }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [dataExport, setDataExport] = useState<IDataExport[]>([]);
     const [dateStart, setDateStart] = useState<string>(handleConvertDateToString(0));
     const [dateEnd, setDateEnd] = useState<string>(handleConvertDateToString(0));
     const [isStudent, setIsStudent] = useState<number>(0);
+    const [teachers, setTeachers] = useState<IUser[]>([]);
+    const [idUser, setIdUser] = useState(-1);
 
-    const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
+    const idUserHandle = useAppSelector((state) => state.authSlice.auth.data?.id);
+
+    useEffect(() => {
+        if (idUserHandle) {
+            setIdUser(idUserHandle);
+        } else {
+            Swal.fire({
+                icon: 'info',
+                text: 'Chọn Giáo Viên',
+            });
+        }
+    }, [idUserHandle]);
+
+    useEffect(() => {
+        const _fetch = async () => {
+            try {
+                const resTeacher = await getAllUserByType('4');
+                if (resTeacher.code === HttpStatusCode.Ok) {
+                    setTeachers(resTeacher.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        _fetch();
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -149,12 +179,28 @@ const ExportData = () => {
                         <option value={1}>Đã Có Học Sinh Đăng Ký</option>
                         <option value={2}>Chưa Có Học Sinh Đăng Ký</option>
                     </select>
+                    {isSale && (
+                        <select
+                            value={idUser}
+                            onChange={(e) => {
+                                setIdUser(+e.target.value);
+                            }}
+                            required
+                            className="p-[10px] w-[100%] shadow rounded-[10px] border-[1px] border-solid mr-[20px] mt-[20px]"
+                        >
+                            <option value="">Chọn giáo viên</option>
+                            {teachers &&
+                                teachers.length > 0 &&
+                                teachers.map((item) => (
+                                    <option value={item.id} key={item.id}>
+                                        {item.firstName} {item.lastName} {item.phoneNumber}
+                                    </option>
+                                ))}
+                        </select>
+                    )}
 
                     <CSVLink data={dataExport} headers={headers} filename={'Lich-Giao-Vien.xls'} className="mt-[20px]">
-                        <button
-                            className="p-[10px] w-[100%] ml-[50%] translate-x-[-50%] shadow rounded-[10px]  mr-[20px] bg-[blue] text-[#fff] "
-                            // ref={ref}
-                        >
+                        <button className="p-[10px] w-[100%] ml-[50%] translate-x-[-50%] shadow rounded-[10px]  mr-[20px] bg-[blue] text-[#fff] ">
                             Download
                         </button>
                     </CSVLink>

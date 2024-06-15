@@ -362,7 +362,6 @@ const ScheduleConfim: React.FC = () => {
                             icon: res.code === 200 ? 'success' : 'warning',
                             title: `Bạn đã cập nhật trạng thái thành công!`,
                         });
-
                         setIsReload(!isReload);
                     } else {
                         Swal.fire({
@@ -407,7 +406,6 @@ const ScheduleConfim: React.FC = () => {
                         setIsReload(!isReload);
                     }
                 };
-
                 fetch();
             }
         });
@@ -468,7 +466,6 @@ const ScheduleConfim: React.FC = () => {
 
                 <ExportData />
             </div>
-
             <AllSchedule listCalendar={selectedRowKeys} handleReload={handleReloadChangeInterview} />
 
             <div className="w-[100%] flex justify-end items-center my-[10px]">
