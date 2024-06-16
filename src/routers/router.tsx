@@ -12,12 +12,14 @@ import ModalChooseCalendar from '../systems/components/ModalChooseCalendar/Modal
 import InfoStudent from '../Components/InfoStudent/InfoStudent';
 import DetailExamUnfinished from '../systems/student/Components/Pages/Exam/ExamUnfinished/DetailExamUnfinished/DetailExamUnfinished';
 import DetailExamComplated from '../systems/student/Components/Pages/Exam/ExamComplated/DetailExamComplated/DetailExamComplated';
+import Interview from '../Components/Interview/Interview';
 
 export default function RouterCom() {
     return (
         <>
             <Routes>
                 <Route path="/" element={<RedirectHome />} />
+                <Route path="/interview" element={<Interview />} />
                 <Route path="/home" element={<PageHome />} />
                 <Route path="/auth/student/*" element={<AuthStudent />} />
                 <Route path="/info/student/:id" element={<InfoStudent />} />

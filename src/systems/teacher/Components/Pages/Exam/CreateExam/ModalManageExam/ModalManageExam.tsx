@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { IExam } from '../../../../../../../utils/interface';
-import { Modal } from 'antd';
+import { Modal, Typography } from 'antd';
 import ModalViewExam from './ModalViewExam/ModalViewExam';
+const { Paragraph } = Typography;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ModalManageExam = ({ listExam, func }: { listExam: IExam[]; func: any }) => {
@@ -37,7 +38,14 @@ const ModalManageExam = ({ listExam, func }: { listExam: IExam[]; func: any }) =
                         listExam.map((item) => {
                             return (
                                 <div className="" key={item.id}>
-                                    <ModalViewExam dataExam={item} func={func} />;
+                                    <ModalViewExam dataExam={item} func={func} />
+                                    <Paragraph
+                                        copyable={{
+                                            text: `${window.location.hostname}:${window.location.port}/exam-complated/student/${item.id}`,
+                                        }}
+                                    >
+                                        Link bài kiểm tra
+                                    </Paragraph>
                                 </div>
                             );
                         })}

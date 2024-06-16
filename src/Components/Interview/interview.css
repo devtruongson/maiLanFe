@@ -1,0 +1,810 @@
+#interview {
+    body {
+        background: #f5f5f5;
+        overflow-x: hidden;
+    }
+
+    .testResult_head {
+        margin-bottom: 24px;
+        position     : relative;
+    }
+
+    .testResult_head.desktop h3 {
+        color      : #fff;
+        font-size  : 20px;
+        font-weight: 700;
+        position   : absolute;
+        top        : 50px;
+        left       : 50%;
+        transform  : translateX(-50%);
+        margin     : 0;
+    }
+
+    .testResult_head.desktop .cap_yellow {
+        bottom   : 14px;
+        left     : 50%;
+        transform: translateX(-50%);
+        position : absolute;
+    }
+
+    .testResult_head.desktop .cap_yellow img {
+        position: absolute;
+        width   : calc(100% + 100px);
+        left    : -50px;
+        top     : -12px;
+        height  : 48px;
+    }
+
+    .testResult_head.desktop .cap_yellow span {
+        color         : #006F46;
+        text-transform: uppercase;
+        font-size     : 20px;
+        font-weight   : 700;
+        position      : relative;
+        top           : 50%;
+        width         : 100%;
+        text-align    : center;
+        transform     : translate(-50%, -50%);
+        white-space   : nowrap;
+    }
+
+    .testResult_head img.bg {
+        width : 100%;
+        height: 148px;
+    }
+
+    .testResult_head img.logo {
+        position : absolute;
+        top      : 0;
+        left     : 50%;
+        transform: translateX(-50%);
+        width    : 160px;
+        height   : 42px;
+    }
+
+    .testResult_head.mobile {
+        display: none;
+    }
+
+    .testResult_head.mobile h3 {
+        position   : absolute;
+        font-size  : 14px;
+        font-weight: 700;
+        color      : #fff;
+        top        : 42px;
+        left       : 0;
+        width      : 100%;
+        text-align : center;
+        margin     : 0;
+    }
+
+    .testResult_head.mobile .cap_yellow {
+        top      : 76px;
+        left     : 50%;
+        transform: translateX(-50%);
+        position : absolute;
+    }
+
+    .testResult_head.mobile .cap_yellow img {
+        width : 341px;
+        height: 42px;
+    }
+
+    .testResult_head.mobile .cap_yellow span {
+        position      : absolute;
+        font-size     : 14px;
+        font-weight   : 700;
+        color         : #006F46;
+        top           : 50%;
+        left          : 50%;
+        transform     : translate(-50%, -50%);
+        text-transform: uppercase;
+        width         : 100%;
+        text-align    : center;
+    }
+
+    .container .row .info .info_content {
+        background    : #fff;
+        border-radius : 16px;
+        padding       : 11px;
+        padding-bottom: 44px;
+
+    }
+
+    .container .row .info .info_content .panel {
+        border       : 1px solid #00A86A;
+        border-radius: 8px;
+        /* height    : 600px; */
+        height       : 100%;
+    }
+
+    .container .row .info .info_content .panel img {
+        width        : 100px;
+        height       : 100px;
+        border-radius: 50%;
+        display      : block;
+        margin       : 0 auto;
+        margin-top   : 20px;
+        margin-bottom: 16px;
+    }
+
+
+
+    .container .row .info .info_content .panel h2 {
+        text-align   : center;
+        color        : #006E46;
+        font-size    : 28px;
+        font-weight  : 700;
+        margin-bottom: 16px;
+    }
+
+    .container .row .info .info_content .panel ul {
+        color          : #4E4B66;
+        font-size      : 18px;
+        font-weight    : 500;
+        margin-left    : 20px;
+        list-style-type: unset;
+        padding-left   : 30px;
+
+    }
+
+    .container .row .chart .chart_content {
+        background   : #FFFFFF;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .container .row .chart .chart_content .chart_total {
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+        padding        : 32px 24px 20px 28px;
+    }
+
+    .container .row .chart .chart_content .chart_total .chart_total-red {
+        font-size  : 36px;
+        font-weight: 700;
+        color      : #FD3C4A;
+        display    : flex;
+        align-items: center;
+
+    }
+
+    .container .row .chart .chart_content .chart_total .chart_total-red img {
+        margin-right: 16px;
+    }
+
+    .container .row .chart .chart_content .chart_total .chart_total-red span.mobile {
+        display: none;
+    }
+
+    .container .row .chart .chart_content .chart_total a {
+        display    : flex;
+        align-items: center;
+        color      : #006FF5;
+        font-size  : 16px;
+        font-weight: 500;
+    }
+
+    .container .row .chart .chart_content .chart_total a svg {
+        margin-right: 11px;
+    }
+
+    .container .row .chart .chart_content .panel {
+        background    : #fff;
+        /* height     : 563px; */
+        border-radius : 0 0 16px 16px;
+        margin-bottom : 0;
+        padding-bottom: 63px;
+    }
+
+
+
+    .container .row .chart .chart_content .panel .panel_title {
+        text-align    : center;
+        font-weight   : 700;
+        text-transform: uppercase;
+        font-size     : 20px;
+        color         : #14142B;
+        margin-bottom : 26px;
+
+    }
+
+    .container .row .chart .panel #chart_center {
+        height   : 370px;
+        max-width: 100%;
+
+    }
+
+    .container .row .chart .chart_content .panel .items {
+        padding-right: 0;
+    }
+
+    .container .row .chart .chart_content .panel .items .item {
+        display        : flex;
+        align-items    : center;
+        background     : #F7F7FC;
+        border-radius  : 8px;
+        margin-bottom  : 12px;
+        justify-content: space-evenly;
+        padding-top    : 8px;
+        padding-bottom : 6px;
+    }
+
+    .container .row .chart .chart_content .panel .items .item div {
+        color      : #4E4B66;
+        font-size  : 14px;
+        font-weight: 500;
+    }
+
+    .container .row .chart .chart_content .panel .items .item div:nth-child(1) {
+        width         : 128px;
+        /* white-space: nowrap; */
+    }
+
+    .container .row .chart .chart_content .panel .items .item div:nth-child(1) {
+        color      : #FF6609;
+        font-size  : 16px;
+        font-weight: 700;
+    }
+
+
+    .container .teacher_review {
+        margin-top   : 24px;
+        margin-bottom: 19px;
+        margin-left  : 0;
+        margin-right : 0;
+
+    }
+
+    .container .learning_path {
+        margin-top   : 24px;
+        margin-bottom: 19px;
+        margin-left  : 0;
+        margin-right : 0;
+
+    }
+
+    .container .teacher_review .teacher_review-caption {
+        color         : #fff;
+        font-size     : 22px;
+        font-weight   : 700;
+        text-transform: uppercase;
+        text-align    : center;
+        padding       : 29px;
+        background    : #00A86A;
+        border-radius : 16px 16px 0px 0px;
+        position      : relative;
+    }
+
+    .container .learning_path .learning_path-caption {
+        color         : #fff;
+        font-size     : 22px;
+        font-weight   : 700;
+        text-transform: uppercase;
+        text-align    : center;
+        padding       : 29px;
+        background    : #00A86A;
+        border-radius : 16px 16px 0px 0px;
+        position      : relative;
+    }
+
+    .container .teacher_review .teacher_review-caption .hooks {
+        position: absolute;
+        top     : -54px;
+    }
+
+    .container .learning_path .learning_path-caption .hooks {
+        position: absolute;
+        top     : -54px;
+    }
+
+    .container .teacher_review .teacher_review-caption .hook1 {
+        left: 161px;
+    }
+
+
+    .container .learning_path .learning_path-caption .hook1 {
+        left: 161px;
+    }
+
+    .container .teacher_review .teacher_review-caption .hook2 {
+        right: 161px;
+    }
+
+    .container .learning_path .learning_path-caption .hook2 {
+        right: 161px;
+    }
+
+    .container .teacher_review .teacher_review-content {
+        background   : #fff;
+        padding      : 24px 36px 67px 36px;
+        font-size    : 24px;
+        font-weight  : 500;
+        border-radius: 0 0 16px 16px;
+    }
+
+    .container .teacher_review .teacher_review-content .ul_title {
+        margin-bottom: 6px;
+    }
+
+    .container .teacher_review .teacher_review-content ul {
+        list-style-type: unset;
+        padding-left   : 40px;
+    }
+
+    .container .teacher_review .teacher_review-content .text-green {
+        color: #00A86A;
+    }
+
+    .container .teacher_review .teacher_review-content .text-bold {
+        font-weight: bold;
+    }
+
+    .container .learning_path .learning_path-content ul {
+        padding-left   : 8px;
+        list-style-type: unset;
+    }
+
+    .container .learning_path .learning_path-content {
+        background   : #fff;
+        padding      : 24px 36px 33px 36px;
+        font-size    : 24px;
+        font-weight  : 500;
+        border-radius: 0 0 16px 16px;
+    }
+
+    .container .suitable_course {
+        margin-top   : 40px;
+        margin-bottom: 20px;
+        margin-left  : 0;
+        margin-right : 0;
+    }
+
+    .container .suitable_course .content {
+        padding: 0;
+    }
+
+    .container .suitable_course h3 {
+        color         : #14142B;
+        font-size     : 36px;
+        font-weight   : 700;
+        text-transform: uppercase;
+        margin-bottom : 36px;
+    }
+
+    .container .suitable_course .content .items {
+        display        : flex;
+        justify-content: space-between;
+    }
+
+    .container .suitable_course .content .items .item {
+        border-radius: 8px;
+        background   : #fff;
+        overflow     : hidden;
+    }
+
+    .container .suitable_course .content .items .item .item_text {
+        padding: 16px;
+    }
+
+    .container .suitable_course .content .items .item .item_text ul li {
+        font-size  : 16px;
+        font-weight: 500;
+    }
+
+    .container .suitable_course .content .items .item .item_text h4 {
+        color         : #14142B;
+        text-transform: uppercase;
+        font-size     : 20px;
+        font-weight   : 700;
+        margin        : 0;
+    }
+
+    .container .suitable_course .content .items .item .item_text span {
+        color        : #00BA61;
+        font-size    : 14px;
+        font-weight  : 500;
+        margin-bottom: 8px;
+        margin-top   : 4px;
+    }
+
+    .container .suitable_course .content .items .item .item_text ul {
+        padding-left   : 23px;
+        list-style-type: unset;
+    }
+
+    .container .suitable_course .content .items .item .item_text button {
+        color         : #fff;
+        background    : linear-gradient(147.14deg, #FF941A 6.95%, #FF6006 93.05%);
+        border-radius : 40px;
+        font-size     : 16px;
+        height        : 48px;
+        line-height   : 40px;
+        text-transform: uppercase;
+        text-align    : center;
+        font-weight   : 700;
+        width         : 100%;
+        outline       : none;
+        border        : 0;
+        cursor        : pointer;
+
+    }
+
+    .testResult_footer {
+        position: relative;
+    }
+
+    .testResult_footer .testResult_footer_bg {
+        width: 100%;
+    }
+
+    .testResult_footer .testResult_footer_bg.mobile {
+        display: none;
+    }
+
+    .testResult_footer .content {
+        display    : flex;
+        align-items: center;
+        position   : absolute;
+        left       : 50%;
+        transform  : translateX(-50%);
+        bottom     : 26px;
+    }
+
+    .testResult_footer .content .content_img {
+        padding-right: 27px;
+        border-right : 1px dashed #FFFFFF;
+
+
+    }
+
+    .testResult_footer .content .content_img img {
+        width : 239px;
+        height: 239px;
+    }
+
+    .testResult_footer .content ul {
+        color          : #fff;
+        font-size      : 30px;
+        font-weight    : 700;
+        padding-left   : 70px;
+        width          : 859px;
+        list-style-type: unset;
+    }
+
+
+    @media screen and (max-width: 568px) {
+        .testResult_head.mobile {
+            display: block;
+        }
+
+        .testResult_head.mobile img {
+            width: 100%;
+        }
+
+        .testResult_head.desktop {
+            display: none;
+        }
+
+        .container .row:nth-child(1) {
+            margin-top: -60px;
+        }
+
+        .container .row .info,
+        .container .row .chart {
+            padding: 0;
+        }
+
+        .container .row .info .info_content .panel {
+            position: relative;
+        }
+
+        .container .row .info .info_content .panel img {
+            position  : absolute;
+            width     : 68px;
+            height    : 68px;
+            left      : 15px;
+            top       : 15px;
+            margin-top: 0;
+        }
+
+        .container .row .info .info_content .panel h2 {
+            font-size    : 20px;
+            margin-bottom: 4px;
+            margin-left  : 96px;
+            text-align   : left;
+        }
+
+        .container .row .info .info_content .panel ul {
+            font-size      : 14px;
+            padding-left   : 76px;
+            list-style-type: none;
+
+        }
+
+        .container .row .info .info_content {
+            padding-bottom: 11px;
+            margin-bottom : 16px;
+            height        : auto !important;
+        }
+
+        .container .row .info .info_content .panel {
+            position     : relative;
+            height       : auto;
+            margin-bottom: 0;
+        }
+
+        .container .row .chart .chart_content {
+            background: none;
+        }
+
+        .container .row .chart .chart_content .chart_total {
+            background   : #fff;
+            border-radius: 16px;
+            position     : relative;
+            margin-bottom: 46px;
+
+        }
+
+        .container .row .chart .chart_content .chart_total .chart_total-red span.mobile {
+            display: block;
+        }
+
+        .container .row .chart .chart_content .chart_total .chart_total-red span.desktop {
+            display: none;
+        }
+
+        .container .row .chart .chart_content .chart_total a {
+            position : absolute;
+            bottom   : -34px;
+            left     : 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+
+        }
+
+        .container .row .chart .chart_content .panel {
+            height        : auto;
+            border-radius : 16px 16px 0px 0px;
+            overflow      : hidden;
+            padding-bottom: 49px;
+        }
+
+        .container .row .chart .panel #chart_center {
+            padding-top  : 16px;
+            padding-left : 0;
+            padding-right: 0;
+            margin-bottom: 40px;
+        }
+
+        .container .row .chart .chart_content .panel .items {
+            padding-left: 0;
+        }
+
+        .container .row .chart .chart_content .panel .items .item {
+            justify-content: flex-start;
+        }
+
+        .container .row .chart .chart_content .panel .items .item img {
+            margin-right: 16px;
+            margin-left : 16px;
+        }
+
+        .container .teacher_review .teacher_review-caption {
+            font-size    : 16px;
+            padding      : 16px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .container .learning_path .learning_path-caption {
+            font-size    : 16px;
+            padding      : 16px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .container .teacher_review .teacher_review-caption .hooks {
+            width : 14px;
+            height: 50px;
+        }
+
+        .container .learning_path .learning_path-caption .hooks {
+            width : 14px;
+            height: 50px;
+        }
+
+        .container .teacher_review .teacher_review-caption .hook1 {
+            left: 35px;
+        }
+
+        .container .learning_path .learning_path-caption .hook1 {
+            left: 35px;
+        }
+
+        .container .teacher_review .teacher_review-caption .hook2 {
+            right: 35px;
+        }
+
+        .container .learning_path .learning_path-caption .hook2 {
+            right: 35px;
+        }
+
+        .container .teacher_review {
+            margin-top: 16px;
+        }
+
+        .container .learning_path {
+            margin-top: 16px;
+        }
+
+        .container .teacher_review .teacher_review-caption .hooks {
+            top: -33px;
+        }
+
+        .container .learning_path .learning_path-caption .hooks {
+            top: -33px;
+        }
+
+        .container .teacher_review .teacher_review-content {
+            padding      : 15px;
+            font-size    : 14px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .container .learning_path .learning_path-content {
+            padding      : 15px;
+            font-size    : 14px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .container .learning_path .learning_path-content ul {
+            padding-left: 16px;
+        }
+
+        .container .suitable_course {
+            margin-top: 16px;
+        }
+
+        .container .suitable_course h3 {
+            font-size : 16px;
+            text-align: center;
+            border-top: 1px solid #D1D1D1;
+            margin    : 0;
+            padding   : 16px;
+        }
+
+        .container .suitable_course .content {
+            overflow-x: scroll;
+        }
+
+        .container .suitable_course .content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .container .suitable_course .content .items {
+            width          : 820px;
+            justify-content: flex-start;
+        }
+
+        .container .suitable_course .content .items .item {
+            width       : 189px;
+            margin-right: 12px;
+        }
+
+        .container .suitable_course .content .items .item img {
+            width: 100%;
+        }
+
+        .container .suitable_course .content .items .item .item_text {
+            padding: 7px;
+        }
+
+        .container .suitable_course .content .items .item .item_text h4 {
+            font-size: 16px;
+        }
+
+        .container .suitable_course .content .items .item .item_text span {
+            font-size: 14px;
+        }
+
+        .container .suitable_course .content .items .item .item_text ul {
+            font-size: 12px;
+        }
+
+        .testResult_footer .content ul {
+            font-size   : 12px;
+            width       : 250px;
+            padding-left: 30px;
+            font-weight : 500;
+        }
+
+        .testResult_footer .content {
+            bottom: 10px;
+        }
+
+        .testResult_footer .content .content_img {
+            padding-right: 13px;
+        }
+
+        .testResult_footer .content .content_img img {
+            width : 83px;
+            height: 83px;
+        }
+
+        .testResult_footer .testResult_footer_bg.mobile {
+            display: block;
+        }
+
+        .testResult_footer .testResult_footer_bg.desktop {
+            display: none;
+        }
+
+        .container .suitable_course .content .items .item .item_text button {
+            height     : 42px;
+            line-height: 42px;
+        }
+
+        .container .row .chart .chart_content .panel .panel_title {
+            margin-top: 16px;
+        }
+
+        .container .row .chart .chart_content .panel .items .item div:nth-child(1) {
+            white-space: nowrap;
+        }
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .testResult_head img.bg {
+            width: 100%;
+        }
+
+        .container .row .info .info_content .panel {
+            height: auto;
+        }
+
+        .container .suitable_course .content .items .item img {
+            width: 100%;
+        }
+
+        .testResult_footer .content ul {
+            font-size   : 18px;
+            width       : 575px;
+            padding-left: 38px;
+        }
+
+        .testResult_footer .content .content_img img {
+            width : 100px;
+            height: 100px;
+        }
+
+        .container .suitable_course .content .items .item {
+            margin-right: 10px;
+        }
+
+        .container .suitable_course .content .items .item:nth-child(4) {
+            margin-right: 0px;
+        }
+
+        .container .row .info .info_content {
+            height: auto !important;
+        }
+
+
+    }
+
+    /* ---------------------------- interview result ----------------------------*/
+    .name__student {
+        margin-left: -20px;
+        text-align : left !important;
+    }
+
+    @media screen and (max-width: 500px) {
+        .name__student {
+            margin-left: 0 !important;
+        }
+    }
+
+    strong,
+    b {
+        font-weight: 600 !important;
+    }
+}

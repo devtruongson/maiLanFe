@@ -74,7 +74,7 @@ const CreateExam: React.FC = () => {
             fixed: 'right',
 
             render: (...props) => {
-                return <ModalCreateExam studentId={props[1].id} func={fetch} />;
+                return <ModalCreateExam studentId={props[1].id} func={fetch} code={props[1].course_code} />;
             },
         },
         {
@@ -102,15 +102,19 @@ const CreateExam: React.FC = () => {
         const res = await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser);
         if (res.code === HttpStatusCode.Ok) {
             setMeta(res.data.meta);
-
-            setListStudent(
-                res.data.items
-                    .filter((item) => item.studentData !== null)
-                    .map((item, index) => ({
-                        ...item.studentData,
-                        key: index,
-                    })) as IStudent[],
-            );
+            const dataStudentArr = res.data.items
+                .filter((item) => item.studentData !== null)
+                .map((item, index) => ({
+                    ...item.studentData,
+                    key: index,
+                })) as IStudent[];
+            const dataNewBuildArr: IStudent[] = [];
+            dataStudentArr.forEach((item) => {
+                if (dataNewBuildArr.map((i) => i.id).indexOf(item.id) === -1) {
+                    dataNewBuildArr.push(item);
+                }
+            });
+            setListStudent(dataNewBuildArr);
         }
     };
     useEffect(() => {

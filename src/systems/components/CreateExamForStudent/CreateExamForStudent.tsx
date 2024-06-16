@@ -6,7 +6,7 @@ import { HttpStatusCode } from 'axios';
 import { CreateExamService } from '../../../services/examService';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { reloadAction } from '../../../features/auth/configSlice';
+import { reloadAction, setTextSearchAction } from '../../../features/auth/configSlice';
 
 export default function CreateExamForStudent({
     student_id,
@@ -99,6 +99,7 @@ export default function CreateExamForStudent({
                     icon: 'success',
                 });
 
+                dispatch(setTextSearchAction(' '));
                 if (setIsReloadKey) {
                     setIsReloadKey((prev) => !prev);
                     dispatch(reloadAction());
@@ -257,7 +258,6 @@ export default function CreateExamForStudent({
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
                             <option value="">Chọn môn</option>
-                            <option value="ENG">Tiếng anh</option>
                             <option value="MATH">Toán</option>
                         </select>
                     </div>

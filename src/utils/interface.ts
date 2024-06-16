@@ -152,6 +152,8 @@ export interface IStudent {
     examData: IExam[];
     course_code: TStudent;
     SaleData?: IUser;
+    calendar?: ICalendarTeacher;
+    exam?: IExam[];
 }
 
 export interface IParentData {

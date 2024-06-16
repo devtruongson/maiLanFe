@@ -8,7 +8,15 @@ import { CreateExamService } from '../../../../../../../services/examService';
 import { useAppSelector } from '../../../../../../../features/hooks/hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { studentId: number; func: any }) {
+const ModalCreateExam = memo(function ModalCreateExam({
+    studentId,
+    func,
+    code = 'MATH',
+}: {
+    studentId: number;
+    func: any;
+    code?: string;
+}) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [listLevel, setListLevel] = useState<IAllCode[]>([]);
     const [listClass, setListClass] = useState<IAllCode[]>([]);
@@ -77,7 +85,7 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
             total_question: coutQuestion,
             teacher_id: idUser,
             level: level,
-            class: classId,
+            class: code === 'MATH' ? classId : -1,
             course_code: subject,
         };
 
@@ -98,7 +106,6 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
             func();
         }
     };
-
     return (
         <>
             <button onClick={showModal} className="p-[10px] bg-[blue] text-[#fff] rounded-[10px] hover:opacity-[0.6]">
@@ -138,28 +145,30 @@ const ModalCreateExam = memo(function ModalCreateExam({ studentId, func }: { stu
                                     })}
                             </select>
                         </div>
-
-                        <div className="">
-                            <label htmlFor="">Chọn Lớp</label>
-                            <select
-                                name=""
-                                id=""
-                                value={classId}
-                                onChange={(e) => setClassId(+e.target.value)}
-                                className="w-[100%] p-[10px] rounded-[10px] border-solid border-[1px] border-[#ccc] shadow mt-[10px]"
-                            >
-                                {listClass &&
-                                    listClass.length > 0 &&
-                                    listClass.map((item) => {
-                                        return (
-                                            <option key={item.id} value={item.id}>
-                                                {item.title}
-                                            </option>
-                                        );
-                                    })}
-                            </select>
-                        </div>
-
+                        {code === 'MATH' || subject === 'MATH' ? (
+                            <div className="">
+                                <label htmlFor="">Chọn Lớp</label>
+                                <select
+                                    name=""
+                                    id=""
+                                    value={classId}
+                                    onChange={(e) => setClassId(+e.target.value)}
+                                    className="w-[100%] p-[10px] rounded-[10px] border-solid border-[1px] border-[#ccc] shadow mt-[10px]"
+                                >
+                                    {listClass &&
+                                        listClass.length > 0 &&
+                                        listClass.map((item) => {
+                                            return (
+                                                <option key={item.id} value={item.id}>
+                                                    {item.title}
+                                                </option>
+                                            );
+                                        })}
+                                </select>
+                            </div>
+                        ) : (
+                            ''
+                        )}
                         <div className="">
                             <label htmlFor="">Chọn môn</label>
                             <select

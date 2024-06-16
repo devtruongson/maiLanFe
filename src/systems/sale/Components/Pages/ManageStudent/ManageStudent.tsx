@@ -12,6 +12,8 @@ import { HttpStatusCode } from 'axios';
 import { getAllCodeByCode } from '../../../../../services/AllCodeService';
 import Swal from 'sweetalert2';
 import ModalInfoParent from './ModalInfoParent/ModalInfoParent';
+import { useAppSelector } from '../../../../../features/hooks/hooks';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 type IGet = 'GETALL' | 'GETLEVEL' | 'GETSEARCH' | 'GETSUBJECT';
 
@@ -100,36 +102,35 @@ const ManageStudent = () => {
                 return <ModalInfoParent infoParent={props[1].ParentData} />;
             },
         },
-        // {
-        //     title: 'Học Lực',
-        //     dataIndex: 'level',
-        //     key: 'level',
-        //     width: 60,
-        //     fixed: 'right',
-        //     render: (...props) => {
-        //         return (
-        //             <select
-        //                 name=""
-        //                 id=""
-        //                 className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
-        //                 value={props[1].level ? props[1].level : 0}
-        //                 onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
-        //             >
-        //                 <option value={0}>Chọn Học Lực</option>
-
-        //                 {listLevel &&
-        //                     listLevel.length > 0 &&
-        //                     listLevel.map((item) => {
-        //                         return (
-        //                             <option key={item.id} value={item.id}>
-        //                                 {item.title}
-        //                             </option>
-        //                         );
-        //                     })}
-        //             </select>
-        //         );
-        //     },
-        // },
+        {
+            title: 'Học Lực',
+            dataIndex: 'level',
+            key: 'level',
+            width: 60,
+            fixed: 'right',
+            render: (...props) => {
+                return (
+                    <select
+                        name=""
+                        id=""
+                        className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+                        value={props[1].level ? props[1].level : '0'}
+                        disabled
+                    >
+                        <option value={'0'}>Chưa xác định</option>
+                        {listLevel &&
+                            listLevel.length > 0 &&
+                            listLevel.map((item) => {
+                                return (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                );
+                            })}
+                    </select>
+                );
+            },
+        },
     ];
 
     const [textSearch, setTextSearch] = useState('');
@@ -250,6 +251,16 @@ const ManageStudent = () => {
         setTypeGet('GETSEARCH');
     };
 
+    const id = useAppSelector((state) => state.authSlice.auth.data?.id);
+    const handleGetUserForYou = async () => {
+        const res = await getAllStudentService(pagination.page, pagination.pageSize, 'All', '', id ? '' + id : '');
+
+        if (res.code === HttpStatusCode.Ok) {
+            setListStudent(res.data.items);
+            setMeta(res.data.meta);
+        }
+    };
+
     return (
         <div className="px-[10px]">
             <div className="w-[100%] flex justify-between items-center py-[10px]">
@@ -258,18 +269,35 @@ const ManageStudent = () => {
                         placement="bottom"
                         title={
                             <div className="tooltip-text">
-                                <p className="text-[#fff] m-[20px]">Sắp xếp theo tuôi</p>
+                                <p className="text-[#fff] m-[20px]">Học sinh do mình tạo</p>
                             </div>
                         }
                     >
                         <button
                             className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#e6e63d] mx-[10px]"
-                            onClick={() => handleSortAge()}
+                            onClick={() => handleGetUserForYou()}
                         >
-                            <i className="bi bi-arrows-collapse"></i>
+                            DATA FOR YOU
                         </button>
                     </Tooltip>
 
+                    <Tooltip
+                        placement="bottom"
+                        title={
+                            <div className="tooltip-text">
+                                <button>
+                                    <p className="text-[#fff] m-[20px]">Tìm Học Sinh Học Tiếng Anh</p>
+                                </button>
+                            </div>
+                        }
+                    >
+                        <button
+                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#494242] mx-[10px]"
+                            onClick={() => handleGetBySubject('ENG')}
+                        >
+                            <p>ENG</p>
+                        </button>
+                    </Tooltip>
                     <Tooltip
                         placement="bottom"
                         title={
@@ -281,7 +309,7 @@ const ManageStudent = () => {
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#ccc] mx-[10px]"
+                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#bf8888] mx-[10px]"
                             onClick={() => handleGetBySubject('MATH')}
                         >
                             <p>MATH</p>
@@ -292,15 +320,15 @@ const ManageStudent = () => {
                         placement="bottom"
                         title={
                             <div className="tooltip-text">
-                                <p className="text-[#fff] m-[20px]">Tìm Học Sinh Học Tiếng Anh</p>
+                                <p className="text-[#fff] m-[20px]">Tất cả học sinh</p>
                             </div>
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[violet] mx-[10px]"
-                            onClick={() => handleGetBySubject('ENG')}
+                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#604660] mx-[10px]"
+                            onClick={() => handleGetBySubject('All')}
                         >
-                            <p>ENGLISH</p>
+                            <p>LOAD DATA</p>
                         </button>
                     </Tooltip>
                 </div>

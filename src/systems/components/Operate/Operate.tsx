@@ -21,7 +21,7 @@ type IProps = {
 };
 
 export default function Operate({ email, idStudent, type }: IProps) {
-    const [calendar, setCalendar] = useState<ICalendarTeacher[] | null>(null);
+    const [calendar, setCalendar] = useState<ICalendarTeacher[] | undefined>(undefined);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isOpenBookTest, setIsOpenBookTest] = useState<boolean>(false);
     const [isReloadKey, setIsReloadKey] = useState<boolean>(false);

@@ -40,7 +40,7 @@ export const loginStudent = async (
 export const registerStudent = async (body: Partial<IRegister>): Promise<IResponse<IStudent>> => {
     try {
         const data: AxiosResponse<IResponse<IStudent>> = await axios.post(
-            `/user/create`,
+            `/student/register`,
             {
                 ...body,
             },
@@ -79,10 +79,13 @@ export const getAllStudentService = async (
     pageSize: number,
     type: TStudent,
     textSearch?: string,
+    idSale?: string,
 ): Promise<IResponse<IDataGet<IStudent[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IStudent[]>>> = await axios.get(
-            `/student?page=${page}&pageSize=${pageSize}&course_code=${type}&textSearch=${textSearch ? textSearch : ''}`,
+            `/student?page=${page}&pageSize=${pageSize}&course_code=${type}&textSearch=${
+                textSearch ? textSearch : ''
+            }&idSale=${idSale ? idSale : ''}`,
         );
         return data.data;
     } catch (error) {

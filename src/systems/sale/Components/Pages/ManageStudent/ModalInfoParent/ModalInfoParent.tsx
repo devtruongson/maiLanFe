@@ -53,7 +53,11 @@ const ModalInfoParent = memo(function ({ infoParent }: { infoParent: IParentData
                 Thông tin phụ huynh
             </button>
             <Modal title="Thông tin phụ huynh" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <Table columns={columns} dataSource={infoParent} className="my-[40px]" />;
+                {infoParent && infoParent.length > 0 ? (
+                    <Table columns={columns} dataSource={infoParent} className="my-[40px]" />
+                ) : (
+                    <p>Không có thông tin cha mẹ</p>
+                )}
             </Modal>
         </div>
     );

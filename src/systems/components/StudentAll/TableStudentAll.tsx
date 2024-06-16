@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../features/store/store';
 import { setIdSelectOperate } from '../../../features/auth/configSlice';
 import Log from '../Log/Log';
+import StatusComponent from '../../../helpers/statusComponent';
 const { Paragraph } = Typography;
 
 const columns: TableColumnsType<IStudent> = [
@@ -71,6 +72,50 @@ const columns: TableColumnsType<IStudent> = [
         width: 150,
         render: (...props) => {
             return <>{props[1]?.course_code === 'ENG' ? 'Tiếng Anh' : 'Toán'}</>;
+        },
+    },
+    {
+        title: 'Trạng thái',
+        dataIndex: 'status',
+        key: 'status',
+        width: 100,
+        render: (...props) => {
+            return (
+                <span>
+                    {props[1]?.calendar ? (
+                        <StatusComponent
+                            is_interviewed_meet={props[1]?.calendar.is_interviewed_meet || false}
+                            is_confirm={props[1]?.calendar.is_confirm || false}
+                            is_reservation={props[1]?.calendar.is_reservation || false}
+                            is_cancel={props[1]?.calendar.is_cancel || false}
+                            is_fail={
+                                new Date(+props[1]?.calendar.time_stamp_start).getTime() - new Date().getTime() < 0 &&
+                                props[1]?.calendar.is_confirm === true
+                            }
+                        />
+                    ) : props[1].course_code === 'ENG' ? (
+                        'Chưa có meeting'
+                    ) : props[1].exam && props[1].exam?.length > 0 ? (
+                        <ul>
+                            {props[1].exam.map((item) => {
+                                return (
+                                    <li key={item.id}>
+                                        <Paragraph
+                                            copyable={{
+                                                text: `${window.location.hostname}:${window.location.port}/exam-complated/student/${item.id}`,
+                                            }}
+                                        >
+                                            Link {item.title}
+                                        </Paragraph>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        'Chưa có bài kiểm tra'
+                    )}
+                </span>
+            );
         },
     },
     {

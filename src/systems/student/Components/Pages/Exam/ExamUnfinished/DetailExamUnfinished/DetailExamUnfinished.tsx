@@ -55,6 +55,7 @@ const DetailExamUnfinished: React.FC = () => {
                     return;
                 }
                 setExam(res.data);
+                console.log(res.data);
                 setListAnswerCurrent(res.data.ExamQuestionData[0].QuestionData.answers.map((item) => item.id));
                 dispatch(addCount(res.data.time_end * 60));
             }
