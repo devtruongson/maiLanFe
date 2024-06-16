@@ -28,7 +28,6 @@ const CreateExam: React.FC = () => {
                 return <span className="block w-full text-center">{props[2] + 1}</span>;
             },
         },
-        // Table.SELECTION_COLUMN,
         {
             title: 'Tên con',
             width: 60,
@@ -112,20 +111,6 @@ const CreateExam: React.FC = () => {
                         key: index,
                     })) as IStudent[],
             );
-
-            // setListStudent(
-            //     res.data.items
-            //         .map((item) => item.studentData)
-            //         .filter((studentData): studentData is IStudent => studentData !== null),
-            // );
-            // setListStudent(
-            //     res.data.items.map((item) => {
-            //         return {
-            //             ...item.studentData,
-            //             key: item.studentData.id,
-            //         };
-            //     }),
-            // );
         }
     };
     useEffect(() => {
@@ -144,24 +129,19 @@ const CreateExam: React.FC = () => {
     };
 
     const handleSearch = async () => {
-        const res = await searchCalendarService(textSearch);
+        if (!idUser) {
+            return;
+        }
+        const res = await searchCalendarService(idUser, textSearch, 1, 10);
         if (res.code === HttpStatusCode.Ok) {
             setListStudent(
-                res.data
+                res.data.items
                     .filter((item) => item.studentData !== null)
                     .map((item, index) => ({
                         ...item.studentData,
                         key: index,
                     })) as IStudent[],
             );
-            // setListStudent(
-            //     res.data.map((item) => {
-            //         return {
-            //             ...item.studentData,
-            //             key: item.studentData.id,
-            //         };
-            //     }),
-            // );
         }
     };
 

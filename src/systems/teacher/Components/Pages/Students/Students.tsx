@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { IAllCode, IMeta, IPagination, IStudent } from '../../../../../utils/interface';
 import { getAllCodeByType } from '../../../../../services/AllCodeService';
 import { HttpStatusCode } from 'axios';
-import { getCalendarConfirmed } from '../../../../../services/calendarService';
+import { getCalendarConfirmed, searchCalendarService } from '../../../../../services/calendarService';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
 import { Table, TableColumnsType } from 'antd';
 import Swal from 'sweetalert2';
 import { updateLevelStudentService } from '../../../../../services/StudentService';
+
+type TGetCalendar = 'ALL' | 'SEARCH';
 
 const Students = () => {
     const columns: TableColumnsType<IStudent> = [
@@ -106,6 +108,8 @@ const Students = () => {
         page: 1,
         pageSize: 10,
     });
+    const [textSearch, setTextSearch] = useState<string>('');
+    const [typeGet, setTypeGet] = useState<TGetCalendar>('ALL');
 
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
 
@@ -124,7 +128,10 @@ const Students = () => {
             return;
         }
         const fetch = async () => {
-            const res = await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser);
+            const res =
+                typeGet === 'ALL'
+                    ? await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser)
+                    : await searchCalendarService(idUser, textSearch, 1, pagination.pageSize);
             if (res.code === 200) {
                 setListStudent(
                     res.data.items
@@ -170,11 +177,38 @@ const Students = () => {
         });
     };
 
+    const handleSearch = () => {
+        setTypeGet('SEARCH');
+        setPagination((prev) => {
+            return {
+                ...prev,
+                page: 1,
+            };
+        });
+    };
+
     return (
         <div className="mt-[20px] px-[40px]">
             <div className="flex justify-center items-center mb-[40px]">
                 <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px]" />
                 <p className="ml-[20px] font-[600] text-xl text-[#ff6609] uppercase">Quản Lí Học Sinh</p>
+            </div>
+
+            <div className="w-[100%] flex justify-end items-center">
+                <input
+                    type="text"
+                    className="w-[30%] shadow rounded-[10px] border-[1px] border-solid border-[#ccc] p-[8px]"
+                    placeholder="Nhập tên / số điện thoại / email"
+                    value={textSearch}
+                    onChange={(e) => setTextSearch(e.target.value)}
+                />
+
+                <button
+                    className="w-[10%] mx-[10px] shadow rounded-[10px]  p-[8px] bg-[blue] text-[#fff]"
+                    onClick={() => handleSearch()}
+                >
+                    Tìm kiếm
+                </button>
             </div>
 
             <Table

@@ -97,10 +97,15 @@ export const getCalendarConfirmed = async (
     }
 };
 
-export const searchCalendarService = async (textSearch: string): Promise<IResponse<ICalendarTeacher[]>> => {
+export const searchCalendarService = async (
+    idUser: number,
+    textSearch: string,
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<ICalendarTeacher[]>>> => {
     try {
-        const data: AxiosResponse<IResponse<ICalendarTeacher[]>> = await axios.get(
-            `/calendar/search?textSearch=${textSearch}`,
+        const data: AxiosResponse<IResponse<IDataGet<ICalendarTeacher[]>>> = await axios.get(
+            `/calendar/search?idUser=${idUser}&textSearch=${textSearch}&page=${page}&pageSize=${pageSize}`,
             configHeaderAxios(),
         );
         return data.data;
