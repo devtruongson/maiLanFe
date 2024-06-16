@@ -115,6 +115,7 @@ export default function Operate({ email, idStudent, type }: IProps) {
                     content: (
                         <>
                             <ContentModalBookingCalendar
+                                calendarExit={calendar}
                                 idStudent={idStudent}
                                 key={isReloadKey ? 0 : 1}
                                 isCreate={isCreate}

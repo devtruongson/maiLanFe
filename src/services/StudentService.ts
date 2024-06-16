@@ -39,9 +39,13 @@ export const loginStudent = async (
 
 export const registerStudent = async (body: Partial<IRegister>): Promise<IResponse<IStudent>> => {
     try {
-        const data: AxiosResponse<IResponse<IStudent>> = await axios.post(`/student/register`, {
-            ...body,
-        });
+        const data: AxiosResponse<IResponse<IStudent>> = await axios.post(
+            `/user/create`,
+            {
+                ...body,
+            },
+            configHeaderAxios(),
+        );
         return data.data;
     } catch (error) {
         throw error;

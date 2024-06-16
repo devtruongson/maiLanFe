@@ -62,7 +62,10 @@ const ManageStudent = () => {
             title: 'Sinh Nhật',
             dataIndex: 'birthday',
             key: 'birthday',
-            width: 40,
+            width: 80,
+            render: (...props) => {
+                return <span>{props[1].birthday ? props[1].birthday : 'Đang cập nhật'}</span>;
+            },
         },
         {
             title: 'Môn học',
@@ -74,6 +77,21 @@ const ManageStudent = () => {
             },
         },
         {
+            title: 'Sale tạo',
+            dataIndex: 'sale',
+            key: 'sale',
+            width: 40,
+            render: (...props) => {
+                return (
+                    <span>
+                        {props[1].SaleData
+                            ? `${props[1].SaleData.firstName} ${props[1].SaleData.lastName} ${props[1].SaleData.phoneNumber}`
+                            : 'Đang cập nhật'}
+                    </span>
+                );
+            },
+        },
+        {
             title: 'Thông tin cha mẹ',
             dataIndex: 'parent',
             key: 'parent',
@@ -82,36 +100,36 @@ const ManageStudent = () => {
                 return <ModalInfoParent infoParent={props[1].ParentData} />;
             },
         },
-        {
-            title: 'Học Lực',
-            dataIndex: 'level',
-            key: 'level',
-            width: 60,
-            fixed: 'right',
-            render: (...props) => {
-                return (
-                    <select
-                        name=""
-                        id=""
-                        className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
-                        value={props[1].level ? props[1].level : 0}
-                        onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
-                    >
-                        <option value={0}>Chọn Học Lực</option>
+        // {
+        //     title: 'Học Lực',
+        //     dataIndex: 'level',
+        //     key: 'level',
+        //     width: 60,
+        //     fixed: 'right',
+        //     render: (...props) => {
+        //         return (
+        //             <select
+        //                 name=""
+        //                 id=""
+        //                 className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
+        //                 value={props[1].level ? props[1].level : 0}
+        //                 onChange={(e) => handleChangLevel(props[1].id, +e.target.value)}
+        //             >
+        //                 <option value={0}>Chọn Học Lực</option>
 
-                        {listLevel &&
-                            listLevel.length > 0 &&
-                            listLevel.map((item) => {
-                                return (
-                                    <option key={item.id} value={item.id}>
-                                        {item.title}
-                                    </option>
-                                );
-                            })}
-                    </select>
-                );
-            },
-        },
+        //                 {listLevel &&
+        //                     listLevel.length > 0 &&
+        //                     listLevel.map((item) => {
+        //                         return (
+        //                             <option key={item.id} value={item.id}>
+        //                                 {item.title}
+        //                             </option>
+        //                         );
+        //                     })}
+        //             </select>
+        //         );
+        //     },
+        // },
     ];
 
     const [textSearch, setTextSearch] = useState('');

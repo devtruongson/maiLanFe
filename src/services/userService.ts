@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { IDataGet, IResponse, IUser } from '../utils/interface';
 import axios from '../../axios';
@@ -23,6 +24,17 @@ export const getAllUser = async (
                 day ? day : ''
             }`,
         );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const registerUser = async (body: Partial<IUser>): Promise<IResponse<any>> => {
+    try {
+        const data: AxiosResponse<IResponse<any>> = await axios.post(`/user/create`, {
+            ...body,
+        });
         return data.data;
     } catch (error) {
         throw error;

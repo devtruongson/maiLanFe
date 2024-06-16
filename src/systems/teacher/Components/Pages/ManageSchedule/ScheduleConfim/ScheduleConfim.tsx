@@ -191,7 +191,6 @@ const ScheduleConfim: React.FC = () => {
                 );
             },
         },
-
         {
             title: 'Video buổi học',
             dataIndex: 'video',
@@ -402,7 +401,7 @@ const ScheduleConfim: React.FC = () => {
         <div className="w-[100%]">
             <div className="flex justify-center items-center">
                 <img src="/PublicHome/cat-edit.png" alt="cat" className="mr-[10px] w-[60px]" />
-                <h3 className="text-xl font-[600] text-[#ff6609] text-center uppercase ">Quản lí Lịch phỏng vấn </h3>
+                <h3 className="text-xl font-[600] text-[#ff6609] text-center uppercase ">Quản lí Lịch Dạy </h3>
             </div>
             <div className=" flex items-center w-[100%] mt-[40px]">
                 <label className="mr-[10px] font-[600] text-[16px]">Từ Ngày</label>

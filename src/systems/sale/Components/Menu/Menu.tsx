@@ -6,6 +6,10 @@ import { Divider, Menu, Popover } from 'antd';
 import React from 'react';
 import { childrenListSale, sideBarListSale, urlchildrenListSale } from '../../../../utils/data';
 import { Link, useNavigate } from 'react-router-dom';
+import { RootState } from '../../../../features/store/store';
+import { useAppSelector } from '../../../../features/hooks/hooks';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../../../features/auth/AuthSlice';
 
 const items = [BookOutlined, UserSwitchOutlined].map((icon: React.FC, index: number) => {
     const key: number = index;
@@ -29,6 +33,13 @@ const MenuSideBar: React.FC = () => {
         navigate(e.key);
     };
 
+    const email = useAppSelector((state: RootState) => state.authSlice.auth?.data?.email);
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logoutAction());
+        window.location.reload();
+    };
+
     return (
         <div
             className="w-full top-0 left-0 right-0 bottom-0 h-full absolute overflow-auto"
@@ -48,12 +59,13 @@ const MenuSideBar: React.FC = () => {
             <div>
                 <Divider />
                 <Popover
+                    placement="bottom"
                     content={
                         <>
                             <ul>
-                                <Link to={'/login'} className="flex items-center gap-[6px]">
+                                <button onClick={handleLogout}>
                                     <i className="bi bi-box-arrow-right"></i>Đăng Xuất
-                                </Link>
+                                </button>
                             </ul>
                         </>
                     }
@@ -69,7 +81,7 @@ const MenuSideBar: React.FC = () => {
                             }
                             alt="Avatar"
                         />
-                        <span>Xin chào</span>
+                        <span>{email ? email : 'Xin chào sale'}</span>
                     </div>
                 </Popover>
                 <Divider />

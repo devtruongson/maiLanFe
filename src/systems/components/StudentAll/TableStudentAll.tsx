@@ -74,10 +74,19 @@ const columns: TableColumnsType<IStudent> = [
         },
     },
     {
-        title: 'Sinh nhật',
-        dataIndex: 'birthday',
-        key: '5',
-        width: 150,
+        title: 'Sale tạo',
+        dataIndex: 'sale',
+        key: 'sale',
+        width: 100,
+        render: (...props) => {
+            return (
+                <span>
+                    {props[1].SaleData
+                        ? `${props[1].SaleData.firstName} ${props[1].SaleData.lastName} ${props[1].SaleData.phoneNumber}`
+                        : 'Đang cập nhật'}
+                </span>
+            );
+        },
     },
     {
         title: 'Hành động',
@@ -96,6 +105,7 @@ const columns: TableColumnsType<IStudent> = [
 
 function RenderActionTableStudent({ data }: { data: IStudent }) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [key, setKey] = useState<string>('0');
 
     const items: TabsProps['items'] = [
         {
@@ -103,7 +113,7 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             label: 'Vận Hành',
             children: (
                 <>
-                    <Operate type={data.course_code} email={data.email} idStudent={data.id} />
+                    <Operate key={key} type={data.course_code} email={data.email} idStudent={data.id} />
                 </>
             ),
         },
@@ -112,14 +122,14 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
             label: 'Log',
             children: (
                 <>
-                    <Log idStudent={data.id} key={data.id} />
+                    <Log idStudent={data.id} key={key} />
                 </>
             ),
         },
     ];
 
     const onChange = (key: string) => {
-        console.log(key);
+        setKey(key);
     };
 
     const handleClickViewInfo = (id: number) => {

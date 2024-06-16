@@ -52,6 +52,11 @@ export default function LoginStudent() {
                 }
             });
             return;
+        } else {
+            Swal.fire({
+                icon: 'info',
+                text: res.msg,
+            });
         }
 
         Swal.fire({

@@ -1,13 +1,25 @@
 import classNames from 'classnames/bind';
-import { Popover } from 'antd';
+import { Space } from 'antd';
 import styles from './header.module.scss';
 import { useAppSelector } from '../../../features/hooks/hooks';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { ROLE, TRole } from '../../../utils/role';
+import { IPayloadJwt } from '../../../utils/interface';
+import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../../features/auth/AuthSlice';
 
 const cx = classNames.bind(styles);
 
 export default function Header() {
-    const email = useAppSelector((state) => state.authSlice.auth.data?.email);
+    const isLoginIn = useAppSelector((state) => state.authSlice.auth.isLoginIn);
+
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logoutAction());
+        window.location.reload();
+    };
 
     return (
         <div className="px-5">
@@ -22,45 +34,46 @@ export default function Header() {
                     />
                 </div>
                 <div className={cx('right')}>
-                    <div
-                        style={{
-                            marginLeft: 30,
-                        }}
-                    >
-                        <Popover
-                            content={
-                                <>
-                                    <div className={cx('menu-popper')}>
-                                        <ul>
-                                            <Link
-                                                to={'/student/dashboard/full-info'}
-                                                className="flex items-center gap-[6px] mb-2"
-                                            >
-                                                <i className="bi bi-file-person"></i>
-                                                Tài khoản
-                                            </Link>
-                                            <Link to={'/login'} className="flex items-center gap-[6px]">
-                                                <i className="bi bi-box-arrow-right"></i>Đăng Xuất
-                                            </Link>
-                                        </ul>
-                                    </div>
-                                </>
-                            }
-                        >
-                            <div className={cx('account')}>
-                                <img
-                                    className={cx('avatar')}
-                                    src={
-                                        'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1'
-                                    }
-                                    alt="Avatar"
-                                />
-                                <span>{email}</span>
-                            </div>
-                        </Popover>
-                    </div>
+                    <Space>
+                        {isLoginIn ? (
+                            <>
+                                <DashBoardLink />
+                                <button onClick={handleLogout}>Đăng xuất</button>
+                            </>
+                        ) : (
+                            <Link to="/auth/student/login">Đăng nhập</Link>
+                        )}
+                    </Space>
                 </div>
             </div>
         </div>
     );
+}
+
+function DashBoardLink() {
+    const token = useAppSelector((state) => state.authSlice.token?.access_token);
+    const [role, setRole] = useState<TRole | ''>('');
+
+    useEffect(() => {
+        try {
+            if (!token) {
+                window.location.href = '/notfound/404';
+                return;
+            }
+
+            const decoded: IPayloadJwt | null = jwtDecode(token);
+            if (!decoded) return;
+
+            if (decoded.role_detail === ROLE.SALE) {
+                setRole('SALE');
+            }
+            if (decoded.role_detail === ROLE.TEACHER) {
+                setRole('TEACHER');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, [token]);
+
+    return <a href={`${role === 'SALE' ? 'system/dashboard/sale' : 'system/dashboard/teacher'}`}>Trang quản trị</a>;
 }

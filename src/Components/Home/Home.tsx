@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { getAllCodeByType } from '../../services/AllCodeService';
 import { getCourseService, studentBookingCourseService } from '../../services/courseService';
 import { IAllCode, ICourse, IDataGet } from '../../utils/interface';
-import Header from '../Header/Header';
 import { useAppSelector } from '../../features/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 // import { getToken } from '../../services/tokenService';
 import { handleFomatVnd } from '../../helpers/handleFomatVnd';
 import Swal from 'sweetalert2';
+import Header from '../../systems/components/Header/Header';
 
 // interface IStateCourse {
 //     courseId: number;

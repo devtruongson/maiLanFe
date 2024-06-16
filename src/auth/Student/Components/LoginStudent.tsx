@@ -51,6 +51,11 @@ export default function RegisterStudent() {
                     window.location.href = '/home';
                 }
             });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                text: data.msg,
+            });
         }
     };
 

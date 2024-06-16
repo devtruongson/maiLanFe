@@ -151,6 +151,7 @@ export interface IStudent {
     ParentData: IParentData[];
     examData: IExam[];
     course_code: TStudent;
+    SaleData?: IUser;
 }
 
 export interface IParentData {

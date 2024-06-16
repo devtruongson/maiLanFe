@@ -16,12 +16,14 @@ const ContentModalBookingCalendar = ({
     setIsReloadKey,
     idCalendarCurrent,
     setIdCalendarCurrent,
+    calendarExit,
 }: {
     idStudent: number;
     isCreate: boolean;
     setIsReloadKey?: React.Dispatch<SetStateAction<boolean>>;
     setIdCalendarCurrent?: React.Dispatch<SetStateAction<number>>;
     idCalendarCurrent?: number | string;
+    calendarExit?: ICalendarTeacher[];
 }) => {
     const [calendars, setCalendars] = useState<ICalendar[]>([]);
     const [listDate, setListDate] = useState<string[]>([]);
@@ -61,15 +63,24 @@ const ContentModalBookingCalendar = ({
                     }
                     return false;
                 });
-                setListTeacherBooking(newList);
-                setListTime(newList.map((item) => item.time_stamp_start));
+                const exitCalendar = calendarExit ? calendarExit : [];
+                const arrValid = newList.filter(
+                    (item) => !exitCalendar.find((itemChild) => itemChild.time_stamp_start === item.time_stamp_start),
+                );
+                setListTeacherBooking(arrValid);
+                setListTime(arrValid.map((item) => item.time_stamp_start));
             }
         };
         fetch();
-    }, [isReload]);
+    }, [calendarExit, isReload]);
 
     const handleCheckTime = (time_start: string, date: string): number => {
-        if (listTime.includes(`${new Date(`${date} ${time_start.slice(0, -2)}:0:0`).getTime()}`)) {
+        const timeStampCalendar = `${new Date(`${date} ${time_start.slice(0, -2)}:0:0`).getTime()}`;
+        const currentTimeStamp = new Date().getTime();
+        if (
+            listTime.includes(`${new Date(`${date} ${time_start.slice(0, -2)}:0:0`).getTime()}`) &&
+            +timeStampCalendar > currentTimeStamp
+        ) {
             return 1;
         }
         return 2;
@@ -154,7 +165,6 @@ const ContentModalBookingCalendar = ({
                             })}
                     </div>
                 </div>
-
                 {listDate &&
                     listDate.length > 0 &&
                     listDate.map((item) => {
@@ -172,6 +182,7 @@ const ContentModalBookingCalendar = ({
                                     {calendars &&
                                         calendars.length > 0 &&
                                         calendars.map((itemChild) => {
+                                            console.log(itemChild);
                                             return (
                                                 <div className="w-[100%]" key={itemChild.id}>
                                                     <p

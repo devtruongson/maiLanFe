@@ -427,10 +427,10 @@ function CheckComp({
 
         if (isBooked) {
             hanndleRemoveBooking(itemChild.time_start, item);
-            handleReload();
+            // handleReload();
         } else {
             handleBooking(itemChild.time_start, itemChild.time_end, item, itemChild.id);
-            handleReload();
+            // handleReload();
         }
     };
 

@@ -32,7 +32,6 @@ export default function TableUserSystem() {
 
     useEffect(() => {
         setTeachersOr(teachers);
-
         let dataFilter: IUser[] = [];
 
         switch (filterCustom) {
@@ -110,13 +109,13 @@ export default function TableUserSystem() {
                         whiteSpace: 'nowrap',
                     }}
                 >
-                    Số ca đăng ký
+                    Số ca đăng ký hôm nay
                 </div>
             ),
             dataIndex: 'countCalendar',
             key: 'countCalendar',
             fixed: 'left',
-            width: 120,
+            width: 180,
             render(props) {
                 return (
                     <p className="text-center">

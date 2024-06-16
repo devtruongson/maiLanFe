@@ -16,7 +16,6 @@ const PrivateRouter: React.FC<{ role: TRole; children: React.ReactNode }> = ({ r
             }
 
             const decoded: IPayloadJwt | null = jwtDecode(token);
-
             if (!decoded) {
                 setIsValid(false);
                 window.location.href = '/notfound/404';
@@ -37,6 +36,10 @@ const PrivateRouter: React.FC<{ role: TRole; children: React.ReactNode }> = ({ r
             }
             if (decoded.role_detail === role) {
                 setIsValid(true);
+            } else {
+                setIsValid(false);
+                window.location.href = '/notfound/404';
+                return;
             }
         } catch (error) {
             console.log(error);
