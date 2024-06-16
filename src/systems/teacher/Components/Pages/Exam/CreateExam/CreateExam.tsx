@@ -28,7 +28,6 @@ const CreateExam: React.FC = () => {
                 return <span className="block w-full text-center">{props[2] + 1}</span>;
             },
         },
-        // Table.SELECTION_COLUMN,
         {
             title: 'Tên con',
             width: 60,
@@ -81,7 +80,7 @@ const CreateExam: React.FC = () => {
         {
             title: 'Quản Lí Bài Kiểm Tra',
             dataIndex: 'examData',
-            key: '3',
+            key: '2',
             width: 30,
             fixed: 'right',
             render: (...props) => {
@@ -103,13 +102,14 @@ const CreateExam: React.FC = () => {
         const res = await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser);
         if (res.code === HttpStatusCode.Ok) {
             setMeta(res.data.meta);
+
             setListStudent(
-                res.data.items.map((item) => {
-                    return {
+                res.data.items
+                    .filter((item) => item.studentData !== null)
+                    .map((item, index) => ({
                         ...item.studentData,
-                        key: item.studentData.id,
-                    };
-                }),
+                        key: index,
+                    })) as IStudent[],
             );
         }
     };
@@ -129,15 +129,18 @@ const CreateExam: React.FC = () => {
     };
 
     const handleSearch = async () => {
-        const res = await searchCalendarService(textSearch);
+        if (!idUser) {
+            return;
+        }
+        const res = await searchCalendarService(idUser, textSearch, 1, 10);
         if (res.code === HttpStatusCode.Ok) {
             setListStudent(
-                res.data.map((item) => {
-                    return {
+                res.data.items
+                    .filter((item) => item.studentData !== null)
+                    .map((item, index) => ({
                         ...item.studentData,
-                        key: item.studentData.id,
-                    };
-                }),
+                        key: index,
+                    })) as IStudent[],
             );
         }
     };

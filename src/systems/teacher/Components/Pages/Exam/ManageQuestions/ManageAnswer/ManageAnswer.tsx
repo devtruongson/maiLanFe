@@ -121,7 +121,7 @@ const ManageAnswer = memo(function ManageAnswer({
     };
 
     return (
-        <div className="py-[40px] px-[20px] mt-[40px]">
+        <div className="py-[40px] px-[20px] mt-[10px]">
             <div
                 className="w-[100%] h-[50px]  rounded-[10px] cursor-pointer border-[1px] border-dashed border-[#ccc] flex justify-center items-center"
                 onClick={() => showModal()}

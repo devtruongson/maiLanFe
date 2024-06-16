@@ -243,7 +243,7 @@ export interface IExam {
     is_testing: boolean;
     is_tested: boolean;
     ExamQuestionData: IExamQuestion[];
-    studentData?: IStudent[];
+    studentData?: IStudent;
 }
 
 export interface IExamQuestion {
@@ -262,6 +262,8 @@ export interface IQuestion {
     suggest: string;
     level: number;
     author_id: number;
+    class: number;
+    course_code: string;
     answers: IAnswer[];
 }
 
