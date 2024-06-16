@@ -16,6 +16,7 @@ export default function CreateExamForStudent({
     setIsReloadKey?: React.Dispatch<SetStateAction<boolean>>;
 }) {
     const [levels, setLevels] = useState<IAllCode[]>([]);
+    const [listClass, setListClass] = useState<IAllCode[]>([]);
     // const [teachers, setTeachers] = useState<IUser[]>([]);
 
     const [data, setData] = useState<{
@@ -25,6 +26,8 @@ export default function CreateExamForStudent({
         total_question: number;
         level: number | '';
         teacher_id: number | '';
+        class: number;
+        course_code: string | '';
     }>({
         level: '',
         student_id: student_id,
@@ -32,15 +35,21 @@ export default function CreateExamForStudent({
         time_end: 0,
         total_question: 0,
         teacher_id: '',
+        class: 0,
+        course_code: '',
     });
 
     useEffect(() => {
         const _fetch = async () => {
             try {
-                const res = await getAllCodeByType('level');
+                const [res, resClass] = await Promise.all([
+                    await getAllCodeByType('level'),
+                    await getAllCodeByType('CLASS'),
+                ]);
                 // const resTeacher = await getAllUserByType('4');
-                if (res.code === HttpStatusCode.Ok) {
+                if (res.code === HttpStatusCode.Ok && resClass.code === HttpStatusCode.Ok) {
                     setLevels(res.data);
+                    setListClass(resClass.data);
                 }
 
                 // if (resTeacher.code === HttpStatusCode.Ok) {
@@ -57,7 +66,15 @@ export default function CreateExamForStudent({
 
     const handleSubmit = async () => {
         let isValid = true;
-        if (!data.time_end || !data.level || !data.student_id || !data.title || !data.total_question) {
+        if (
+            !data.time_end ||
+            !data.level ||
+            !data.student_id ||
+            !data.title ||
+            !data.total_question ||
+            !data.class ||
+            !data.course_code
+        ) {
             isValid = false;
             alert('Vui long nhập đẩy đủ các trường!');
         }
@@ -72,6 +89,8 @@ export default function CreateExamForStudent({
                 time_end: +data.time_end,
                 title: data.title,
                 total_question: +data.total_question,
+                class: +data.class,
+                course_code: data.course_code,
             });
 
             if (res.code === HttpStatusCode.Ok) {
@@ -193,33 +212,56 @@ export default function CreateExamForStudent({
                         </select>
                     </div>
                 </Col>
-                {/* <Col span={24}>
+                <Col span={12}>
                     <div className="mb-5">
-                        <label className="block mb-2 text-sm font-medium ">Chọn giáo viên đánh giá</label>
+                        <label className="block mb-2 text-sm font-medium ">Chọn lớp</label>
                         <select
-                            value={data.teacher_id}
+                            value={data.class}
                             onChange={(e) => {
                                 setData((prev) => {
                                     return {
                                         ...prev,
-                                        teacher_id: +e.target.value,
+                                        class: +e.target.value,
                                     };
                                 });
                             }}
                             required
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
-                            <option value="">Chọn giáo viên</option>
-                            {teachers &&
-                                teachers.length > 0 &&
-                                teachers.map((item) => (
+                            <option value={0}>Chọn lớp</option>
+                            {listClass &&
+                                listClass.length > 0 &&
+                                listClass.map((item) => (
                                     <option value={item.id} key={item.id}>
-                                        {item.firstName} {item.lastName} {item.phoneNumber}
+                                        {item.title}
                                     </option>
                                 ))}
                         </select>
                     </div>
-                </Col> */}
+                </Col>
+
+                <Col span={12}>
+                    <div className="mb-5">
+                        <label className="block mb-2 text-sm font-medium ">Chọn môn</label>
+                        <select
+                            value={data.course_code}
+                            onChange={(e) => {
+                                setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        course_code: e.target.value,
+                                    };
+                                });
+                            }}
+                            required
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                            <option value="">Chọn môn</option>
+                            <option value="ENG">Tiếng anh</option>
+                            <option value="MATH">Toán</option>
+                        </select>
+                    </div>
+                </Col>
                 <Col span={24}>
                     <div className="mb-5 flex justify-center">
                         <Button onClick={handleSubmit} type="primary">

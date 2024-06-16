@@ -3,20 +3,30 @@ import { AxiosResponse } from 'axios';
 import { configHeaderAxios } from './tokenService';
 import { IDataGet, IExam, IResponse, TStatusExam } from '../utils/interface';
 
-export const getExamService = async ({
-    page,
-    pageSize,
-    studentId,
-    isComplated,
-}: {
+interface IGetExam {
     page: number;
     pageSize: number;
     studentId: number;
     isComplated: boolean;
-}): Promise<IResponse<IDataGet<IExam[]>>> => {
+}
+
+export const getExamService = async (
+    body: Partial<IGetExam>,
+    //     {
+    //     page,
+    //     pageSize,
+    //     studentId,
+    //     isComplated,
+    // }: {
+    //     page: number;
+    //     pageSize: number;
+    //     studentId: number;
+    //     isComplated: boolean;
+    // }
+): Promise<IResponse<IDataGet<IExam[]>>> => {
     try {
         const data: AxiosResponse<IResponse<IDataGet<IExam[]>>> = await axios.get(
-            `/exam/student?page=${page}&pageSize=${pageSize}&studentId=${studentId}&isComplated=${isComplated}`,
+            `/exam/student?page=${body.page}&pageSize=${body.pageSize}&studentId=${body.studentId}&isComplated=${body.isComplated}`,
             configHeaderAxios(),
         );
         return data.data;
@@ -76,7 +86,7 @@ interface IExamCreate {
     course_code: string;
 }
 
-export const CreateExamService = async (body: IExamCreate): Promise<IResponse<number>> => {
+export const CreateExamService = async (body: Partial<IExamCreate>): Promise<IResponse<number>> => {
     try {
         const data: AxiosResponse<IResponse<number>> = await axios.post(`/exam`, { ...body }, configHeaderAxios());
         return data.data;
@@ -125,6 +135,22 @@ export const changeLevelExam = async (id: number, level: number): Promise<IRespo
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.put(
             `/exam/level?id=${id}&level=${level}`,
+            configHeaderAxios(),
+        );
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const searchExamService = async (
+    textSearch: string,
+    page: number,
+    pageSize: number,
+): Promise<IResponse<IDataGet<IExam[]>>> => {
+    try {
+        const data: AxiosResponse<IResponse<IDataGet<IExam[]>>> = await axios.get(
+            `/exam/search?textSearch=${textSearch}&page=${page}&pageSize=${pageSize}`,
             configHeaderAxios(),
         );
         return data.data;
