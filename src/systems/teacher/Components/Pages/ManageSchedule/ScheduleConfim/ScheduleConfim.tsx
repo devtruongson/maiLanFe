@@ -394,6 +394,7 @@ const ScheduleConfim: React.FC = () => {
                     const res = await updateNoteService({
                         id: id,
                         link_video: null,
+                        type: 'link',
                     });
 
                     Swal.fire({
@@ -465,7 +466,11 @@ const ScheduleConfim: React.FC = () => {
 
                 <ExportData />
             </div>
-            <AllSchedule listCalendar={selectedRowKeys} handleReload={handleReloadChangeInterview} />
+            <AllSchedule
+                listCalendar={selectedRowKeys}
+                handleReload={handleReloadChangeInterview}
+                isReload={isReload}
+            />
 
             <div className="w-[100%] flex justify-end items-center my-[10px]">
                 <div className="rounded-[10px] border-solid border-[1px] border-[#ccc] flex justify-center items-center p-[10px] shadow">
