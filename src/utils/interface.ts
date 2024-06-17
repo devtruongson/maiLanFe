@@ -336,6 +336,7 @@ export interface ICountSchedule {
     meet: number;
     fail: number;
     cancel: number;
+    completed: number;
 }
 
 export interface ILog {

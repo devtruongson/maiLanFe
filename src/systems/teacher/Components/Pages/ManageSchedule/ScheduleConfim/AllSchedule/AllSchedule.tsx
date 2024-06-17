@@ -152,6 +152,20 @@ const AllSchedule = ({ listCalendar, handleReload }: { listCalendar: number[]; h
                                 Fail
                             </Button>
                         </th>
+                        <th
+                            scope="col"
+                            className="border-e h-[50px] bg-[#dddada] border-neutral-200 dark:border-[#ccc]"
+                        >
+                            <Button
+                                className="h-[50px] font-[600] block w-full rounded-none bg-transparent hover-transparent"
+                                style={{
+                                    border: 'none',
+                                }}
+                                type="default"
+                            >
+                                Đã trả kết quả
+                            </Button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -176,6 +190,9 @@ const AllSchedule = ({ listCalendar, handleReload }: { listCalendar: number[]; h
                         </td>
                         <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
                             {listCount?.fail}
+                        </td>
+                        <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
+                            {listCount?.completed}
                         </td>
                     </tr>
                 </tbody>
