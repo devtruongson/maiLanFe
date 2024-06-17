@@ -133,11 +133,18 @@ const Students = () => {
                     ? await getCalendarConfirmed(pagination.page, pagination.pageSize, idUser)
                     : await searchCalendarService(idUser, textSearch, 1, pagination.pageSize);
             if (res.code === 200) {
-                setListStudent(
-                    res.data.items
-                        .map((item) => item.studentData)
-                        .filter((studentData): studentData is IStudent => studentData !== null),
-                );
+                const sortArray: IStudent[] = [];
+                const arrNotEmpty = res.data.items
+                    .map((item) => item.studentData)
+                    .filter((studentData): studentData is IStudent => studentData !== null);
+
+                arrNotEmpty.map((item) => {
+                    if (sortArray.map((itemChild) => itemChild.id).indexOf(item.id) === -1) {
+                        sortArray.push(item);
+                    }
+                });
+                setListStudent(sortArray);
+
                 setMeta(res.data.meta);
             }
         };

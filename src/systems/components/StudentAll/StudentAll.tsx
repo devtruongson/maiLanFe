@@ -98,12 +98,14 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
         interviewed_meet: number;
         fail: number;
         cancel: number;
+        completed: number;
     }>({
         reservation: 0,
         confirm: 0,
         interviewed_meet: 0,
         fail: 0,
         cancel: 0,
+        completed: 0,
     });
     const [countOther, setCountOther] = useState<{
         is_booked: number;
@@ -243,6 +245,20 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
                                                         Fail
                                                     </Button>
                                                 </th>
+                                                <th
+                                                    scope="col"
+                                                    className="border-e h-[50px] bg-[#dddada] border-neutral-200 dark:border-[#ccc]"
+                                                >
+                                                    <Button
+                                                        className="h-[50px] font-[600] block w-full rounded-none bg-transparent hover-transparent"
+                                                        style={{
+                                                            border: 'none',
+                                                        }}
+                                                        type="default"
+                                                    >
+                                                        Đã trả kết quả
+                                                    </Button>
+                                                </th>
                                             </>
                                         )}
                                         {type === 'MATH' && (
@@ -329,6 +345,9 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
                                                 <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
                                                     {countMeet.fail}
                                                 </td>
+                                                <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
+                                                    {countMeet.completed}
+                                                </td>
                                             </>
                                         )}
                                         {type === 'MATH' && (
@@ -344,7 +363,7 @@ export function NaviStudentAll({ type }: { type: TStudent }) {
                                                     {countOther.is_tested ? countOther.is_tested : 0}
                                                 </td>
                                                 <td className="whitespace-nowrap border-e border-neutral-200 px-6 py-4 dark:border-[#ccc]">
-                                                    {countOther.is_completed ? countOther.is_completed : 0}
+                                                    {countOther.is_tested ? countOther.is_tested : 0}
                                                 </td>
                                             </>
                                         )}
