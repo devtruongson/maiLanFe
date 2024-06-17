@@ -12,6 +12,7 @@ import CreateExamForStudent from '../CreateExamForStudent/CreateExamForStudent';
 import { getExamStudentService } from '../../../services/examService';
 import { useDispatch } from 'react-redux';
 import { reloadAction } from '../../../features/auth/configSlice';
+import { getInterview } from '../../../services/StudentService';
 const { Paragraph } = Typography;
 
 type IProps = {
@@ -105,6 +106,11 @@ export default function Operate({ email, idStudent, type }: IProps) {
         });
     };
 
+    const handleViewInterviewStudent = async () => {
+        const path = await getInterview(idStudent);
+        window.open(path, '_bank');
+    };
+
     return (
         <>
             <ModalSystem
@@ -126,7 +132,7 @@ export default function Operate({ email, idStudent, type }: IProps) {
                         </>
                     ),
                     className: 'mt-5',
-                    width: '60vw',
+                    width: '80vw',
                 }}
             />
             <ModalSystem
@@ -170,6 +176,15 @@ export default function Operate({ email, idStudent, type }: IProps) {
                 <Divider />
                 {calendar && type === 'ENG' && (
                     <>
+                        <div>
+                            <button
+                                onClick={handleViewInterviewStudent}
+                                type="button"
+                                className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                            >
+                                Lộ trình học sinh
+                            </button>
+                        </div>
                         <div className="mt-6">
                             <h3 className="font-[600] m-0">Danh sách lịch hẹn</h3>
                             <div>
@@ -239,74 +254,80 @@ export default function Operate({ email, idStudent, type }: IProps) {
                                                             new Date().getTime() >
                                                         60 * 60 * 1000 ? (
                                                             <>
-                                                                {!item.is_cancel && (
+                                                                {!item.is_cancel && !item.is_interviewed_meet && (
+                                                                    <>
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                setIsOpen(true);
+                                                                                setIsCreate(false);
+                                                                                setIdCalendarCurrent(item.id);
+                                                                            }}
+                                                                            className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
+                                                                        >
+                                                                            <SwapOutlined />
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={() =>
+                                                                                handleClickCancelMeet(item.id)
+                                                                            }
+                                                                            style={{
+                                                                                border: '1px solid #ccc',
+                                                                            }}
+                                                                            className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
+                                                                        >
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none"
+                                                                                viewBox="0 0 24 24"
+                                                                                strokeWidth={1.5}
+                                                                                stroke="currentColor"
+                                                                                className="size-4"
+                                                                            >
+                                                                                <path
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                                                                />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </>
+                                                                )}
+                                                            </>
+                                                        ) : (
+                                                            !item.is_interviewed_meet && (
+                                                                <>
                                                                     <button
-                                                                        onClick={() => {
-                                                                            setIsOpen(true);
-                                                                            setIsCreate(false);
-                                                                            setIdCalendarCurrent(item.id);
-                                                                        }}
+                                                                        title="Không thể hủy"
+                                                                        disabled
                                                                         className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
                                                                     >
                                                                         <SwapOutlined />
                                                                     </button>
-                                                                )}
-                                                                <button
-                                                                    onClick={() => handleClickCancelMeet(item.id)}
-                                                                    style={{
-                                                                        border: '1px solid #ccc',
-                                                                    }}
-                                                                    className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
-                                                                >
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none"
-                                                                        viewBox="0 0 24 24"
-                                                                        strokeWidth={1.5}
-                                                                        stroke="currentColor"
-                                                                        className="size-4"
+                                                                    <button
+                                                                        title="Không thể xóa"
+                                                                        disabled
+                                                                        style={{
+                                                                            border: '1px solid #ccc',
+                                                                        }}
+                                                                        className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
                                                                     >
-                                                                        <path
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                                                        />
-                                                                    </svg>
-                                                                </button>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <button
-                                                                    title="Không thể hủy"
-                                                                    disabled
-                                                                    className="bg-[#41886a] text-[#fff] px-2 py-1 rounded-lg hover:opacity-[0.85] h-[30px]"
-                                                                >
-                                                                    <SwapOutlined />
-                                                                </button>
-                                                                <button
-                                                                    title="Không thể xóa"
-                                                                    disabled
-                                                                    style={{
-                                                                        border: '1px solid #ccc',
-                                                                    }}
-                                                                    className="btn h-[30px] hover:opacity-[0.85] px-2 py-1 rounded-md"
-                                                                >
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        fill="none"
-                                                                        viewBox="0 0 24 24"
-                                                                        strokeWidth={1.5}
-                                                                        stroke="currentColor"
-                                                                        className="size-4"
-                                                                    >
-                                                                        <path
-                                                                            strokeLinecap="round"
-                                                                            strokeLinejoin="round"
-                                                                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                                                        />
-                                                                    </svg>
-                                                                </button>
-                                                            </>
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none"
+                                                                            viewBox="0 0 24 24"
+                                                                            strokeWidth={1.5}
+                                                                            stroke="currentColor"
+                                                                            className="size-4"
+                                                                        >
+                                                                            <path
+                                                                                strokeLinecap="round"
+                                                                                strokeLinejoin="round"
+                                                                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                                                            />
+                                                                        </svg>
+                                                                    </button>
+                                                                </>
+                                                            )
                                                         )}
                                                     </div>
                                                 </div>
@@ -317,72 +338,70 @@ export default function Operate({ email, idStudent, type }: IProps) {
                         </div>
                     </>
                 )}
-                {type === 'MATH' && (
-                    <>
-                        <div className="mt-3">
-                            <table className="table-fixed w-full">
-                                <thead className="bg-[rgba(0,0,0,0.2)] rounded-md">
-                                    <tr>
-                                        <th>Tên bài thi</th>
-                                        <th>Số câu</th>
-                                        <th>Phút</th>
-                                        <th>Hành động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {listExam && listExam.length > 0 ? (
-                                        listExam.map((item) => {
-                                            return (
-                                                <tr key={item.id}>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
+                <>
+                    <h3 className="font-[600] m-0">Danh sách bài Test</h3>
+                    <div className="mt-3">
+                        <table className="table-fixed w-full">
+                            <thead className="bg-[rgba(0,0,0,0.2)] rounded-md">
+                                <tr>
+                                    <th>Tên bài thi</th>
+                                    <th>Số câu</th>
+                                    <th>Phút</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {listExam && listExam.length > 0 ? (
+                                    listExam.map((item) => {
+                                        return (
+                                            <tr key={item.id}>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid #ccc',
+                                                    }}
+                                                >
+                                                    {item.title}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid #ccc',
+                                                    }}
+                                                >
+                                                    {item.total_question}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid #ccc',
+                                                    }}
+                                                >
+                                                    {item.time_end}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        border: '1px solid #ccc',
+                                                    }}
+                                                >
+                                                    <Paragraph
+                                                        className="whitespace-nowrap"
+                                                        copyable={{
+                                                            text: window.location.origin + `/exam/student/${item.id}`,
                                                         }}
                                                     >
-                                                        {item.title}
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        {item.total_question}
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        {item.time_end}
-                                                    </td>
-                                                    <td
-                                                        style={{
-                                                            border: '1px solid #ccc',
-                                                        }}
-                                                    >
-                                                        <Paragraph
-                                                            className="whitespace-nowrap"
-                                                            copyable={{
-                                                                text:
-                                                                    window.location.origin + `/exam/student/${item.id}`,
-                                                            }}
-                                                        >
-                                                            <span>Sao chép link bài thi</span>
-                                                        </Paragraph>
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
-                                    ) : (
-                                        <div>
-                                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                        </div>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                )}
+                                                        <span>Sao chép link bài thi</span>
+                                                    </Paragraph>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                ) : (
+                                    <div>
+                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                    </div>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
             </div>
         </>
     );
