@@ -115,7 +115,7 @@ const Students = () => {
 
     useEffect(() => {
         const fetchLevel = async () => {
-            const res = await getAllCodeByType('ACADEMIC');
+            const res = await getAllCodeByType('ABILITY');
             if (res.code === HttpStatusCode.Ok) {
                 setListLevel(res.data);
             }
