@@ -1,0 +1,1866 @@
+{
+	"info": {
+		"_postman_id": "1331655a-ac56-4b0b-a9b2-47417ca6a277",
+		"name": "System Manage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19767007",
+		"_collection_link": "https://orange-capsule-676838.postman.co/workspace/New-Team-Workspace~15666118-6f32-41bc-9b48-6cd40d4fe789/collection/19767007-1331655a-ac56-4b0b-a9b2-47417ca6a277?action=share&source=collection_link&creator=19767007"
+	},
+	"item": [
+		{
+			"name": "User Hệ Thống",
+			"item": [
+				{
+					"name": "Tạo user hệ thống",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\" : 2,\r\n    \"firstName\" : \"Hoàng Thị\",\r\n    \"lastName\": \"Mai Lan\",\r\n    \"address\": 6,\r\n    \"address_detail\": \"Hai Duonb\",\r\n    \"phoneNumber\" : \"0976547834\",\r\n    \"code\" : \"TEACHER\",\r\n    \"email\" : \"saleMailan@gmail.com\",\r\n    \"password\" :\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tạo user hệ thống BUILK",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Hoàng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04173747515\",\r\n        \"code\": \"TEACHER Hà 1\",\r\n        \"email\": \"hà.hoàng@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Huỳnh\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"02612668016\",\r\n        \"code\": \"TEACHER Lan 2\",\r\n        \"email\": \"lan.huỳnh@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Lê\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03141400388\",\r\n        \"code\": \"TEACHER Anh 3\",\r\n        \"email\": \"anh.lê@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"07728089170\",\r\n        \"code\": \"TEACHER Hà 4\",\r\n        \"email\": \"hà.trần@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04704340257\",\r\n        \"code\": \"TEACHER Minh 5\",\r\n        \"email\": \"minh.đặng@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Phương\",\r\n        \"lastName\": \"Phạm\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06823527301\",\r\n        \"code\": \"TEACHER Phương 6\",\r\n        \"email\": \"phương.phạm@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09077496759\",\r\n        \"code\": \"TEACHER Tuấn 7\",\r\n        \"email\": \"tuấn.đặng@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hương\",\r\n        \"lastName\": \"Phạm\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04273073005\",\r\n        \"code\": \"TEACHER Hương 8\",\r\n        \"email\": \"hương.phạm@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hương\",\r\n        \"lastName\": \"Hoàng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"08027291463\",\r\n        \"code\": \"TEACHER Hương 9\",\r\n        \"email\": \"hương.hoàng@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Phạm\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05397026741\",\r\n        \"code\": \"TEACHER Tuấn 10\",\r\n        \"email\": \"tuấn.phạm@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09536732489\",\r\n        \"code\": \"TEACHER Lan 11\",\r\n        \"email\": \"lan.đặng@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04234349106\",\r\n        \"code\": \"TEACHER Anh 12\",\r\n        \"email\": \"anh.trần@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hương\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05479720953\",\r\n        \"code\": \"TEACHER Hương 13\",\r\n        \"email\": \"hương.phan@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Dũng\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"07212974611\",\r\n        \"code\": \"TEACHER Dũng 14\",\r\n        \"email\": \"dũng.trần@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Vũ\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09533239134\",\r\n        \"code\": \"TEACHER Tuấn 15\",\r\n        \"email\": \"tuấn.vũ@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04583618622\",\r\n        \"code\": \"TEACHER Anh 16\",\r\n        \"email\": \"anh.phan@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03013282272\",\r\n        \"code\": \"TEACHER Lan 17\",\r\n        \"email\": \"lan.nguyễn@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06837306256\",\r\n        \"code\": \"TEACHER Minh 18\",\r\n        \"email\": \"minh.nguyễn@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Phương\",\r\n        \"lastName\": \"Lê\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04073813052\",\r\n        \"code\": \"TEACHER Phương 19\",\r\n        \"email\": \"phương.lê@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Vũ\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"07690559122\",\r\n        \"code\": \"TEACHER Hà 20\",\r\n        \"email\": \"hà.vũ@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hùng\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09372684028\",\r\n        \"code\": \"TEACHER Hùng 21\",\r\n        \"email\": \"hùng.đặng@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Vũ\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06822692367\",\r\n        \"code\": \"TEACHER Hà 22\",\r\n        \"email\": \"hà.vũ@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hương\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"07046504901\",\r\n        \"code\": \"TEACHER Hương 23\",\r\n        \"email\": \"hương.phan@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Dũng\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04947846705\",\r\n        \"code\": \"TEACHER Dũng 24\",\r\n        \"email\": \"dũng.trần@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03545760548\",\r\n        \"code\": \"TEACHER Anh 25\",\r\n        \"email\": \"anh.nguyễn@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05877487864\",\r\n        \"code\": \"TEACHER Tuấn 26\",\r\n        \"email\": \"tuấn.nguyễn@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Lê\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05752531741\",\r\n        \"code\": \"TEACHER Minh 27\",\r\n        \"email\": \"minh.lê@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09852251580\",\r\n        \"code\": \"TEACHER Lan 28\",\r\n        \"email\": \"lan.nguyễn@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04464380013\",\r\n        \"code\": \"TEACHER Lan 29\",\r\n        \"email\": \"lan.nguyễn@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03712055398\",\r\n        \"code\": \"TEACHER Lan 30\",\r\n        \"email\": \"lan.trần@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09020689891\",\r\n        \"code\": \"TEACHER Anh 31\",\r\n        \"email\": \"anh.phan@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Vũ\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04792820267\",\r\n        \"code\": \"TEACHER Minh 32\",\r\n        \"email\": \"minh.vũ@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Lan\",\r\n        \"lastName\": \"Vũ\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06374364126\",\r\n        \"code\": \"TEACHER Lan 33\",\r\n        \"email\": \"lan.vũ@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Phạm\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03143847482\",\r\n        \"code\": \"TEACHER Tuấn 34\",\r\n        \"email\": \"tuấn.phạm@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03253540553\",\r\n        \"code\": \"TEACHER Minh 35\",\r\n        \"email\": \"minh.nguyễn@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Hoàng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05589218136\",\r\n        \"code\": \"TEACHER Hà 36\",\r\n        \"email\": \"hà.hoàng@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06433537728\",\r\n        \"code\": \"TEACHER Minh 37\",\r\n        \"email\": \"minh.đặng@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Phương\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06129917987\",\r\n        \"code\": \"TEACHER Phương 38\",\r\n        \"email\": \"phương.nguyễn@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03259206342\",\r\n        \"code\": \"TEACHER Tuấn 39\",\r\n        \"email\": \"tuấn.đặng@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Phương\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04170568469\",\r\n        \"code\": \"TEACHER Phương 40\",\r\n        \"email\": \"phương.nguyễn@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04936693195\",\r\n        \"code\": \"TEACHER Anh 41\",\r\n        \"email\": \"anh.phan@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hùng\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"04183740525\",\r\n        \"code\": \"TEACHER Hùng 42\",\r\n        \"email\": \"hùng.nguyễn@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Phạm\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09548126402\",\r\n        \"code\": \"TEACHER Anh 43\",\r\n        \"email\": \"anh.phạm@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Huy\",\r\n        \"lastName\": \"Lê\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"07841057721\",\r\n        \"code\": \"TEACHER Huy 44\",\r\n        \"email\": \"huy.lê@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Tuấn\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"08958858507\",\r\n        \"code\": \"TEACHER Tuấn 45\",\r\n        \"email\": \"tuấn.trần@gmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Dũng\",\r\n        \"lastName\": \"Phan\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"05223105419\",\r\n        \"code\": \"TEACHER Dũng 46\",\r\n        \"email\": \"dũng.phan@hotmail.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Anh\",\r\n        \"lastName\": \"Lê\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"06540766328\",\r\n        \"code\": \"TEACHER Anh 47\",\r\n        \"email\": \"anh.lê@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Hà\",\r\n        \"lastName\": \"Trần\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"08682228670\",\r\n        \"code\": \"TEACHER Hà 48\",\r\n        \"email\": \"hà.trần@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Minh\",\r\n        \"lastName\": \"Đặng\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"09667443701\",\r\n        \"code\": \"TEACHER Minh 49\",\r\n        \"email\": \"minh.đặng@yahoo.com\",\r\n        \"password\": \"123456789\"\r\n    },\r\n    {\r\n        \"role\": 4,\r\n        \"firstName\": \"Phương\",\r\n        \"lastName\": \"Nguyễn\",\r\n        \"address\": 4,\r\n        \"address_detail\": \"Trần Hòa\",\r\n        \"phoneNumber\": \"03430527724\",\r\n        \"code\": \"TEACHER Phương 50\",\r\n        \"email\": \"phương.nguyễn@outlook.com\",\r\n        \"password\": \"123456789\"\r\n    }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/user/create-bulk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"create-bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"namdang@gmail.com\",\r\n    \"password\" :\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4MiIsImlzX2xvZ2luX3NvY2lhbCI6bnVsbCwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJBRE1JTiIsImlhdCI6MTcxNTU5Mzc3MiwiZXhwIjoxNzE4MTg1NzcyfQ.PanMZcAanAAfm2d1gbPCgjf4XNhwK3bxwOWWTJFYErs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/user/all?role=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"all"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User By Type",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4MiIsImlzX2xvZ2luX3NvY2lhbCI6bnVsbCwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJBRE1JTiIsImlhdCI6MTcxNTU5Mzc3MiwiZXhwIjoxNzE4MTg1NzcyfQ.PanMZcAanAAfm2d1gbPCgjf4XNhwK3bxwOWWTJFYErs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/user/all-by-type?type=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"all-by-type"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4MiIsImlzX2xvZ2luX3NvY2lhbCI6bnVsbCwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJBRE1JTiIsImlhdCI6MTcxNTU5Mzc3MiwiZXhwIjoxNzE4MTg1NzcyfQ.PanMZcAanAAfm2d1gbPCgjf4XNhwK3bxwOWWTJFYErs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AllCode",
+			"item": [
+				{
+					"name": "Tạo quản lí chung",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0cnVvbmdzb25wdC44MDFAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwNjM0NTM0NTg3IiwiaXNfbG9naW5fc29jaWFsIjpudWxsLCJyb2xlIjozLCJyb2xlX2RldGFpbCI6IkFETUlOIiwiaWF0IjoxNzE2MTE1NjIzLCJleHAiOjE3MTg3MDc2MjN9.QkSyUSFDzsZAx50k55MliaPd20t-4EKVvLWaDVHTYug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\" : \"TRAINING\",\r\n    \"title\": \"Toeic\",\r\n    \"code\" :  \"toc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/all-code/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"all-code",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/all-code/LEVEL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"all-code",
+								"LEVEL"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "Create Calendar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"time_start\" : \"1AM\",\r\n        \"time_end\" : \"2AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"2AM\",\r\n        \"time_end\" : \"3AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"3AM\",\r\n        \"time_end\" : \"4AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"4AM\",\r\n        \"time_end\" : \"5AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"5AM\",\r\n        \"time_end\" : \"6AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"7AM\",\r\n        \"time_end\" : \"8AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"8AM\",\r\n        \"time_end\" : \"9AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"9AM\",\r\n        \"time_end\" : \"10AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"10AM\",\r\n        \"time_end\" : \"11AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"11AM\",\r\n        \"time_end\" : \"12AM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"12AM\",\r\n        \"time_end\" : \"13PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"13PM\",\r\n        \"time_end\" : \"14PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"14PM\",\r\n        \"time_end\" : \"15PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"15PM\",\r\n        \"time_end\" : \"16PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"16PM\",\r\n        \"time_end\" : \"17PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"17PM\",\r\n        \"time_end\" : \"18PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"18PM\",\r\n        \"time_end\" : \"19PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"19PM\",\r\n        \"time_end\" : \"20PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"20PM\",\r\n        \"time_end\" : \"21PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"21PM\",\r\n        \"time_end\" : \"22PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"22PM\",\r\n        \"time_end\" : \"23PM\"\r\n    },\r\n    {\r\n        \"time_start\" : \"23PM\",\r\n        \"time_end\" : \"0AM\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Calendar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJ0cnVvbmdzb25wdC44MDFAZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwNjM0NTM0NTg3IiwiaXNfbG9naW5fc29jaWFsIjpudWxsLCJyb2xlIjozLCJyb2xlX2RldGFpbCI6IkFETUlOIiwiaWF0IjoxNzE2OTA4Nzk2LCJleHAiOjE3MTk1MDA3OTZ9.oxCQraV3Ew1quex-tY5jAWJGZ802krGa6L8LmJql1Y4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bookingh Calendar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teacher_id\": 2,\r\n    \"calendar_id\": 6,\r\n    \"day\" : \"14\",\r\n    \"time_stamp_start\": \"1715670000\",\r\n    \"time_stamp_end\" :\"1715673600\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Calendar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/book/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"book",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Calendar All Teacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Calendar For Student",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ2YW5uZ29AZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwMzUyNTQ5MzU2IiwiaXNfbG9naW5fc29jaWFsIjpmYWxzZSwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJVU0VSIiwiaWF0IjoxNzE2MDMyNTI1LCJleHAiOjE3MTg2MjQ1MjV9.S1ThGZ2HdrwXSDltiE2y0zL77H52uL-1ABwO3jOETJs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/student?email=van@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"student"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "van@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "book Calendar For Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0cnVvbmdzb25wdC44MEBnbWFpbC5jb20iLCJwaG9uZU51bWJlciI6IjA4NjkyMjQ4MTMiLCJpc19sb2dpbl9zb2NpYWwiOm51bGwsInJvbGUiOjMsInJvbGVfZGV0YWlsIjoiQURNSU4iLCJpYXQiOjE3MTU2MDkzMTYsImV4cCI6MTcxODIwMTMxNn0.GS-7yko3iOhGMMJxEnzdzFAPsGzjilTZNWIfgsfznks",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"student_id\": 3,\r\n    \"calendar_id\" : 4,\r\n    \"teacher_id\" : 3,\r\n    \"id_student_course\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/book-for-student",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"book-for-student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Student Create Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ2YW5uZ29AZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwMzUyNTQ5MzU2IiwiaXNfbG9naW5fc29jaWFsIjpmYWxzZSwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJVU0VSIiwiaWF0IjoxNzE2MDMyNTI1LCJleHAiOjE3MTg2MjQ1MjV9.S1ThGZ2HdrwXSDltiE2y0zL77H52uL-1ABwO3jOETJs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"student_id\":2,\r\n    \"course_id\":1   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/student-booking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"student-booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search calendar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/search?textSearch=666",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"search"
+							],
+							"query": [
+								{
+									"key": "textSearch",
+									"value": "666"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Calendar đã có student_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/book-exam?page=1&pageSize=10&idTeacher=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"book-exam"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "idTeacher",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Theem student_id cho calendarTeacher",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar?idStudent=3&idCalendar=16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar"
+							],
+							"query": [
+								{
+									"key": "idStudent",
+									"value": "3"
+								},
+								{
+									"key": "idCalendar",
+									"value": "16"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get schedule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/get-schedule?idTeacher=1&page=1&pageSize=10&dateStart=1717606800000&dateEnd=1717693200000&isStudent=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"get-schedule"
+							],
+							"query": [
+								{
+									"key": "idTeacher",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "dateStart",
+									"value": "1717606800000"
+								},
+								{
+									"key": "dateEnd",
+									"value": "1717693200000"
+								},
+								{
+									"key": "isStudent",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "COunt Schedule Teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/calendar/count-schedule-teacher?idTeacher=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"calendar",
+								"count-schedule-teacher"
+							],
+							"query": [
+								{
+									"key": "idTeacher",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "Create Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"ta2\",\r\n    \"is_free\":false,\r\n    \"is_try_learning\":true,\r\n    \"price\":\"10000000\",\r\n    \"thumbnail\":\"\",\r\n    \"training_sector\":19,\r\n    \"discount\":\"discount\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/course/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/course/get?page=1&pageSize=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"get"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":23,\r\n    \"title\":\"ta4\",\r\n    \"is_free\":false,\r\n    \"is_try_learning\":false,\r\n    \"price\":\"50000000\",\r\n    \"thumbnail\":\"thmbnail\",\r\n    \"training_sector\":3,\r\n    \"discount\":\"discount\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/course/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/course/delete?code=AC4A84",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "AC4A84"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Course by Training setor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/course/student?trainingId=20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"student"
+							],
+							"query": [
+								{
+									"key": "trainingId",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get COurse by Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ2YW5uZ29AZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwMzUyNTQ5MzU2IiwiaXNfbG9naW5fc29jaWFsIjpmYWxzZSwicm9sZSI6OCwicm9sZV9kZXRhaWwiOiJVU0VSIiwiaWF0IjoxNzE2MjExMDgxLCJleHAiOjE3MTg4MDMwODF9.WAusP574X5UpOMo6atZf0TocN-HGUp_sK81t2oGAjq4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/course/student-course?page=1&pageSize=2&studentId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"course",
+								"student-course"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "studentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Answer",
+			"item": [
+				{
+					"name": "Create Answer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n    \"answer_title\":\"a\",\r\n    \"is_right\":false,\r\n    \"question_id\":2\r\n},\r\n{\r\n    \"answer_title\":\"b\",\r\n    \"is_right\":true,\r\n    \"question_id\":2\r\n}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/answer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"answer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Answer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/answer?questionId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"answer"
+							],
+							"query": [
+								{
+									"key": "questionId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Answer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":3,\r\n    \"answer_title\":\"update\",\r\n    \"is_right\":false,\r\n    \"question_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/answer/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"answer",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Answer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/answer/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"answer",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "Get Question",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/question?page=1&pageSize=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"question"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Choose 1 most correct answer\",\r\n    \"file\":\"file.mp3\",\r\n    \"suggest\":\"How old are you ?\",\r\n    \"level\":1,\r\n    \"author_id\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"question"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/question/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"question",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Question",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":2,\r\n    \"file\":\"mp3.jpg\",\r\n    \"level\":24,\r\n    \"title\":\"Choose 1 most correct answer\",\r\n    \"suggest\":\"How old are you ?\",\r\n    \"author_id\":4,\r\n    \"isChangeFile\":true,\r\n    \"fileOld\":\"test.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"question"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exam",
+			"item": [
+				{
+					"name": "Create Exam",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"student_id\":3,\r\n    \"title\":\"bài test 2\",\r\n    \"time_end\":45,\r\n    \"total_question\":10,\r\n    \"level\":15,\r\n    \"teacher_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/exam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exam For Student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/student?page=1&pageSize=2&studentId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"student"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "studentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exam For DESC Student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/student-desc?studentId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"student-desc"
+							],
+							"query": [
+								{
+									"key": "studentId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exam For Teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/teacher?page=1&pageSize=2&teacherId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"teacher"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "teacherId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get For Admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Exam",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Info Exam",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"student_id\":2,\r\n    \"title\":\"bài test update\",\r\n    \"time_end\":60,\r\n    \"total_question\":20,\r\n    \"level\":24,\r\n    \"teacher_id\":4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/exam",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Score Exam",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listAnswer\":[2,5,9,10],\r\n    \"examId\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/score",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"score"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ2YW5uZ29AZ21haWwuY29tIiwicGhvbmVOdW1iZXIiOiIwMzUyNTQ5MzU2IiwiaXNfbG9naW5fc29jaWFsIjpmYWxzZSwicm9sZSI6Miwicm9sZV9kZXRhaWwiOiJVU0VSIiwiaWF0IjoxNzE2MTkwNDc4LCJleHAiOjE3MTg3ODI0Nzh9.P5PmUbjls2Wpyul-Wi1x6HEZAa_duA6P5iU2zLsplR8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/get-one?id=4&isCompleted=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								},
+								{
+									"key": "isCompleted",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Chnage Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam/change-status?status=is_testing&id=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam",
+								"change-status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "is_testing"
+								},
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExamQuestion",
+			"item": [
+				{
+					"name": "Create Exam-Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"exam_id\":1,\r\n        \"question_id\":2,\r\n        \"is_right\":false\r\n    },\r\n    {\r\n        \"exam_id\":1,\r\n        \"question_id\":4,\r\n        \"is_right\":false\r\n    },\r\n    {\r\n        \"exam_id\":1,\r\n        \"question_id\":10,\r\n        \"is_right\":false\r\n    },\r\n    {\r\n        \"exam_id\":1,\r\n        \"question_id\":11,\r\n        \"is_right\":false\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/exam_question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam_question"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Exam-Question",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam_question/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam_question",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Auto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/exam_question/auto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"exam_question",
+								"auto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuYW1kYW5nQGdtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiMDYzNDUzNDU4NyIsImlzX2xvZ2luX3NvY2lhbCI6bnVsbCwicm9sZSI6NCwicm9sZV9kZXRhaWwiOiJURUFDSEVSIiwiaWF0IjoxNzE3OTA1MjQyLCJleHAiOjE3MjA0OTcyNDJ9.jol75cuoONdTtVqWoNbVj9X_OppDXoLzsP1hQqpR0B8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"1sn11@gmail.com\",\r\n    \"phoneNumber\":\"035254935996\",\r\n    \"fullName\":\"ngo ngoc van\",\r\n    \"password\":\"12345678\",\r\n    \"address\":8,\r\n    \"province\": 1,\r\n    \"district\": 1,\r\n    \"commune\": \"0002\",\r\n    \"course_code\":\"ENG\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/student/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Builk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\"email\":\"tranthithuy@gmail.com\", \"phoneNumber\":\"0945786458\", \"fullName\":\"Tran Thi Thuy\", \"password\":\"12345678\", \"province\":\"01\", \"district\":\"06\", \"commune\":\"00001\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenvana@gmail.com\", \"phoneNumber\":\"0945786459\", \"fullName\":\"Nguyen Van A\", \"password\":\"12345678\", \"province\":\"02\", \"district\":\"07\", \"commune\":\"00002\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethib@gmail.com\", \"phoneNumber\":\"0945786460\", \"fullName\":\"Le Thi B\", \"password\":\"12345678\", \"province\":\"03\", \"district\":\"08\", \"commune\":\"00003\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangc@gmail.com\", \"phoneNumber\":\"0945786461\", \"fullName\":\"Pham Quang C\", \"password\":\"12345678\", \"province\":\"04\", \"district\":\"09\", \"commune\":\"00004\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhd@gmail.com\", \"phoneNumber\":\"0945786462\", \"fullName\":\"Hoang Dinh D\", \"password\":\"12345678\", \"province\":\"05\", \"district\":\"10\", \"commune\":\"00005\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trankime@gmail.com\", \"phoneNumber\":\"0945786463\", \"fullName\":\"Tran Kim E\", \"password\":\"12345678\", \"province\":\"06\", \"district\":\"11\", \"commune\":\"00006\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenngocf@gmail.com\", \"phoneNumber\":\"0945786464\", \"fullName\":\"Nguyen Ngoc F\", \"password\":\"12345678\", \"province\":\"07\", \"district\":\"12\", \"commune\":\"00007\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethig@gmail.com\", \"phoneNumber\":\"0945786465\", \"fullName\":\"Le Thi G\", \"password\":\"12345678\", \"province\":\"08\", \"district\":\"13\", \"commune\":\"00008\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangh@gmail.com\", \"phoneNumber\":\"0945786466\", \"fullName\":\"Pham Quang H\", \"password\":\"12345678\", \"province\":\"09\", \"district\":\"14\", \"commune\":\"00009\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhi@gmail.com\", \"phoneNumber\":\"0945786467\", \"fullName\":\"Hoang Dinh I\", \"password\":\"12345678\", \"province\":\"10\", \"district\":\"15\", \"commune\":\"00010\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"tranthithuyj@gmail.com\", \"phoneNumber\":\"0945786468\", \"fullName\":\"Tran Thi Thuy J\", \"password\":\"12345678\", \"province\":\"11\", \"district\":\"16\", \"commune\":\"00011\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenvank@gmail.com\", \"phoneNumber\":\"0945786469\", \"fullName\":\"Nguyen Van K\", \"password\":\"12345678\", \"province\":\"12\", \"district\":\"17\", \"commune\":\"00012\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethil@gmail.com\", \"phoneNumber\":\"0945786470\", \"fullName\":\"Le Thi L\", \"password\":\"12345678\", \"province\":\"13\", \"district\":\"18\", \"commune\":\"00013\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangm@gmail.com\", \"phoneNumber\":\"0945786471\", \"fullName\":\"Pham Quang M\", \"password\":\"12345678\", \"province\":\"14\", \"district\":\"19\", \"commune\":\"00014\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhn@gmail.com\", \"phoneNumber\":\"0945786472\", \"fullName\":\"Hoang Dinh N\", \"password\":\"12345678\", \"province\":\"15\", \"district\":\"20\", \"commune\":\"00015\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trankimo@gmail.com\", \"phoneNumber\":\"0945786473\", \"fullName\":\"Tran Kim O\", \"password\":\"12345678\", \"province\":\"16\", \"district\":\"21\", \"commune\":\"00016\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenngocp@gmail.com\", \"phoneNumber\":\"0945786474\", \"fullName\":\"Nguyen Ngoc P\", \"password\":\"12345678\", \"province\":\"17\", \"district\":\"22\", \"commune\":\"00017\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethiq@gmail.com\", \"phoneNumber\":\"0945786475\", \"fullName\":\"Le Thi Q\", \"password\":\"12345678\", \"province\":\"18\", \"district\":\"23\", \"commune\":\"00018\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangr@gmail.com\", \"phoneNumber\":\"0945786476\", \"fullName\":\"Pham Quang R\", \"password\":\"12345678\", \"province\":\"19\", \"district\":\"24\", \"commune\":\"00019\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhs@gmail.com\", \"phoneNumber\":\"0945786477\", \"fullName\":\"Hoang Dinh S\", \"password\":\"12345678\", \"province\":\"20\", \"district\":\"25\", \"commune\":\"00020\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"tranthithuyt@gmail.com\", \"phoneNumber\":\"0945786478\", \"fullName\":\"Tran Thi Thuy T\", \"password\":\"12345678\", \"province\":\"21\", \"district\":\"26\", \"commune\":\"00021\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenvanu@gmail.com\", \"phoneNumber\":\"0945786479\", \"fullName\":\"Nguyen Van U\", \"password\":\"12345678\", \"province\":\"22\", \"district\":\"27\", \"commune\":\"00022\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethiv@gmail.com\", \"phoneNumber\":\"0945786480\", \"fullName\":\"Le Thi V\", \"password\":\"12345678\", \"province\":\"23\", \"district\":\"28\", \"commune\":\"00023\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangw@gmail.com\", \"phoneNumber\":\"0945786481\", \"fullName\":\"Pham Quang W\", \"password\":\"12345678\", \"province\":\"24\", \"district\":\"29\", \"commune\":\"00024\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhx@gmail.com\", \"phoneNumber\":\"0945786482\", \"fullName\":\"Hoang Dinh X\", \"password\":\"12345678\", \"province\":\"25\", \"district\":\"30\", \"commune\":\"00025\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trankimy@gmail.com\", \"phoneNumber\":\"0945786483\", \"fullName\":\"Tran Kim Y\", \"password\":\"12345678\", \"province\":\"26\", \"district\":\"31\", \"commune\":\"00026\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenngocz@gmail.com\", \"phoneNumber\":\"0945786484\", \"fullName\":\"Nguyen Ngoc Z\", \"password\":\"12345678\", \"province\":\"27\", \"district\":\"32\", \"commune\":\"00027\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethia@gmail.com\", \"phoneNumber\":\"0945786485\", \"fullName\":\"Le Thi A\", \"password\":\"12345678\", \"province\":\"28\", \"district\":\"33\", \"commune\":\"00028\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangb@gmail.com\", \"phoneNumber\":\"0945786486\", \"fullName\":\"Pham Quang B\", \"password\":\"12345678\", \"province\":\"29\", \"district\":\"34\", \"commune\":\"00029\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhc@gmail.com\", \"phoneNumber\":\"0945786487\", \"fullName\":\"Hoang Dinh C\", \"password\":\"12345678\", \"province\":\"30\", \"district\":\"35\", \"commune\":\"00030\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trankimd@gmail.com\", \"phoneNumber\":\"0945786488\", \"fullName\":\"Tran Kim D\", \"password\":\"12345678\", \"province\":\"31\", \"district\":\"36\", \"commune\":\"00031\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenngoce@gmail.com\", \"phoneNumber\":\"0945786489\", \"fullName\":\"Nguyen Ngoc E\", \"password\":\"12345678\", \"province\":\"32\", \"district\":\"37\", \"commune\":\"00032\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethif@gmail.com\", \"phoneNumber\":\"0945786490\", \"fullName\":\"Le Thi F\", \"password\":\"12345678\", \"province\":\"33\", \"district\":\"38\", \"commune\":\"00033\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangg@gmail.com\", \"phoneNumber\":\"0945786491\", \"fullName\":\"Pham Quang G\", \"password\":\"12345678\", \"province\":\"34\", \"district\":\"39\", \"commune\":\"00034\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhh@gmail.com\", \"phoneNumber\":\"0945786492\", \"fullName\":\"Hoang Dinh H\", \"password\":\"12345678\", \"province\":\"35\", \"district\":\"40\", \"commune\":\"00035\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"tranthithuyi@gmail.com\", \"phoneNumber\":\"0945786493\", \"fullName\":\"Tran Thi Thuy I\", \"password\":\"12345678\", \"province\":\"36\", \"district\":\"41\", \"commune\":\"00036\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenvank@gmail.com\", \"phoneNumber\":\"0945786494\", \"fullName\":\"Nguyen Van K\", \"password\":\"12345678\", \"province\":\"37\", \"district\":\"42\", \"commune\":\"00037\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethij@gmail.com\", \"phoneNumber\":\"0945786495\", \"fullName\":\"Le Thi J\", \"password\":\"12345678\", \"province\":\"38\", \"district\":\"43\", \"commune\":\"00038\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangk@gmail.com\", \"phoneNumber\":\"0945786496\", \"fullName\":\"Pham Quang K\", \"password\":\"12345678\", \"province\":\"39\", \"district\":\"44\", \"commune\":\"00039\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhl@gmail.com\", \"phoneNumber\":\"0945786497\", \"fullName\":\"Hoang Dinh L\", \"password\":\"12345678\", \"province\":\"40\", \"district\":\"45\", \"commune\":\"00040\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trankimm@gmail.com\", \"phoneNumber\":\"0945786498\", \"fullName\":\"Tran Kim M\", \"password\":\"12345678\", \"province\":\"41\", \"district\":\"46\", \"commune\":\"00041\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenngocn@gmail.com\", \"phoneNumber\":\"0945786499\", \"fullName\":\"Nguyen Ngoc N\", \"password\":\"12345678\", \"province\":\"42\", \"district\":\"47\", \"commune\":\"00042\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethio@gmail.com\", \"phoneNumber\":\"0945786500\", \"fullName\":\"Le Thi O\", \"password\":\"12345678\", \"province\":\"43\", \"district\":\"48\", \"commune\":\"00043\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"phamquangp@gmail.com\", \"phoneNumber\":\"0945786501\", \"fullName\":\"Pham Quang P\", \"password\":\"12345678\", \"province\":\"44\", \"district\":\"49\", \"commune\":\"00044\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"hoangdinhq@gmail.com\", \"phoneNumber\":\"0945786502\", \"fullName\":\"Hoang Dinh Q\", \"password\":\"12345678\", \"province\":\"45\", \"district\":\"50\", \"commune\":\"00045\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"tranthithuyr@gmail.com\", \"phoneNumber\":\"0945786503\", \"fullName\":\"Tran Thi Thuy R\", \"password\":\"12345678\", \"province\":\"46\", \"district\":\"51\", \"commune\":\"00046\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"nguyenvans@gmail.com\", \"phoneNumber\":\"0945786504\", \"fullName\":\"Nguyen Van S\", \"password\":\"12345678\", \"province\":\"47\", \"district\":\"52\", \"commune\":\"00047\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"lethit@gmail.com\", \"phoneNumber\":\"0945786505\", \"fullName\":\"Le Thi T\", \"password\":\"12345678\", \"province\":\"48\", \"district\":\"53\", \"commune\":\"00048\", \"course_code\":\"ENG\"},\r\n    {\"email\":\"trandinh1@gmail.com\", \"phoneNumber\":\"0945786506\", \"fullName\":\"Tran Dinh 1\", \"password\":\"12345678\", \"province\":\"49\", \"district\":\"54\", \"commune\":\"00049\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang2@gmail.com\", \"phoneNumber\":\"0945786507\", \"fullName\":\"Nguyen Quang 2\", \"password\":\"12345678\", \"province\":\"50\", \"district\":\"55\", \"commune\":\"00050\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy3@gmail.com\", \"phoneNumber\":\"0945786508\", \"fullName\":\"Le Thi Thuy 3\", \"password\":\"12345678\", \"province\":\"51\", \"district\":\"56\", \"commune\":\"00051\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim4@gmail.com\", \"phoneNumber\":\"0945786509\", \"fullName\":\"Pham Kim 4\", \"password\":\"12345678\", \"province\":\"52\", \"district\":\"57\", \"commune\":\"00052\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc5@gmail.com\", \"phoneNumber\":\"0945786510\", \"fullName\":\"Hoang Ngoc 5\", \"password\":\"12345678\", \"province\":\"53\", \"district\":\"58\", \"commune\":\"00053\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh6@gmail.com\", \"phoneNumber\":\"0945786511\", \"fullName\":\"Tran Dinh 6\", \"password\":\"12345678\", \"province\":\"54\", \"district\":\"59\", \"commune\":\"00054\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang7@gmail.com\", \"phoneNumber\":\"0945786512\", \"fullName\":\"Nguyen Quang 7\", \"password\":\"12345678\", \"province\":\"55\", \"district\":\"60\", \"commune\":\"00055\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy8@gmail.com\", \"phoneNumber\":\"0945786513\", \"fullName\":\"Le Thi Thuy 8\", \"password\":\"12345678\", \"province\":\"56\", \"district\":\"61\", \"commune\":\"00056\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim9@gmail.com\", \"phoneNumber\":\"0945786514\", \"fullName\":\"Pham Kim 9\", \"password\":\"12345678\", \"province\":\"57\", \"district\":\"62\", \"commune\":\"00057\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc10@gmail.com\", \"phoneNumber\":\"0945786515\", \"fullName\":\"Hoang Ngoc 10\", \"password\":\"12345678\", \"province\":\"58\", \"district\":\"63\", \"commune\":\"00058\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh11@gmail.com\", \"phoneNumber\":\"0945786516\", \"fullName\":\"Tran Dinh 11\", \"password\":\"12345678\", \"province\":\"59\", \"district\":\"64\", \"commune\":\"00059\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang12@gmail.com\", \"phoneNumber\":\"0945786517\", \"fullName\":\"Nguyen Quang 12\", \"password\":\"12345678\", \"province\":\"60\", \"district\":\"65\", \"commune\":\"00060\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy13@gmail.com\", \"phoneNumber\":\"0945786518\", \"fullName\":\"Le Thi Thuy 13\", \"password\":\"12345678\", \"province\":\"61\", \"district\":\"66\", \"commune\":\"00061\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim14@gmail.com\", \"phoneNumber\":\"0945786519\", \"fullName\":\"Pham Kim 14\", \"password\":\"12345678\", \"province\":\"62\", \"district\":\"67\", \"commune\":\"00062\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc15@gmail.com\", \"phoneNumber\":\"0945786520\", \"fullName\":\"Hoang Ngoc 15\", \"password\":\"12345678\", \"province\":\"63\", \"district\":\"68\", \"commune\":\"00063\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh16@gmail.com\", \"phoneNumber\":\"0945786521\", \"fullName\":\"Tran Dinh 16\", \"password\":\"12345678\", \"province\":\"64\", \"district\":\"69\", \"commune\":\"00064\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang17@gmail.com\", \"phoneNumber\":\"0945786522\", \"fullName\":\"Nguyen Quang 17\", \"password\":\"12345678\", \"province\":\"65\", \"district\":\"70\", \"commune\":\"00065\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy18@gmail.com\", \"phoneNumber\":\"0945786523\", \"fullName\":\"Le Thi Thuy 18\", \"password\":\"12345678\", \"province\":\"66\", \"district\":\"71\", \"commune\":\"00066\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim19@gmail.com\", \"phoneNumber\":\"0945786524\", \"fullName\":\"Pham Kim 19\", \"password\":\"12345678\", \"province\":\"67\", \"district\":\"72\", \"commune\":\"00067\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc20@gmail.com\", \"phoneNumber\":\"0945786525\", \"fullName\":\"Hoang Ngoc 20\", \"password\":\"12345678\", \"province\":\"68\", \"district\":\"73\", \"commune\":\"00068\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh21@gmail.com\", \"phoneNumber\":\"0945786526\", \"fullName\":\"Tran Dinh 21\", \"password\":\"12345678\", \"province\":\"69\", \"district\":\"74\", \"commune\":\"00069\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang22@gmail.com\", \"phoneNumber\":\"0945786527\", \"fullName\":\"Nguyen Quang 22\", \"password\":\"12345678\", \"province\":\"70\", \"district\":\"75\", \"commune\":\"00070\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy23@gmail.com\", \"phoneNumber\":\"0945786528\", \"fullName\":\"Le Thi Thuy 23\", \"password\":\"12345678\", \"province\":\"71\", \"district\":\"76\", \"commune\":\"00071\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim24@gmail.com\", \"phoneNumber\":\"0945786529\", \"fullName\":\"Pham Kim 24\", \"password\":\"12345678\", \"province\":\"72\", \"district\":\"77\", \"commune\":\"00072\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc25@gmail.com\", \"phoneNumber\":\"0945786530\", \"fullName\":\"Hoang Ngoc 25\", \"password\":\"12345678\", \"province\":\"73\", \"district\":\"78\", \"commune\":\"00073\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh26@gmail.com\", \"phoneNumber\":\"0945786531\", \"fullName\":\"Tran Dinh 26\", \"password\":\"12345678\", \"province\":\"74\", \"district\":\"79\", \"commune\":\"00074\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang27@gmail.com\", \"phoneNumber\":\"0945786532\", \"fullName\":\"Nguyen Quang 27\", \"password\":\"12345678\", \"province\":\"75\", \"district\":\"80\", \"commune\":\"00075\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy28@gmail.com\", \"phoneNumber\":\"0945786533\", \"fullName\":\"Le Thi Thuy 28\", \"password\":\"12345678\", \"province\":\"76\", \"district\":\"81\", \"commune\":\"00076\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim29@gmail.com\", \"phoneNumber\":\"0945786534\", \"fullName\":\"Pham Kim 29\", \"password\":\"12345678\", \"province\":\"77\", \"district\":\"82\", \"commune\":\"00077\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc30@gmail.com\", \"phoneNumber\":\"0945786535\", \"fullName\":\"Hoang Ngoc 30\", \"password\":\"12345678\", \"province\":\"78\", \"district\":\"83\", \"commune\":\"00078\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh31@gmail.com\", \"phoneNumber\":\"0945786536\", \"fullName\":\"Tran Dinh 31\", \"password\":\"12345678\", \"province\":\"79\", \"district\":\"84\", \"commune\":\"00079\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang32@gmail.com\", \"phoneNumber\":\"0945786537\", \"fullName\":\"Nguyen Quang 32\", \"password\":\"12345678\", \"province\":\"80\", \"district\":\"85\", \"commune\":\"00080\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy33@gmail.com\", \"phoneNumber\":\"0945786538\", \"fullName\":\"Le Thi Thuy 33\", \"password\":\"12345678\", \"province\":\"81\", \"district\":\"86\", \"commune\":\"00081\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim34@gmail.com\", \"phoneNumber\":\"0945786539\", \"fullName\":\"Pham Kim 34\", \"password\":\"12345678\", \"province\":\"82\", \"district\":\"87\", \"commune\":\"00082\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc35@gmail.com\", \"phoneNumber\":\"0945786540\", \"fullName\":\"Hoang Ngoc 35\", \"password\":\"12345678\", \"province\":\"83\", \"district\":\"88\", \"commune\":\"00083\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh36@gmail.com\", \"phoneNumber\":\"0945786541\", \"fullName\":\"Tran Dinh 36\", \"password\":\"12345678\", \"province\":\"84\", \"district\":\"89\", \"commune\":\"00084\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang37@gmail.com\", \"phoneNumber\":\"0945786542\", \"fullName\":\"Nguyen Quang 37\", \"password\":\"12345678\", \"province\":\"85\", \"district\":\"90\", \"commune\":\"00085\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy38@gmail.com\", \"phoneNumber\":\"0945786543\", \"fullName\":\"Le Thi Thuy 38\", \"password\":\"12345678\", \"province\":\"86\", \"district\":\"91\", \"commune\":\"00086\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim39@gmail.com\", \"phoneNumber\":\"0945786544\", \"fullName\":\"Pham Kim 39\", \"password\":\"12345678\", \"province\":\"87\", \"district\":\"92\", \"commune\":\"00087\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc40@gmail.com\", \"phoneNumber\":\"0945786545\", \"fullName\":\"Hoang Ngoc 40\", \"password\":\"12345678\", \"province\":\"88\", \"district\":\"93\", \"commune\":\"00088\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh41@gmail.com\", \"phoneNumber\":\"0945786546\", \"fullName\":\"Tran Dinh 41\", \"password\":\"12345678\", \"province\":\"89\", \"district\":\"94\", \"commune\":\"00089\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang42@gmail.com\", \"phoneNumber\":\"0945786547\", \"fullName\":\"Nguyen Quang 42\", \"password\":\"12345678\", \"province\":\"90\", \"district\":\"95\", \"commune\":\"00090\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy43@gmail.com\", \"phoneNumber\":\"0945786548\", \"fullName\":\"Le Thi Thuy 43\", \"password\":\"12345678\", \"province\":\"91\", \"district\":\"96\", \"commune\":\"00091\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim44@gmail.com\", \"phoneNumber\":\"0945786549\", \"fullName\":\"Pham Kim 44\", \"password\":\"12345678\", \"province\":\"92\", \"district\":\"97\", \"commune\":\"00092\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc45@gmail.com\", \"phoneNumber\":\"0945786550\", \"fullName\":\"Hoang Ngoc 45\", \"password\":\"12345678\", \"province\":\"93\", \"district\":\"98\", \"commune\":\"00093\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"trandinh46@gmail.com\", \"phoneNumber\":\"0945786551\", \"fullName\":\"Tran Dinh 46\", \"password\":\"12345678\", \"province\":\"94\", \"district\":\"99\", \"commune\":\"00094\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"nguyenquang47@gmail.com\", \"phoneNumber\":\"0945786552\", \"fullName\":\"Nguyen Quang 47\", \"password\":\"12345678\", \"province\":\"95\", \"district\":\"100\", \"commune\":\"00095\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"lethithuy48@gmail.com\", \"phoneNumber\":\"0945786553\", \"fullName\":\"Le Thi Thuy 48\", \"password\":\"12345678\", \"province\":\"96\", \"district\":\"101\", \"commune\":\"00096\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"phamkim49@gmail.com\", \"phoneNumber\":\"0945786554\", \"fullName\":\"Pham Kim 49\", \"password\":\"12345678\", \"province\":\"97\", \"district\":\"102\", \"commune\":\"00097\", \"course_code\":\"MATH\"},\r\n    {\"email\":\"hoangngoc50@gmail.com\", \"phoneNumber\":\"0945786555\", \"fullName\":\"Hoang Ngoc 50\", \"password\":\"12345678\", \"province\":\"98\", \"district\":\"103\", \"commune\":\"00098\", \"course_code\":\"MATH\"}\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/student/create-bulk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student",
+								"create-bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"van@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/student/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Student",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/student/count?type=all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student",
+								"count"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "all"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Count Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/student/one/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student",
+								"one",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/student?page=1&pageSize=2&course_code=MATH",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"student"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "course_code",
+									"value": "MATH"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lấy Log Học Sinh",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/log?idStudent=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"log"
+							],
+							"query": [
+								{
+									"key": "idStudent",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parent",
+			"item": [
+				{
+					"name": "Add Info Parent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"Ngo Van Ba\",\r\n    \"association_for_student\":10,\r\n    \"child\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/parent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"parent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Parent",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/parent/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"parent",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

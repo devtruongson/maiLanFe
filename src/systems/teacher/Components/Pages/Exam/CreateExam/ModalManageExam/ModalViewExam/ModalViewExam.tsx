@@ -151,24 +151,6 @@ const ModalViewExam = ({ dataExam, func }: { dataExam: IExam; func: any }) => {
                         )}
 
                         <div className="flex justify-end w-[100%] my-[20px]">
-                            <select
-                                name=""
-                                id=""
-                                className="w-[20%] mr-[20px] shadow rounded-[10px] border-solid border-[1px] border-[#ccc]"
-                                value={dataExam.level}
-                                onChange={(e) => handleChangeAcademic(+e.target.value)}
-                            >
-                                <option value={0}>Đánh giá bài kiểm tra</option>
-                                {listAcademic &&
-                                    listAcademic.length > 0 &&
-                                    listAcademic.map((item) => {
-                                        return (
-                                            <option key={item.id} value={item.id}>
-                                                {item.title}
-                                            </option>
-                                        );
-                                    })}
-                            </select>
                             <button
                                 className="bg-[red] text-[#fff] rounded-[10px] p-[10px] hover:opacity-[0.6]"
                                 onClick={() => handleDeleteExam(dataExam.id)}
