@@ -302,6 +302,7 @@ export type TStatus = 'is_reservation' | 'is_confirm' | 'is_interviewed_meet';
 export type TStudent = 'ENG' | 'MATH' | 'All';
 export type TStatusExam = 'is_booked' | 'is_testing' | 'is_tested' | 'is_completed';
 export type TCode = 'ACADEMIC';
+export type TABI = 'ABI1' | 'ABI2' | 'ABI3' | 'ABI4' | 'ABI5' | 'ABI6' | 'ABI7' | 'ABI8';
 
 export interface IDataSets {
     label: string;

@@ -21,31 +21,33 @@
     }
 
     .testResult_head.desktop .cap_yellow {
+        width: 35%;
         bottom   : 14px;
         left     : 50%;
         transform: translateX(-50%);
         position : absolute;
+       
     }
 
     .testResult_head.desktop .cap_yellow img {
         position: absolute;
         width   : calc(100% + 100px);
-        left    : -50px;
         top     : -12px;
         height  : 48px;
     }
 
     .testResult_head.desktop .cap_yellow span {
-        color         : #006F46;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        color: #006F46;
+        font-weight: 700;
+        font-size: 20px;
+        top: 50%;
+        width: 100%;
+        white-space: nowrap;
         text-transform: uppercase;
-        font-size     : 20px;
-        font-weight   : 700;
-        position      : relative;
-        top           : 50%;
-        width         : 100%;
-        text-align    : center;
-        transform     : translate(-50%, -50%);
-        white-space   : nowrap;
+      
     }
 
     .testResult_head img.bg {
@@ -338,6 +340,12 @@
 
     .container .teacher_review .teacher_review-content .text-bold {
         font-weight: bold;
+    }
+    .teacher_review-content li{
+        /* font-size: 24px; */
+        font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .container .learning_path .learning_path-content ul {
@@ -660,6 +668,8 @@
             padding-left: 16px;
         }
 
+        
+
         .container .suitable_course {
             margin-top: 16px;
         }
@@ -803,8 +813,33 @@
         }
     }
 
-    strong,
-    b {
+    strong,b {
         font-weight: 600 !important;
+    }
+
+    .learning_path-content {
+        strong{
+            text-decoration: underline;
+        }
+    }
+ 
+    p{
+        font-weight: 400;
+    }
+}
+
+.updating{
+    height: 100px;
+    background-color: #fff;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        color: #006E46;
+        font-size: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 }
