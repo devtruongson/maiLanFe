@@ -6,8 +6,16 @@ import { ICountSchedule } from '../../../../../../../utils/interface';
 import { HttpStatusCode } from 'axios';
 import Swal from 'sweetalert2';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AllSchedule = ({ listCalendar, handleReload }: { listCalendar: number[]; handleReload: any }) => {
+const AllSchedule = ({
+    listCalendar,
+    handleReload,
+    isReload,
+}: {
+    listCalendar: number[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleReload: any;
+    isReload: boolean;
+}) => {
     const [listCount, setListCount] = useState<ICountSchedule | null>(null);
     const idUser = useAppSelector((state) => state.authSlice.auth.data?.id);
     useEffect(() => {
@@ -21,7 +29,7 @@ const AllSchedule = ({ listCalendar, handleReload }: { listCalendar: number[]; h
             }
         };
         fetch();
-    }, [listCalendar]);
+    }, [listCalendar, isReload]);
 
     const handleUpdateInterView = async () => {
         if (listCalendar.length <= 0) {

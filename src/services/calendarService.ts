@@ -218,6 +218,7 @@ interface IUpdateNote {
     id: number;
     link_video?: string | null;
     note?: string;
+    type: 'note' | 'link';
 }
 
 export const updateNoteService = async (body: IUpdateNote): Promise<IResponse<ICalendarTeacher[]>> => {

@@ -48,10 +48,12 @@ const ModalNote = ({
                         ? await updateNoteService({
                               id: id,
                               note: note,
+                              type: 'note',
                           })
                         : await updateNoteService({
                               id: id,
                               link_video: link,
+                              type: 'link',
                           });
 
                     Swal.fire({
