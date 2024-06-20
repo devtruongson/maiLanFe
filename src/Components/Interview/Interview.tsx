@@ -110,7 +110,7 @@ export default function Interview() {
                             </div>
                         </div>
                     </div>
-                    <div className="row teacher_review shadow rounded-[10px] overflow-hidden ">
+                    <div className="row teacher_review shadow rounded-[10px] ">
                         <div className="teacher_review-caption">
                             NHẬN XÉT TỪ GIÁO VIÊN
                             <img
@@ -135,7 +135,7 @@ export default function Interview() {
                         </div>
                     </div>
 
-                    <div className="row learning_path shadow rounded-[10px] overflow-hidden">
+                    <div className="row learning_path shadow rounded-[10px] ">
                         <div className="learning_path-caption">
                             LỘ TRÌNH HỌC TẬP
                             <img

@@ -64,7 +64,7 @@ export const gretInfoStudentService = async (emailStudent: string): Promise<IRes
     }
 };
 
-export const updateInfoStudentService = async (body: IStudent): Promise<IResponse<null>> => {
+export const updateInfoStudentService = async (body: Partial<IStudent>): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.put('/student', { ...body }, configHeaderAxios());
 

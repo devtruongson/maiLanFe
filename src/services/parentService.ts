@@ -1,7 +1,7 @@
 import axios from '../../axios';
 import { AxiosResponse } from 'axios';
 import { configHeaderAxios } from './tokenService';
-import { IParent, IParentAdd, IParentUpdate, IResponse } from '../utils/interface';
+import { IParent, IParentAdd, IParentData, IResponse } from '../utils/interface';
 
 export const getParentService = async (id: number): Promise<IResponse<IParent[]>> => {
     try {
@@ -21,7 +21,7 @@ export const addParentService = async (body: IParentAdd): Promise<IResponse<null
     }
 };
 
-export const updateInfoParentService = async (body: IParentUpdate): Promise<IResponse<null>> => {
+export const updateInfoParentService = async (body: Partial<IParentData>): Promise<IResponse<null>> => {
     try {
         const data: AxiosResponse<IResponse<null>> = await axios.put(`/parent`, { ...body }, configHeaderAxios());
         return data.data;

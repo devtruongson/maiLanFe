@@ -139,18 +139,18 @@ export interface IStudent {
     avatar: string | null;
     level: string | null;
     address: number;
-    password: string | null;
+    password: string;
     province: string;
     district: string;
     commune: string;
-    address_detail: string | null;
+    address_detail: string;
     sale_created_id: number;
     createdAt?: string;
     updatedAt?: string;
     AllCodeData: IAllCode;
     ParentData: IParentData[];
     examData: IExam[];
-    course_code: TStudent;
+    course_code: string;
     SaleData?: IUser;
     calendar?: ICalendarTeacher;
     exam?: IExam[];
@@ -160,6 +160,7 @@ export interface IParentData {
     id: number | null;
     fullName: string | null;
     association_for_student: string | null;
+    child: number;
     AssociationData: IAssociationData;
 }
 

@@ -149,14 +149,6 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
         return 3;
     };
 
-    const handleReload = () => {
-        if (isReload) {
-            setIsReload(false);
-        } else {
-            setIsReload(true);
-        }
-    };
-
     return (
         <div className="w-[100%] pt-[10px] pb-[50px] bg-[url('https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/cach-thiet-ke-background-dep.jpg')] bg-center bg-no-repeat bg-cover">
             <div className="w-[100%] flex justify-center items-center">
@@ -333,7 +325,6 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                                                     hanndleRemoveBooking={hanndleRemoveBooking}
                                                     item={item}
                                                     itemChild={itemChild}
-                                                    handleReload={handleReload}
                                                 />
                                             );
                                         })}
@@ -355,7 +346,6 @@ function CheckComp({
     handleBooking,
     handleCheckTime,
     hanndleRemoveBooking,
-    handleReload,
 }: {
     itemChild: ICalendar;
     item: string;
@@ -363,7 +353,6 @@ function CheckComp({
     hanndleRemoveBooking: (time_start: string, item: string) => void;
     handleCheckTime: (time_start: string, item: string) => number;
     calenDarBookedStudents: ICalendarTeacher[];
-    handleReload: () => void;
 }) {
     const [isBooked, setIsBooked] = useState<boolean>(false);
     const [isExpire, setIsExpire] = useState<boolean>(false);
@@ -427,10 +416,8 @@ function CheckComp({
 
         if (isBooked) {
             hanndleRemoveBooking(itemChild.time_start, item);
-            handleReload();
         } else {
             handleBooking(itemChild.time_start, itemChild.time_end, item, itemChild.id);
-            // handleReload();
         }
     };
 

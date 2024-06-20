@@ -13,7 +13,7 @@ import { getAllCodeByCode } from '../../../../../services/AllCodeService';
 import Swal from 'sweetalert2';
 import ModalInfoParent from './ModalInfoParent/ModalInfoParent';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import ModalUpdateInfoStudent from './ModalUpdateInfoStudent/ModalUpdateInfoStudent';
 
 type IGet = 'GETALL' | 'GETLEVEL' | 'GETSEARCH' | 'GETSUBJECT';
 
@@ -97,9 +97,24 @@ const ManageStudent = () => {
             title: 'Thông tin cha mẹ',
             dataIndex: 'parent',
             key: 'parent',
+            width: 60,
+            render: (...props) => {
+                return (
+                    <ModalInfoParent
+                        idChild={props[1].id}
+                        infoParent={props[1].ParentData}
+                        funcReload={() => setIsReload(!isReload)}
+                    />
+                );
+            },
+        },
+        {
+            title: 'Cập nhật ',
+            dataIndex: 'parent',
+            key: 'info',
             width: 50,
             render: (...props) => {
-                return <ModalInfoParent infoParent={props[1].ParentData} />;
+                return <ModalUpdateInfoStudent infoStudent={props[1]} funcReload={() => setIsReload(!isReload)} />;
             },
         },
         {
@@ -163,7 +178,7 @@ const ManageStudent = () => {
         };
 
         fetch();
-    }, [isReload, pagination, typeGet]);
+    }, [pagination, typeGet, isReload]);
 
     useEffect(() => {
         const fetchLevel = async () => {
