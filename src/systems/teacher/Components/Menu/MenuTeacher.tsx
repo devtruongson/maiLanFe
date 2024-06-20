@@ -2,6 +2,8 @@ import { Popover, Tooltip } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { RouterDTO } from '../../../../utils/routers.dto';
 import './MenuTeacher.css';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../../../features/auth/AuthSlice';
 
 const MenuTeacher: React.FC = () => {
     const navigate = useNavigate();
@@ -9,6 +11,13 @@ const MenuTeacher: React.FC = () => {
     const handleNavigate = (link: string) => {
         navigate(link);
     };
+
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logoutAction());
+        window.location.reload();
+    };
+
     return (
         <div className="ml-[2px] w-[100%] h-[100%]  bg-[#f4f4f4]">
             <div className="control-auth h-[70px] p-[10px]">
@@ -25,9 +34,9 @@ const MenuTeacher: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={'/setting'} className="flex items-center gap-[6px]">
+                                    <button onClick={handleLogout}>
                                         <i className="bi bi-box-arrow-right m-[10px]"></i> Logout
-                                    </Link>
+                                    </button>
                                 </li>
                             </ul>
                         </>

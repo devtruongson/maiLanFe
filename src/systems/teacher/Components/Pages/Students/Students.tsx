@@ -6,7 +6,7 @@ import { getCalendarConfirmed, searchCalendarService } from '../../../../../serv
 import { useAppSelector } from '../../../../../features/hooks/hooks';
 import { Table, TableColumnsType } from 'antd';
 import Swal from 'sweetalert2';
-import { updateLevelStudentService } from '../../../../../services/StudentService';
+import { getInterview, updateLevelStudentService } from '../../../../../services/StudentService';
 
 type TGetCalendar = 'ALL' | 'SEARCH';
 
@@ -66,6 +66,30 @@ const Students = () => {
             width: 40,
             render: (...props) => {
                 return <span>{props[1].course_code === 'ENG' ? 'Tiếng Anh ' : 'Toán'}</span>;
+            },
+        },
+        {
+            title: 'Lộ trình',
+            dataIndex: 'lt',
+            key: 'lt',
+            width: 40,
+            render: (...props) => {
+                const handleViewInterviewStudent = async () => {
+                    const path = await getInterview(props[1].id);
+                    window.open(path, '_bank');
+                };
+
+                return (
+                    <div>
+                        <button
+                            onClick={handleViewInterviewStudent}
+                            type="button"
+                            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        >
+                            Lộ trình học sinh
+                        </button>
+                    </div>
+                );
             },
         },
         {
@@ -168,6 +192,11 @@ const Students = () => {
                     });
                     if (res.code === HttpStatusCode.Ok) {
                         setIsReload(!isReload);
+                    } else {
+                        Swal.fire({
+                            icon: 'info',
+                            text: res.msg,
+                        });
                     }
                 };
                 _fetch();

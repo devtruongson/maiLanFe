@@ -28,8 +28,8 @@ const columns: TableColumnsType<ILog> = [
         render: (...props) => {
             return (
                 <div className="">
-                    <p className="text-[16px] font-[600]">{`${props[1].createdAt}`.split('T')[0]}</p>
-                    <p>{`${props[1].createdAt}`.split('T')[1].split('.')[0]}</p>
+                    <p className="text-[16px] font-[600]">{new Date(props[1].createdAt).toLocaleDateString()}</p>
+                    <p>{new Date(props[1].createdAt).toLocaleTimeString()}</p>
                 </div>
             );
         },

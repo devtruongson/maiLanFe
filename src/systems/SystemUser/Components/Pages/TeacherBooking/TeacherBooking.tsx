@@ -60,8 +60,8 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
         const fetch = async () => {
             const res = await getCalendarBookingService(`${idUser}`, 'false');
             if (res.code === HttpStatusCode.Ok) {
-                setCalenDarBookedStudents(res.data);
-                setListTimeBooked(
+                setCalenDarBookedStudents(() => [...res.data]);
+                setListTimeBooked(() =>
                     res.data.map((item) => {
                         return item.time_stamp_start;
                     }),
@@ -94,18 +94,17 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                         icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
                         title: `${res.msg}`,
                     }).then((result) => {
-                        if (result.isConfirmed) {
+                        setTimeout(() => {
                             setIsReload(!isReload);
-                        }
-                        if (result.isDismissed) {
-                            setIsReload(!isReload);
-                        }
+                        }, 100);
                     });
                 };
                 _fetch();
             }
         });
     };
+
+    console.log(isReload);
 
     const hanndleRemoveBooking = async (time_start: string, date: string) => {
         await Swal.fire({
@@ -125,8 +124,7 @@ const TeacherBooking: React.FC<{ idUserExit?: string }> = ({ idUserExit }) => {
                             icon: res.code === 200 ? 'success' : 'warning',
                             title: `Bạn đã hủy lịch thành công!`,
                         });
-
-                        setIsReload(!isReload);
+                        window.location.reload();
                     } else {
                         Swal.fire({
                             icon: 'error',

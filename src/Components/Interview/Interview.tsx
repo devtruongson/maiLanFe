@@ -5,7 +5,6 @@ import { dataLevel } from '../../utils/dataLevel';
 import { getOneStudent } from '../../services/StudentService';
 import { HttpStatusCode } from 'axios';
 import { IStudent } from '../../utils/interface';
-import { getAllCodeByType } from '../../services/AllCodeService';
 
 export default function Interview() {
     const [content, setContent] = useState<{ level: string; content_teacher: string; content_road_map: string }>({
@@ -15,36 +14,32 @@ export default function Interview() {
     });
 
     const [infoStudent, setInfoStudent] = useState<IStudent | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [levelDetail, setLevelDetail] = useState<any>('Chưa xác định');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [timeStarted, setTimeStarted] = useState<any>('Chưa xác định');
 
     useEffect(() => {
-        const { level, studentId } = queryString.parse(window.location.search);
-        // const contentData = dataLevel.find((item) => item.level === (level ? +level : -1));
+        const { level, studentId, level_detail, timeStart } = queryString.parse(window.location.search);
         const fetch = async () => {
             if (!studentId) {
                 return;
             }
-            const [res, resAllCode] = await Promise.all([
-                await getOneStudent(+studentId),
-                await getAllCodeByType('ABILITY'),
-            ]);
-            if (res.code === HttpStatusCode.Ok && resAllCode.code == HttpStatusCode.Ok) {
+            setLevelDetail(level_detail ? level_detail : 'Chưa xác định');
+            setTimeStarted(timeStart ? timeStart : 'Chưa xác định');
+            const res = await getOneStudent(+studentId);
+            if (res.code === HttpStatusCode.Ok) {
                 setInfoStudent(res.data.student);
-                const abitilyCurrent = resAllCode.data.filter(
-                    (item) => item.id === (typeof level === 'string' ? +level : 0),
+                const contentData = dataLevel.find((item) => item.level === level);
+                setContent(
+                    contentData
+                        ? contentData
+                        : {
+                              level: '',
+                              content_road_map: `<div class="updating"><p>Chưa có giáo viên đánh giá lộ trình</p></div>`,
+                              content_teacher: `<div class="updating"><p>Chưa có giáo viên đánh giá lộ trình</p></div>`,
+                          },
                 );
-
-                if (abitilyCurrent.length > 0) {
-                    const contentData = dataLevel.find((item) => item.level === abitilyCurrent[0].code);
-                    setContent(
-                        contentData
-                            ? contentData
-                            : {
-                                  level: '',
-                                  content_road_map: `<div class="updating"><p>Đang cập nhật</p></div>`,
-                                  content_teacher: `<div class="updating"><p>Đang cập nhật</p></div>`,
-                              },
-                    );
-                }
             }
         };
 
@@ -90,27 +85,28 @@ export default function Interview() {
                                     <ul>
                                         <h2 className="name__student">{infoStudent?.fullName}</h2>
                                         <li>
-                                            Năm sinh :{new Date('' + infoStudent?.birthday).getDate()}
-                                            {'-'}
-                                            {new Date('' + infoStudent?.birthday).getMonth() + 1}
-                                            {'-'}
-                                            {new Date('' + infoStudent?.birthday).getFullYear()}
+                                            Năm sinh :{' '}
+                                            {infoStudent?.birthday ? (
+                                                <>
+                                                    {new Date('' + infoStudent?.birthday).getDate()}
+                                                    {'-'}
+                                                    {new Date('' + infoStudent?.birthday).getMonth() + 1}
+                                                    {'-'}
+                                                    {new Date('' + infoStudent?.birthday).getFullYear()}
+                                                </>
+                                            ) : (
+                                                'Đang cập nhật'
+                                            )}
                                         </li>
-                                        <li>Level : {infoStudent?.level}</li>
+                                        <li>Level : {levelDetail}</li>
                                         <li>Số điện thoại : {infoStudent?.phoneNumber}</li>
-                                        <li>
-                                            Ngày kiểm tra : {new Date('' + infoStudent?.createdAt).getDate()}
-                                            {'-'}
-                                            {new Date('' + infoStudent?.createdAt).getMonth() + 1}
-                                            {'-'}
-                                            {new Date('' + infoStudent?.createdAt).getFullYear()}
-                                        </li>
+                                        <li>Ngày kiểm tra : {timeStarted}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="row teacher_review shadow rounded-[10px] ">
+                    <div className="row teacher_review shadow rounded-[10px]">
                         <div className="teacher_review-caption">
                             NHẬN XÉT TỪ GIÁO VIÊN
                             <img
@@ -135,7 +131,7 @@ export default function Interview() {
                         </div>
                     </div>
 
-                    <div className="row learning_path shadow rounded-[10px] ">
+                    <div className="row learning_path shadow rounded-[10px]">
                         <div className="learning_path-caption">
                             LỘ TRÌNH HỌC TẬP
                             <img

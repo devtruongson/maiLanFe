@@ -5,7 +5,7 @@ import type { MenuProps } from 'antd';
 import { Divider, Menu, Popover } from 'antd';
 import React from 'react';
 import { childrenListSale, sideBarListSale, urlchildrenListSale } from '../../../../utils/data';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../../features/store/store';
 import { useAppSelector } from '../../../../features/hooks/hooks';
 import { useDispatch } from 'react-redux';
@@ -70,12 +70,12 @@ const MenuSideBar: React.FC = () => {
                         </>
                     }
                 >
-                    <div className="flex items-center gap-2 px-4 hover:bg-[rgba(0,0,0,0.1)]">
+                    <div className="flex items-center gap-2 px-4 hover:bg-[rgba(0,0,0,0.1)] cursor-pointer">
                         <img
                             style={{
                                 border: '1px solid #ddd',
                             }}
-                            className="w-[60px] h-[60px] object-cover rounded-[50%]"
+                            className="w-[40px] h-[40px] object-cover rounded-[50%]"
                             src={
                                 'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1'
                             }

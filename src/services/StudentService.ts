@@ -184,3 +184,12 @@ export const getLogService = async (idStudent: number): Promise<IResponse<ILog[]
         throw error;
     }
 };
+
+export const getInterview = async (idStudent: number): Promise<string> => {
+    try {
+        const data: AxiosResponse<string> = await axios.get(`/student/interview?idStudent=${idStudent}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
