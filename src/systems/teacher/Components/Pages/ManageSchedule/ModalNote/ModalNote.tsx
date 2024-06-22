@@ -25,15 +25,17 @@ const ModalNote = ({
     };
 
     const handleCancel = () => {
-        Swal.fire({
-            title: `Bạn có chắc muốn thoát ?`,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                setIsModalOpen(false);
-            }
-        });
+        setIsModalOpen(false);
+
+        // Swal.fire({
+        //     title: `Bạn có chắc muốn thoát ?`,
+        //     showCancelButton: true,
+        //     confirmButtonText: 'Yes',
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         setIsModalOpen(false);
+        //     }
+        // });
     };
 
     const handleSaveNote = () => {
@@ -63,6 +65,7 @@ const ModalNote = ({
 
                     if (res.code === HttpStatusCode.Ok) {
                         handleReload();
+                        setIsModalOpen(false);
                     }
                 };
 

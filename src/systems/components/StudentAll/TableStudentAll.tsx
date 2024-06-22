@@ -177,9 +177,14 @@ function RenderActionTableStudent({ data }: { data: IStudent }) {
         setKey(key);
     };
 
-    const handleClickViewInfo = (id: number) => {
-        window.location.href = `/info/student/${id}`;
+    const handleClickViewInfo = async (id: number) => {
+        const path = `http://localhost:5173/info/student/${id}`;
+        window.open(path, '_blank');
     };
+
+    // const handleClickViewInfo = (id: number) => {
+    //     window.location.href = `/info/student/${id}`;
+    // };
 
     return (
         <>

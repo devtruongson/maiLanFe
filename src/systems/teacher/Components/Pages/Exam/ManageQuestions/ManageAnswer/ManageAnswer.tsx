@@ -132,7 +132,7 @@ const ManageAnswer = memo(function ManageAnswer({
                 </p>
             </div>
 
-            <Modal title="Tạo Đáp án" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+            <Modal title="Tạo Đáp án" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} footer="">
                 <div className="w-[100%] grid grid-cols-2 gap-5">
                     <div className="mt-[20px]">
                         <label htmlFor="answer" className="mb-[10px]">

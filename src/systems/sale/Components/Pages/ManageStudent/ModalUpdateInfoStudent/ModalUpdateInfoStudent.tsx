@@ -103,7 +103,7 @@ const ModalUpdateInfoStudent = memo(({ infoStudent, funcReload }: { infoStudent:
 
     return (
         <>
-            <button onClick={showModal} className="w-[100%] p-[10px] bg-[orange] rounded-[10px] text-[#fff]">
+            <button onClick={showModal} className="w-[100%] p-[8px] bg-[orange] rounded-[10px] text-[#fff]">
                 Cập nhật
             </button>
             <Modal

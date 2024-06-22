@@ -11,12 +11,14 @@ const ModalUpdateParent = ({ infoParent, funcReload }: { infoParent: IParentData
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [info, setInfo] = useState<Partial<IParentData>>({
-        id: infoParent.id,
-        fullName: infoParent.fullName,
-        association_for_student: infoParent.association_for_student,
-        child: infoParent.child,
+        id: 0,
+        fullName: '',
+        association_for_student: 0,
+        child: 0,
     });
     const [listAss, setListAss] = useState<IAllCode[]>([]);
+
+    console.log(infoParent);
 
     useEffect(() => {
         const fetch = async () => {
@@ -26,7 +28,14 @@ const ModalUpdateParent = ({ infoParent, funcReload }: { infoParent: IParentData
             }
         };
         fetch();
-    }, []);
+        console.log('run');
+        setInfo({
+            id: infoParent.id,
+            fullName: infoParent.fullName,
+            association_for_student: infoParent.association_for_student,
+            child: infoParent.child,
+        });
+    }, [infoParent]);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -121,7 +130,7 @@ const ModalUpdateParent = ({ infoParent, funcReload }: { infoParent: IParentData
                                 setInfo((prev) => {
                                     return {
                                         ...prev,
-                                        association_for_student: e.target.value,
+                                        association_for_student: +e.target.value,
                                     };
                                 })
                             }

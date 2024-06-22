@@ -407,7 +407,7 @@ const InfoStudent: React.FC = () => {
             <button
                 className={`${
                     isLoading ? 'cursor-not-allowed' : '  cursor-pointer hover:opacity-[0.6]'
-                }  w-[20%] ml-[50%] translate-x-[-50%] p-[10px] bg-[#ff6609] text-[#fff] rounded-[10px] my-[40px] `}
+                }  w-[20%] ml-[50%] translate-x-[-50%] p-[8px] bg-[#ff6609] text-[#fff] rounded-[10px] my-[40px] `}
                 onClick={() => {
                     isLoading ? null : handleCreateInfoStudent();
                 }}
@@ -468,7 +468,7 @@ const InfoStudent: React.FC = () => {
             <button
                 className={`${
                     isLoading ? 'cursor-not-allowed' : '  cursor-pointer hover:opacity-[0.6]'
-                }  w-[20%] ml-[50%] translate-x-[-50%] p-[10px] bg-[#ff6609] text-[#fff] rounded-[10px] mt-[40px] `}
+                }  w-[20%] ml-[50%] translate-x-[-50%] p-[8px] bg-[#ff6609] text-[#fff] rounded-[10px] mt-[40px] `}
                 onClick={() => handleCreateInfoParent()}
             >
                 Tạo thông tin phụ huynh

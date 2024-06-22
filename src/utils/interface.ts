@@ -137,7 +137,7 @@ export interface IStudent {
     birthday: string | null;
     gender: string | null;
     avatar: string | null;
-    level: string | null;
+    level: string;
     address: number;
     password: string;
     province: string;
@@ -159,7 +159,7 @@ export interface IStudent {
 export interface IParentData {
     id: number | null;
     fullName: string | null;
-    association_for_student: string | null;
+    association_for_student: number | null;
     child: number;
     AssociationData: IAssociationData;
 }

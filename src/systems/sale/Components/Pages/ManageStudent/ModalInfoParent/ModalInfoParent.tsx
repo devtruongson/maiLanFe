@@ -1,13 +1,13 @@
 import { Modal, Table, TableColumnsType } from 'antd';
 import { IParentData } from '../../../../../../utils/interface';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { deleteInfoParentService } from '../../../../../../services/parentService';
 import { HttpStatusCode } from 'axios';
 import ModalAddParent from './ModalAddParent/ModalAddParent';
 import ModalUpdateParent from './ModalUpdateParent/ModalUpdateParent';
 
-const ModalInfoParent = memo(function ({
+const ModalInfoParent = ({
     idChild,
     infoParent,
     funcReload,
@@ -16,7 +16,7 @@ const ModalInfoParent = memo(function ({
     infoParent: IParentData[];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     funcReload: any;
-}) {
+}) => {
     const columns: TableColumnsType<IParentData> = [
         {
             title: 'Họ và tên',
@@ -58,6 +58,7 @@ const ModalInfoParent = memo(function ({
                         >
                             Xóa
                         </button>
+
                         <ModalUpdateParent infoParent={props[1]} funcReload={funcReload} />
                     </div>
                 );
@@ -101,7 +102,7 @@ const ModalInfoParent = memo(function ({
 
     return (
         <div className="">
-            <button onClick={showModal} className="w-[100%] shadow rounded-[10px] bg-[blue] p-[10px] text-[#fff]">
+            <button onClick={showModal} className="w-[100%] shadow rounded-[10px] bg-[blue] p-[8px] text-[#fff]">
                 Thông tin phụ huynh
             </button>
             <Modal
@@ -123,6 +124,6 @@ const ModalInfoParent = memo(function ({
             </Modal>
         </div>
     );
-});
+};
 
 export default ModalInfoParent;

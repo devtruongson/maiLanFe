@@ -2,18 +2,18 @@ import { Table, TableColumnsType, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
 import { IAllCode, IMeta, IPagination, IStudent, TStudent } from '../../../../../utils/interface';
 import {
+    deleteStudentService,
     getAllStudentService,
     getBySubjectService,
     getStudentByLevelService,
     searchStudentService,
-    updateLevelStudentService,
 } from '../../../../../services/StudentService';
 import { HttpStatusCode } from 'axios';
-import { getAllCodeByCode } from '../../../../../services/AllCodeService';
-import Swal from 'sweetalert2';
+import { getAllCodeByType } from '../../../../../services/AllCodeService';
 import ModalInfoParent from './ModalInfoParent/ModalInfoParent';
 import { useAppSelector } from '../../../../../features/hooks/hooks';
 import ModalUpdateInfoStudent from './ModalUpdateInfoStudent/ModalUpdateInfoStudent';
+import Swal from 'sweetalert2';
 
 type IGet = 'GETALL' | 'GETLEVEL' | 'GETSEARCH' | 'GETSUBJECT';
 
@@ -118,6 +118,22 @@ const ManageStudent = () => {
             },
         },
         {
+            title: 'Xóa ',
+            dataIndex: 'Delete',
+            key: 'Delete',
+            width: 50,
+            render: (...props) => {
+                return (
+                    <button
+                        className="shadow rounded-[10px] p-[8px] bg-[red] text-[#fff] w-[100%] cursor-pointer hover:opacity-[0.5]"
+                        onClick={() => handleDeleteStudent(props[1].id)}
+                    >
+                        Xóa
+                    </button>
+                );
+            },
+        },
+        {
             title: 'Học Lực',
             dataIndex: 'level',
             key: 'level',
@@ -125,24 +141,15 @@ const ManageStudent = () => {
             fixed: 'right',
             render: (...props) => {
                 return (
-                    <select
-                        name=""
-                        id=""
-                        className="w-[100%] p-[10px] rounded-[10px] border-[1px] border-solid border-[#ccc] shadow"
-                        value={props[1].level ? props[1].level : '0'}
-                        disabled
-                    >
-                        <option value={'0'}>Chưa xác định</option>
-                        {listLevel &&
-                            listLevel.length > 0 &&
-                            listLevel.map((item) => {
-                                return (
-                                    <option key={item.id} value={item.id}>
-                                        {item.title}
-                                    </option>
-                                );
-                            })}
-                    </select>
+                    <>
+                        {props[1].level ? (
+                            <p className="text-[green] text-center font-[600]">
+                                {listLevel.find((item) => item.id == parseInt(props[1].level))?.title}
+                            </p>
+                        ) : (
+                            <p className="text-center">Chưa xác định</p>
+                        )}
+                    </>
                 );
             },
         },
@@ -182,7 +189,7 @@ const ManageStudent = () => {
 
     useEffect(() => {
         const fetchLevel = async () => {
-            const res = await getAllCodeByCode('ACADEMIC');
+            const res = await getAllCodeByType('ABILITY');
             if (res.code === HttpStatusCode.Ok) {
                 setListLevel(res.data);
             }
@@ -197,38 +204,6 @@ const ManageStudent = () => {
                 page: page,
             };
         });
-    };
-
-    const handleChangLevel = async (idStudent: number, level: number) => {
-        await Swal.fire({
-            title: `Bạn có chắc muốn cập nhật level ?`,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const _fetch = async () => {
-                    const res = await updateLevelStudentService(idStudent, level);
-                    Swal.fire({
-                        icon: res.code === 200 ? 'success' : 'warning',
-                        title: `${res.msg}`,
-                    });
-                    if (res.code === HttpStatusCode.Ok) {
-                        setIsReload(!isReload);
-                    }
-                };
-                _fetch();
-            }
-        });
-    };
-
-    const handleSortAge = () => {
-        setListStudent([
-            ...listStudent.sort((a, b) => {
-                const ageA = new Date(`${a.birthday}`).getTime();
-                const ageB = new Date(`${b.birthday}`).getTime();
-                return ageB - ageA;
-            }),
-        ]);
     };
 
     const handleGetByLevel = async (level: number) => {
@@ -276,10 +251,29 @@ const ManageStudent = () => {
         }
     };
 
+    const handleDeleteStudent = async (id: number) => {
+        Swal.fire({
+            icon: 'question',
+            title: 'BẠn có chắc muốn xóa ?',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await deleteStudentService(id);
+                Swal.fire({
+                    icon: res.code === HttpStatusCode.Ok ? 'success' : 'warning',
+                    title: res.msg,
+                });
+
+                if (res.code === HttpStatusCode.Ok) {
+                    setIsReload(!isReload);
+                }
+            }
+        });
+    };
+
     return (
         <div className="px-[10px]">
             <div className="w-[100%] flex justify-between items-center py-[10px]">
-                <div className="w-[40%]">
+                <div className="w-[55%]">
                     <Tooltip
                         placement="bottom"
                         title={
@@ -289,7 +283,7 @@ const ManageStudent = () => {
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#e6e63d] mx-[10px]"
+                            className="p-[8px] w-[20%] rounded-[10px] text-[#fff] bg-[#e6e63d] mx-[10px]"
                             onClick={() => handleGetUserForYou()}
                         >
                             DATA FOR YOU
@@ -307,7 +301,7 @@ const ManageStudent = () => {
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#494242] mx-[10px]"
+                            className="p-[8px] w-[20%] rounded-[10px] text-[#fff] bg-[#494242] mx-[10px]"
                             onClick={() => handleGetBySubject('ENG')}
                         >
                             <p>ENG</p>
@@ -324,7 +318,7 @@ const ManageStudent = () => {
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#bf8888] mx-[10px]"
+                            className="p-[8px] w-[20%] rounded-[10px] text-[#fff] bg-[#bf8888] mx-[10px]"
                             onClick={() => handleGetBySubject('MATH')}
                         >
                             <p>MATH</p>
@@ -340,7 +334,7 @@ const ManageStudent = () => {
                         }
                     >
                         <button
-                            className="p-[10px] w-[20%] rounded-[10px] text-[#fff] bg-[#604660] mx-[10px]"
+                            className="p-[8px] w-[20%] rounded-[10px] text-[#fff] bg-[#604660] mx-[10px]"
                             onClick={() => handleGetBySubject('All')}
                         >
                             <p>LOAD DATA</p>
@@ -348,9 +342,9 @@ const ManageStudent = () => {
                     </Tooltip>
                 </div>
 
-                <div className="w-[60%] flex justify-end items-center my-[20px] pr-[40px]">
+                <div className="w-[45%] flex justify-end items-center my-[20px] pr-[20px]">
                     <img src="/PublicHome/cat-edit.png" alt="" className="w-[60px] mr-[20px]" />
-                    <select
+                    {/* <select
                         name=""
                         id=""
                         className="w-[20%] mr-[20px] shadow rounded-[10px] border-solid border-[1px] border-[#ccc] p-[10px]"
@@ -366,7 +360,7 @@ const ManageStudent = () => {
                                     </option>
                                 );
                             })}
-                    </select>
+                    </select> */}
                     <input
                         type="text"
                         className="w-[60%] p-[10px] border-solid border-[1px] border-[#ccc] rounded-[10px] shadow-md mr-[20px]"
@@ -375,7 +369,7 @@ const ManageStudent = () => {
                         onChange={(e) => setTextSearch(e.target.value)}
                     />
                     <button
-                        className="w-[15%] p-[10px] rounded-[10px] shadow bg-[#ff6609] text-[#fff] hover:opacity-[0.6]"
+                        className="w-[20%] p-[10px] rounded-[10px] shadow bg-[#ff6609] text-[#fff] hover:opacity-[0.6]"
                         onClick={() => handleSearch()}
                     >
                         Tìm Kiếm{' '}

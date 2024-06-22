@@ -25,14 +25,16 @@ const ManageQuestions: React.FC = () => {
     const [listAnswer, setListAnswer] = useState<IAnswer[] | []>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [listLevel, setListLevel] = useState<IAllCode[]>([]);
-    const [levelQuestion, setLevelQuestion] = useState<number>(0);
+    const [listClass, setListClass] = useState<IAllCode[]>([]);
+    const [levelSearch, setLevelSearch] = useState<number>(0);
+    const [classSearch, setClassSearch] = useState<number>(0);
+    const [courseSearch, setCourseSearch] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [suggest, setSuggest] = useState<string>('');
     const [isCreate, setIsCreate] = useState<boolean>(false);
     const [idQuestion, setIdQuestion] = useState<number>(0);
-    const [currentLevel, setCurrentLevel] = useState<number>(0);
     const [questionEditAnswer, setQuestionEditAnswer] = useState<number>(0);
-    const [listClass, setListClass] = useState<IAllCode[]>([]);
+    const [currentLevel, setCurrentLevel] = useState<number>(0);
     const [currentClass, setCurrentClass] = useState<number>(0);
     const [currentCourseCode, setCurrentCourseCode] = useState<string>('');
 
@@ -47,9 +49,12 @@ const ManageQuestions: React.FC = () => {
             pagination.page,
             pagination.pageSize,
             idUser,
-            currentLevel,
-            currentClass,
-            currentCourseCode,
+            // currentLevel,
+            // currentClass,
+            // currentCourseCode,
+            levelSearch,
+            classSearch,
+            courseSearch,
         );
         if (res.code === HttpStatusCode.Ok) {
             setListQuestion(res.data.items);
@@ -78,6 +83,8 @@ const ManageQuestions: React.FC = () => {
             if (res.code === HttpStatusCode.Ok && resClass.code == HttpStatusCode.Ok) {
                 setListLevel(res.data);
                 setListClass(resClass.data);
+                // setCurrentLevel(res.data[0].id);
+                // setCurrentClass(resClass.data[0].id);
             }
         };
         fetch();
@@ -97,25 +104,15 @@ const ManageQuestions: React.FC = () => {
     // get by level
 
     const handleGetQuestion = async (level: number, classId: number = 0, course: string = '') => {
-        // if (!idUser) {
-        //     return;
-        // }
-        // const res = await getQuestionService(1, 10, idUser, level, classId, course);
-        // if (res.code === HttpStatusCode.Ok) {
-        //     setListQuestion(res.data.items);
-        //     setMeta(res.data.meta);
-        //     setCurrentLevel(level);
-        //     setQuestionEditAnswer(0);
-        //     setListAnswer([]);
-        // }
-
         setPagination({
             page: 1,
             pageSize: pagination.pageSize,
         });
-        setCurrentLevel(level);
-        setCurrentClass(classId);
-        setCurrentCourseCode(course);
+        // setCurrentLevel(level);
+        // setCurrentClass(classId);
+        // setCurrentCourseCode(course);
+        setLevelSearch(level), setClassSearch(classId);
+        setCourseSearch(course);
         setQuestionEditAnswer(0);
         setListAnswer([]);
     };
@@ -125,7 +122,7 @@ const ManageQuestions: React.FC = () => {
     const showModal = async (type: string = 'create', data: IQuestion | null) => {
         setIsModalOpen(true);
         if (type === 'create') {
-            setLevelQuestion(listLevel[0].id);
+            // setLevelSearch(listLevel[0].id);
             handleReset();
             setIsCreate(true);
 
@@ -133,7 +130,9 @@ const ManageQuestions: React.FC = () => {
         }
 
         if (data) {
-            setLevelQuestion(data.level);
+            setCurrentLevel(data.level);
+            setCurrentClass(data.class);
+            setCurrentCourseCode(data.course_code);
             setTitle(data.title);
             setSuggest(data.suggest);
             setIsCreate(false);
@@ -152,8 +151,7 @@ const ManageQuestions: React.FC = () => {
     // validate
 
     const handleValidate = (): boolean => {
-        console.log(title);
-        if (!title || !suggest || !levelQuestion || !idUser || !currentClass) {
+        if (!title || !suggest || !currentLevel || !idUser || !currentClass) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Vui lòng nhập đủ thông tin',
@@ -168,6 +166,9 @@ const ManageQuestions: React.FC = () => {
     const handleReset = () => {
         setTitle('');
         setSuggest('');
+        setCurrentClass(listClass[0].id);
+        setCurrentLevel(listLevel[0].id);
+        setCurrentCourseCode('ENG');
     };
 
     // create or update
@@ -182,7 +183,7 @@ const ManageQuestions: React.FC = () => {
         const dataBuider = {
             title: title,
             suggest: suggest,
-            level: levelQuestion,
+            level: currentLevel,
             class: currentClass,
             course_code: currentCourseCode,
             author_id: idUser ? idUser : 0,
@@ -197,7 +198,9 @@ const ManageQuestions: React.FC = () => {
         });
 
         if (res.code === HttpStatusCode.Ok) {
-            handleReset();
+            if (isCreate) {
+                handleReset();
+            }
             setIsReload(!isReload);
         }
     };
@@ -221,6 +224,7 @@ const ManageQuestions: React.FC = () => {
 
                     if (res.code === HttpStatusCode.Ok && questionEditAnswer === id) {
                         setQuestionEditAnswer(0);
+                        setListAnswer([]);
                     }
                     setIsReload(!isReload);
                 };
@@ -250,7 +254,8 @@ const ManageQuestions: React.FC = () => {
                             name=""
                             id=""
                             className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
-                            onChange={(e) => handleGetQuestion(+e.target.value, currentClass, currentCourseCode)}
+                            value={levelSearch}
+                            onChange={(e) => handleGetQuestion(+e.target.value, classSearch, courseSearch)}
                         >
                             <option value="0">Tất cả</option>
                             {listLevel &&
@@ -274,7 +279,8 @@ const ManageQuestions: React.FC = () => {
                             name=""
                             id=""
                             className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
-                            onChange={(e) => handleGetQuestion(currentLevel, +e.target.value, currentCourseCode)}
+                            value={classSearch}
+                            onChange={(e) => handleGetQuestion(levelSearch, +e.target.value, courseSearch)}
                         >
                             <option value="0">Tất cả</option>
                             {listClass &&
@@ -297,7 +303,8 @@ const ManageQuestions: React.FC = () => {
                             name=""
                             id=""
                             className="p-[8px] w-[100%] border-[1px] border-solid border-[#ccc] rounded-[10px] mt-[10px]"
-                            onChange={(e) => handleGetQuestion(currentLevel, currentClass, e.target.value)}
+                            value={courseSearch}
+                            onChange={(e) => handleGetQuestion(levelSearch, classSearch, e.target.value)}
                         >
                             <option value="">Tất cả</option>
                             <option value="ENG">Tiếng anh</option>
@@ -318,7 +325,14 @@ const ManageQuestions: React.FC = () => {
                     </p>
                 </div>
 
-                <Modal title="Tạo câu hỏi" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                <Modal
+                    title="Tạo câu hỏi"
+                    open={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    width={1000}
+                    footer=""
+                >
                     <div className="w-[100%] grid grid-cols-2 gap-5">
                         <div className="mt-[20px]">
                             <label htmlFor="title" className="block">
@@ -357,8 +371,8 @@ const ManageQuestions: React.FC = () => {
                                 name=""
                                 id=""
                                 className="p-[8px] w-[100%] mt-[10px] border-[1px] border-solid border-[#ccc] shadow rounded-[10px]"
-                                value={levelQuestion}
-                                onChange={(e) => setLevelQuestion(parseInt(e.target.value))}
+                                value={currentLevel}
+                                onChange={(e) => setCurrentLevel(parseInt(e.target.value))}
                             >
                                 {listLevel &&
                                     listLevel.length > 0 &&
@@ -399,6 +413,7 @@ const ManageQuestions: React.FC = () => {
                         </label>
                         <select
                             className="p-[8px] w-[100%] mt-[10px] border-[1px] border-solid border-[#ccc] shadow rounded-[10px]"
+                            value={currentCourseCode}
                             onChange={(e) => setCurrentCourseCode(e.target.value)}
                         >
                             <option value="ENG">Tiếng anh</option>

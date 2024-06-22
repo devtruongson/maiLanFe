@@ -70,12 +70,12 @@ const MenuSideBar: React.FC = () => {
                         </>
                     }
                 >
-                    <div className="flex items-center gap-2 px-4 hover:bg-[rgba(0,0,0,0.1)] cursor-pointer">
+                    <div className="gap-2 px-4 hover:bg-[rgba(0,0,0,0.1)] cursor-pointer">
                         <img
                             style={{
                                 border: '1px solid #ddd',
                             }}
-                            className="w-[40px] h-[40px] object-cover rounded-[50%]"
+                            className="w-[40px] h-[40px] object-cover rounded-[50%] mx-auto mb-[10px]"
                             src={
                                 'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png?fit=512%2C512&ssl=1'
                             }

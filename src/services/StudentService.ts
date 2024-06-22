@@ -193,3 +193,12 @@ export const getInterview = async (idStudent: number): Promise<string> => {
         throw error;
     }
 };
+
+export const deleteStudentService = async (id: number): Promise<IResponse<null>> => {
+    try {
+        const data: AxiosResponse<IResponse<null>> = await axios.delete(`/student/${id}`);
+        return data.data;
+    } catch (error) {
+        throw error;
+    }
+};
